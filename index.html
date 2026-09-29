@@ -3,19 +3,287 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>JuliaBnG packages</title>
+  <title>JuliaBnG Packages</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --tag-bg: #eff6ff;
+      --tag-text: #1d4ed8;
+      --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --primary: #3b82f6;
+        --primary-hover: #60a5fa;
+        --tag-bg: rgba(30, 58, 138, 0.35);
+        --tag-text: #93c5fd;
+        --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      }
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 2.5rem 1.25rem;
+    }
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.025em;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+    .toc {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--card-shadow);
+    }
+    .toc-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .toc-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.5rem 1rem;
+      padding-left: 1.25rem;
+      margin: 0;
+    }
+    .toc-list li {
+      color: var(--text-muted);
+    }
+    .toc-list a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .toc-list a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    .package-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .package-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: var(--card-shadow);
+      scroll-margin-top: 1.5rem;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .package-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .package-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      background-color: var(--tag-bg);
+      color: var(--tag-text);
+    }
+    .package-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .package-links {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .package-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .package-links a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    .link-separator {
+      color: var(--border);
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 0.9em;
+      background: var(--tag-bg);
+      padding: 0.15em 0.35em;
+      border-radius: 4px;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>JuliaBnG packages</h1>
-    <p>Documentation and source repositories for JuliaBnG packages.</p>
-    <ul>
-      <li><a href="RelationshipMatrices/">RelationshipMatrices.jl documentation</a> · <a href="https://github.com/JuliaBnG/RelationshipMatrices.jl">source</a></li>
-      <li><a href="FisherWright/">FisherWright.jl documentation</a> · <a href="https://github.com/JuliaBnG/FisherWright.jl">source</a></li>
-      <li><a href="BnGStructs/">BnGStructs.jl documentation</a> · <a href="https://github.com/JuliaBnG/BnGStructs.jl">source</a></li>
-      <li><a href="https://github.com/JuliaBnG/Breeding.jl">Breeding.jl source</a></li>
-      <li><a href="BnGsim/">BnGsim.jl documentation</a> · <a href="https://github.com/JuliaBnG/BnGsim.jl">source</a></li>
-    </ul>
-  </main>
+  <div class="container">
+    <header>
+      <h1>JuliaBnG Packages</h1>
+      <p class="subtitle">Documentation and source repositories for the JuliaBnG quantitative genetics and breeding ecosystem.</p>
+    </header>
+
+    <nav class="toc" aria-label="Table of Contents">
+      <h2 class="toc-title">Table of Contents</h2>
+      <ol class="toc-list">
+        <li><a href="#relationship-matrices">RelationshipMatrices.jl</a></li>
+        <li><a href="#fisher-wright">FisherWright.jl</a></li>
+        <li><a href="#bng-structs">BnGStructs.jl</a></li>
+        <li><a href="#breeding">Breeding.jl</a></li>
+        <li><a href="#bng-sim">BnGsim.jl</a></li>
+      </ol>
+    </nav>
+
+    <main class="package-grid">
+      <article class="package-card" id="relationship-matrices">
+        <div class="card-header">
+          <h2 class="package-title">RelationshipMatrices.jl</h2>
+          <span class="tag">Kinship &amp; Matrices</span>
+        </div>
+        <p class="package-desc">
+          High-performance computation of relationship matrices for quantitative genetics. Provides parallelized, bit-packed Genomic Relationship Matrix (GRM) calculation with hardware popcount acceleration, pedigree-based numerator relationship matrices (<i>A</i>, <i>A</i><sup>&minus;1</sup>, inbreeding coefficients) via Henderson's sparse methods, and realized IBD tracking.
+        </p>
+        <div class="package-links">
+          <a href="RelationshipMatrices/">Documentation</a>
+          <span class="link-separator">&middot;</span>
+          <a href="https://github.com/JuliaBnG/RelationshipMatrices.jl">Source</a>
+        </div>
+      </article>
+
+      <article class="package-card" id="fisher-wright">
+        <div class="card-header">
+          <h2 class="package-title">FisherWright.jl</h2>
+          <span class="tag">Population Simulation</span>
+        </div>
+        <p class="package-desc">
+          Simulates mutation-drift equilibrium in finite Fisher-Wright populations. Features dynamic mutation tracking, multi-chromosome recombination maps, and generational burn-in to generate realistic founder haplotypes and linkage disequilibrium structures.
+        </p>
+        <div class="package-links">
+          <a href="FisherWright/">Documentation</a>
+          <span class="link-separator">&middot;</span>
+          <a href="https://github.com/JuliaBnG/FisherWright.jl">Source</a>
+        </div>
+      </article>
+
+      <article class="package-card" id="bng-structs">
+        <div class="card-header">
+          <h2 class="package-title">BnGStructs.jl</h2>
+          <span class="tag">Genomic Structures</span>
+        </div>
+        <p class="package-desc">
+          Foundational data structures for storing and manipulating SNP haplotypes and genotypes. Implements compact <code>BitMatrix</code> representations for haplotype-major and individual-major layouts, species and chromosome metadata, continuous and threshold trait definitions, and fast true breeding value (TBV) evaluations.
+        </p>
+        <div class="package-links">
+          <a href="BnGStructs/">Documentation</a>
+          <span class="link-separator">&middot;</span>
+          <a href="https://github.com/JuliaBnG/BnGStructs.jl">Source</a>
+        </div>
+      </article>
+
+      <article class="package-card" id="breeding">
+        <div class="card-header">
+          <h2 class="package-title">Breeding.jl</h2>
+          <span class="tag">Breeding &amp; Selection</span>
+        </div>
+        <p class="package-desc">
+          Breeding program simulation and genomic prediction utilities based on pedigree and SNP genotype data. Provides tools for selection cycles, customizable mating schemes, and genomic estimated breeding value (GEBV) prediction.
+        </p>
+        <div class="package-links">
+          <a href="https://github.com/JuliaBnG/Breeding.jl">Source</a>
+        </div>
+      </article>
+
+      <article class="package-card" id="bng-sim">
+        <div class="card-header">
+          <h2 class="package-title">BnGsim.jl</h2>
+          <span class="tag">Workflows &amp; Pipelines</span>
+        </div>
+        <p class="package-desc">
+          Simulation workflows and pipelines built upon the JuliaBnG ecosystem. Coordinates founder population sampling, multi-generation breeding scenarios, and quantitative genetic experiments by integrating <code>BnGStructs</code>, <code>FisherWright</code>, and <code>RelationshipMatrices</code>.
+        </p>
+        <div class="package-links">
+          <a href="BnGsim/">Documentation</a>
+          <span class="link-separator">&middot;</span>
+          <a href="https://github.com/JuliaBnG/BnGsim.jl">Source</a>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <p>Maintained by the <a href="https://github.com/JuliaBnG">JuliaBnG organization</a>.</p>
+    </footer>
+  </div>
 </body>
 </html>
