@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Population genetics validation · FisherWright.jl</title><meta name="title" content="Population genetics validation · FisherWright.jl"/><meta property="og:title" content="Population genetics validation · FisherWright.jl"/><meta property="twitter:title" content="Population genetics validation · FisherWright.jl"/><meta name="description" content="Documentation for FisherWright.jl."/><meta property="og:description" content="Documentation for FisherWright.jl."/><meta property="twitter:description" content="Documentation for FisherWright.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">FisherWright.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../simulation/">Simulation</a></li><li><a class="tocitem" href="../results/">Results and export</a></li><li><a class="tocitem" href="../utilities/">Utilities</a></li><li class="is-active"><a class="tocitem" href>Population genetics validation</a><ul class="internal"><li><a class="tocitem" href="#Download-and-run-full-validation"><span>Download and run full validation</span></a></li><li><a class="tocitem" href="#Summary"><span>Summary</span></a></li><li><a class="tocitem" href="#Model-and-statistics"><span>Model and statistics</span></a></li><li><a class="tocitem" href="#CI-tests"><span>CI tests</span></a></li><li><a class="tocitem" href="#Power-of-the-CI-tests"><span>Power of the CI tests</span></a></li><li><a class="tocitem" href="#Full-validation-against-msprime"><span>Full validation against msprime</span></a></li><li><a class="tocitem" href="#LD-reference-values"><span>LD reference values</span></a></li><li><a class="tocitem" href="#Comparison-with-early-releases"><span>Comparison with early releases</span></a></li><li><a class="tocitem" href="#History"><span>History</span></a></li><li><a class="tocitem" href="#Not-covered"><span>Not covered</span></a></li><li><a class="tocitem" href="#When-to-rerun"><span>When to rerun</span></a></li></ul></li></ul></li><li><a class="tocitem" href="../../api/">API reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Manual</a></li><li class="is-active"><a href>Population genetics validation</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Population genetics validation</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/manual/validation.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Population-genetics-validation"><a class="docs-heading-anchor" href="#Population-genetics-validation">Population genetics validation</a><a id="Population-genetics-validation-1"></a><a class="docs-heading-anchor-permalink" href="#Population-genetics-validation" title="Permalink"></a></h1><p>This page records how <code>FisherWright.jl</code> has been checked against population genetics theory and against an independent simulator, and what the checks found. It includes the test code, the driver scripts and the saved output, so the validation doesn&#39;t need to be repeated unless the simulation code changes (see <a href="#When-to-rerun">When to rerun</a>).</p><p>The code blocks below are read from the repository files when the documentation is built, so they always show the current code. The results are saved output files; each starts with the date, commit, Julia and msprime versions it was produced with.</p><h2 id="Download-and-run-full-validation"><a class="docs-heading-anchor" href="#Download-and-run-full-validation">Download and run full validation</a><a id="Download-and-run-full-validation-1"></a><a class="docs-heading-anchor-permalink" href="#Download-and-run-full-validation" title="Permalink"></a></h2><p><a href="https://github.com/JuliaBnG/FisherWright.jl/archive/refs/heads/main.zip">Download the source archive</a> and extract it to obtain the validation scripts. Install FisherWright once, then run the full validation from the directory containing the downloaded scripts:</p><pre><code class="language-bash hljs">julia --startup-file=no -e &#39;using Pkg; Pkg.add(&quot;FisherWright&quot;)&#39;
+cd FisherWright.jl/docs/src/validation/scripts
+julia -t 8 validate-popgen-theory.jl [reps=50] [ne=100] [seed=2026]</code></pre><p>The full validation requires <code>uv</code> on the <code>PATH</code>; it downloads msprime and numpy into a temporary environment. The <a href="#Power-of-the-CI-tests">Power of the CI tests</a> script also needs the repository&#39;s test suite and Git history, so run that script from a source checkout as shown in <a href="#When-to-rerun">When to rerun</a>.</p><h2 id="Summary"><a class="docs-heading-anchor" href="#Summary">Summary</a><a id="Summary-1"></a><a class="docs-heading-anchor-permalink" href="#Summary" title="Permalink"></a></h2><table><tr><th style="text-align: right">Check</th><th style="text-align: right">Reference</th><th style="text-align: right">Result (v0.3.6)</th></tr><tr><td style="text-align: right">Crossovers per meiosis</td><td style="text-align: right">Poisson(L/M) per chromosome; 0.5 switch between chromosomes</td><td style="text-align: right">Mean, variance/mean and switch probability match (|z| ≤ 1.8)</td></tr><tr><td style="text-align: right">Segregating sites S</td><td style="text-align: right">Watterson&#39;s θ·aₙ; msprime</td><td style="text-align: right">S/θaₙ = 1.006 (msprime 1.010)</td></tr><tr><td style="text-align: right">Heterozygosity Σ2pq</td><td style="text-align: right">θ(1 − 1/n); msprime</td><td style="text-align: right">390.0 ± 3.4 vs. 398.0 (msprime 393.4 ± 3.6)</td></tr><tr><td style="text-align: right">SFS, whole population</td><td style="text-align: right">msprime DTWF</td><td style="text-align: right">All 5 frequency classes match</td></tr><tr><td style="text-align: right">SFS, sample of 20 haplotypes</td><td style="text-align: right">coalescent θ/k</td><td style="text-align: right">All 5 frequency classes match</td></tr><tr><td style="text-align: right">LD decay σ²_d, 10 kb–3 Mb</td><td style="text-align: right">msprime DTWF</td><td style="text-align: right">All 5 distance bins match</td></tr></table><p>All 24 checks of the full validation pass for two independent seeds. The CI tests pass for five seeds and fail for each of three deliberately introduced errors (see <a href="#Power-of-the-CI-tests">Power of the CI tests</a>).</p><p>These checks found one real bug, fixed in v0.3.5: the generation loop mutated parents before mating, so the returned population lacked its newest singletons and had about 8% fewer segregating sites than θ·aₙ.</p><h2 id="Model-and-statistics"><a class="docs-heading-anchor" href="#Model-and-statistics">Model and statistics</a><a id="Model-and-statistics-1"></a><a class="docs-heading-anchor-permalink" href="#Model-and-statistics" title="Permalink"></a></h2><p>All checks use the same neutral model:</p><ul><li><span>$N = 100$</span> diploids (<span>$n = 2N = 200$</span> haplotypes), constant size, random mating with two sexes;</li><li><span>$20N = 2000$</span> generations from a population with no variation, which is <span>$10 \times 2N$</span> generations, enough to reach mutation–drift equilibrium;</li><li>10 chromosomes of 10 Mb, <span>$\mu = r = 10^{-8}$</span> per bp per generation, free recombination between chromosomes;</li><li>the whole population is the sample.</li></ul><p>With <span>$\theta = 4N\mu L$</span> for total genome length <span>$L$</span>:</p><table><tr><th style="text-align: right">Statistic</th><th style="text-align: right">Definition</th><th style="text-align: right">Expectation used</th></tr><tr><td style="text-align: right"><span>$S$</span></td><td style="text-align: right">number of segregating sites</td><td style="text-align: right"><span>$\theta a_n$</span>, <span>$a_n = \sum_{i=1}^{n-1} 1/i$</span></td></tr><tr><td style="text-align: right"><span>$\Sigma 2pq$</span></td><td style="text-align: right"><span>$\sum_\text{sites} 2p(1-p)$</span> with population frequencies</td><td style="text-align: right"><span>$\theta (1 - 1/n)$</span> in the full validation; <span>$\theta$</span> in CI, where the 0.5% difference is far inside the bounds</td></tr><tr><td style="text-align: right"><span>$\xi_k$</span></td><td style="text-align: right">number of sites with <span>$k$</span> derived copies</td><td style="text-align: right"><span>$\theta / k$</span> for a sample much smaller than the population</td></tr><tr><td style="text-align: right"><span>$\sigma^2_d$</span></td><td style="text-align: right"><span>$\sum D^2 / \sum p_1 q_1 p_2 q_2$</span> over SNP pairs in a distance bin, MAF ≥ 0.1</td><td style="text-align: right">msprime DTWF under the same model and filter</td></tr><tr><td style="text-align: right">crossovers</td><td style="text-align: right">count per chromosome per meiosis</td><td style="text-align: right">Poisson with mean <span>$L_\text{chr}/M$</span></td></tr></table><h3 id="Choice-of-references"><a class="docs-heading-anchor" href="#Choice-of-references">Choice of references</a><a id="Choice-of-references-1"></a><a class="docs-heading-anchor-permalink" href="#Choice-of-references" title="Permalink"></a></h3><ul><li><strong>Whole-population SFS.</strong> The coalescent <span>$\theta/k$</span> assumes a sample much smaller than the population. With all <span>$2N$</span> haplotypes sampled, a discrete Wright–Fisher population has about 12% more singletons than <span>$\theta$</span>, in FisherWright and msprime alike. So the whole-population SFS is compared with msprime&#39;s discrete-time Wright–Fisher model (DTWF), and <span>$\theta/k$</span> is tested on a random sample of 20 haplotypes.</li><li><strong>LD.</strong> Sved&#39;s <span>$E[r^2] = 1/(1 + 4Nc)$</span> overestimates <span>$r^2$</span> at short distances (0.94 vs. about 0.59 observed at 10–30 kb) and ignores the MAF filter. Ohta and Kimura&#39;s <span>$\sigma^2_d = (10 + \rho)/(22 + 13\rho + \rho^2)$</span>, <span>$\rho = 4Nc$</span>, is about 25% too low here for the same reason. Only msprime gives the same statistic under the same filter. Both formulas are printed for reference.</li><li><strong>msprime settings.</strong> <code>DiscreteTimeWrightFisher()</code> with no duration, so genealogies run to full coalescence; each chromosome is simulated separately (free recombination); only biallelic sites are used.</li></ul><h2 id="CI-tests"><a class="docs-heading-anchor" href="#CI-tests">CI tests</a><a id="CI-tests-1"></a><a class="docs-heading-anchor-permalink" href="#CI-tests" title="Permalink"></a></h2><p><code>test/runtests.jl</code> contains two population genetics testsets, run by <code>Pkg.test()</code> in about 10 s:</p><ul><li><strong>Neutral Wright-Fisher theory</strong>: 20 equilibrium replicates with a fixed seed feed three sub-testsets:<ul><li>0.97 &lt; S/θaₙ &lt; 1.06 and 0.90 &lt; Σ2pq/θ &lt; 1.10 (SE about 0.7% and 1.3%);</li><li>each SFS class of a 20-haplotype sample within 0.90–1.10 of θ/k (SE 2–3%);</li><li>σ²_d at 0.3–1 Mb and 1–3 Mb within 0.85–1.15 of the msprime reference values (SE 2–3%), which come from <a href="#LD-reference-values">LD reference values</a>.</li></ul></li><li><strong>Crossovers per meiosis matches Poisson and assortment</strong>: 10,000 draws from <code>cobp!</code> on chromosomes of 50 and 100 Mb; bounds are about 3.5 SE.</li></ul><p>Each bound was set from replicate runs so that it passes for the correct model with several seeds, and fails for the errors listed in the next section.</p><pre><code class="language-julia hljs"># BEGIN population genetics validation (included in docs/src/manual/validation.md)
+
+&quot;&quot;&quot;
+Pooled ``σ²_d = ΣD² / Σ p₁q₁p₂q₂`` for SNP pairs on the same chromosome, per
+distance bin, using SNPs with minor allele frequency ≥ `maf`. Returns the
+numerator and denominator sums so replicates can be pooled.
+&quot;&quot;&quot;
+function ld_sums(bm, chr, pos, bins; maf = 0.1)
+    n = size(bm, 2)
+    p = vec(sum(bm; dims = 2)) ./ n
+    num, den = zeros(length(bins)), zeros(length(bins))
+    for c in unique(chr)
+        k = findall(i -&gt; chr[i] == c &amp;&amp; maf &lt;= p[i] &lt;= 1 - maf, eachindex(p))
+        G = Float64.(bm[k, :])
+        q = p[k]
+        D = G * G&#39; ./ n .- q * q&#39;
+        V = (q .* (1 .- q)) * (q .* (1 .- q))&#39;
+        d = Int.(pos[k])&#39; .- Int.(pos[k])
+        for (j, (lo, hi)) in enumerate(bins)
+            m = (lo .&lt;= d) .&amp; (d .&lt; hi)
+            num[j] += sum(abs2, D[m])
+            den[j] += sum(V[m])
+        end
+    end
+    return num, den
+end
+
+@testset &quot;Neutral Wright-Fisher theory&quot; begin
+    # One set of equilibrium runs (10×2N generations) feeds every check below.
+    # Each bound was set from replicate runs: it passes for the correct model
+    # with several seeds, and fails if the simulated Ne is halved or the
+    # recombination rate doubled (and, for S, on the pre-v0.3.5 loop order).
+    Random.seed!(2026)
+    ne, chr, reps, nsub = 100, fill(10_000_000, 10), 20, 20
+    θ = 4ne * 1e-8 * sum(chr)
+    groups = [1:1, 2:2, 3:4, 5:9, 10:19]          # derived-allele counts in a sample of nsub
+    bins = [(300_000, 1_000_000), (1_000_000, 3_000_000)]
+    S = H = 0.0
+    ξ = zeros(nsub - 1)
+    num, den = zeros(length(bins)), zeros(length(bins))
+    for _ = 1:reps
+        res = fisher_wright(ne, 20ne, chr, 1.0; result = true)
+        haps = res.active_haplotypes
+        n = length(haps)
+        cnt = Dict{UInt32,Int}()
+        for h in haps, p in h
+            cnt[p] = get(cnt, p, 0) + 1
+        end
+        for c in values(cnt)
+            0 &lt; c &lt; n || continue
+            S += 1
+            H += 2 * (c / n) * (1 - c / n)
+        end
+        # Site frequency spectrum of a random sample of nsub ≪ 2N haplotypes,
+        # where the coalescent expectation E[ξₖ] = θ/k applies.
+        sub = Dict{UInt32,Int}()
+        for h in haps[randperm(n)[1:nsub]], p in h
+            sub[p] = get(sub, p, 0) + 1
+        end
+        for c in values(sub)
+            c &lt; nsub &amp;&amp; (ξ[c] += 1)
+        end
+        bm, lmp = muts2bitarray(haps, res.chromosome_ends)
+        a, b = ld_sums(bm, lmp.chr, lmp.pos, bins)
+        num .+= a
+        den .+= b
+    end
+
+    @testset &quot;Segregating sites and heterozygosity&quot; begin
+        # S should match Watterson&#39;s θ·aₙ and Σ2pq should match θ = 4Nμ·L. The
+        # old mutate-then-mate order gave S ≈ 0.92·θ·aₙ. SE is about 0.7% for S
+        # and 1.3% for Σ2pq.
+        aₙ = sum(1 / i for i = 1:2ne-1)
+        @test 0.97 &lt; S / reps / (θ * aₙ) &lt; 1.06
+        @test 0.90 &lt; H / reps / θ &lt; 1.10
+    end
+
+    @testset &quot;Site frequency spectrum&quot; begin
+        # Observed/expected for each group of classes; SE is 2-3% per group.
+        # Halving the simulated Ne gives about 0.5 in every group.
+        for g in groups
+            @test 0.90 &lt; sum(ξ[g]) / reps / (θ * sum(1 / k for k in g)) &lt; 1.10
+        end
+    end
+
+    @testset &quot;Linkage disequilibrium decay&quot; begin
+        # Reference σ²_d from msprime DTWF, same settings (N = 100, whole
+        # population, MAF ≥ 0.1, μ = r = 1e-8, 100 × 10 chromosomes of 10 Mb):
+        # 0.2869 ± 0.0024 at 0.3-1 Mb and 0.1398 ± 0.0015 at 1-3 Mb, from
+        # bench/validate-popgen-msprime.py --reps 100 --seed 1 --summary. SE here is
+        # about 2-3%. Doubling the recombination rate gives ratios of about 0.66
+        # and 0.55; halving Ne gives about 1.4 and 1.6. Sved&#39;s 1/(1 + 4Nc) is not
+        # used: it overestimates r² at short distances and ignores the MAF filter.
+        ref = [0.2869, 0.1398]
+        for j in eachindex(bins)
+            @test 0.85 &lt; num[j] / den[j] / ref[j] &lt; 1.15
+        end
+    end
+end
+
+@testset &quot;Crossovers per meiosis matches Poisson and assortment&quot; begin
+    Random.seed!(42)
+    # Chromosome 1: 50 Mb (expected 0.50 crossovers at M=1e8)
+    # Chromosome 2: 100 Mb (expected 1.00 crossovers at M=1e8)
+    chr = [50_000_000, 100_000_000]
+    M = 1e8
+    rmap = uniform_recombination_map(chr; M=M)
+    cbuf = UInt32[]
+    K = 10_000
+    counts_chr1 = zeros(Int, K)
+    counts_chr2 = zeros(Int, K)
+    assortment = zeros(Int, K)
+
+    for k in 1:K
+        cobp!(cbuf, rmap)
+        counts_chr1[k] = count(&lt;=(50_000_000), cbuf)
+        counts_chr2[k] = count(x -&gt; 50_000_001 &lt; x &lt;= 150_000_000, cbuf)
+        assortment[k] = count(==(50_000_001), cbuf)
+    end
+
+    # Sample means must conform to theoretical Poisson expectations
+    @test abs(mean(counts_chr1) - 0.50) &lt; 0.025
+    @test abs(mean(counts_chr2) - 1.00) &lt; 0.035
+
+    # Dispersion index (variance/mean) for Poisson process must be ~1.0
+    @test 0.90 &lt; var(counts_chr1) / mean(counts_chr1) &lt; 1.10
+    @test 0.90 &lt; var(counts_chr2) / mean(counts_chr2) &lt; 1.10
+
+    # Independent assortment boundary crossover probability is 0.50
+    @test abs(mean(assortment) - 0.50) &lt; 0.020
+end
+
+@testset &quot;Chromosome boundary assortment segregates terminal loci&quot; begin
+    # Chr 1: 1..1000, Chr 2: 1001..2000
+    # Assortment breakpoint is at 1001. Locus 1000 is on Chr 1, locus 1001 is on Chr 2.
+    h1 = UInt32[1000, 1001]
+    h2 = UInt32[]
+    ho = UInt32[]
+    cross_overs = UInt32[1001]
+    # Under recombination with cross_overs=[1001], one segment is &lt; 1001 (chr 1)
+    # and the second segment is &gt;= 1001 (chr 2).
+    # The offspring receives either [1000] or [1001], never both together and never neither.
+    seen_1000 = false
+    seen_1001 = false
+    for _ in 1:100
+        recombine(h1, h2, ho, cross_overs)
+        @test (ho == UInt32[1000]) || (ho == UInt32[1001])
+        ho == UInt32[1000] &amp;&amp; (seen_1000 = true)
+        ho == UInt32[1001] &amp;&amp; (seen_1001 = true)
+    end
+    @test seen_1000 &amp;&amp; seen_1001
+end
+
+# END population genetics validation</code></pre><p>Latest <code>Pkg.test()</code> run:</p><pre><code class="language-text hljs"># Date: 2026-09-30T13:01Z  Commit: 4a24282 (+ uncommitted test/bench changes)
+# julia version 1.13.1, msprime 1.4.4, CPU: AMD Ryzen 9 3900X 12-Core Processor
+# $ julia --project=. -e &#39;using Pkg; Pkg.test()&#39;   (summary lines)
+
+Test Summary:      | Pass  Total  Time
+FisherWright basic |    7      7  2.2s
+Test Summary:              | Pass  Total  Time
+Structured result boundary |   13     13  0.3s
+Test Summary:             | Pass  Total  Time
+Fixed mutation extraction |   15     15  0.1s
+Test Summary:         | Pass  Total  Time
+Sorted set operations | 1010   1010  0.1s
+Test Summary: | Pass  Total  Time
+merge_sorted  |  507    507  0.2s
+Test Summary:         |  Pass  Total  Time
+recombine correctness | 80104  80104  0.7s
+Test Summary:          | Pass  Total  Time
+Flat-vector invariants |    5      5  0.2s
+Test Summary:     | Pass  Total  Time
+Recombination map | 2014   2014  0.3s
+Test Summary: | Pass  Total  Time
+random_mate   |    8      8  0.1s
+Test Summary:                   | Pass  Total  Time
+Rate parameters are independent |    3      3  0.1s
+Test Summary:                  | Pass  Total  Time
+Simulation invariants at scale |    6      6  0.0s
+Test Summary:     | Pass  Total  Time
+Silent by default |    2      2  0.3s
+Test Summary:         | Pass  Total  Time
+Dense export boundary |    5      5  0.0s
+Test Summary:            | Pass  Total  Time
+Species-based simulation |   10     10  0.4s
+Test Summary:                         | Pass  Total  Time
+Direct chip extraction and subsetting |   13     13  0.3s
+Test Summary:                | Pass  Total  Time
+Neutral Wright-Fisher theory |    9      9  9.5s
+Test Summary:                                         | Pass  Total  Time
+Crossovers per meiosis matches Poisson and assortment |    5      5  0.1s
+     Testing FisherWright tests passed
+</code></pre><h2 id="Power-of-the-CI-tests"><a class="docs-heading-anchor" href="#Power-of-the-CI-tests">Power of the CI tests</a><a id="Power-of-the-CI-tests-1"></a><a class="docs-heading-anchor-permalink" href="#Power-of-the-CI-tests" title="Permalink"></a></h2><p>A test that can&#39;t fail proves nothing. <code>docs/src/validation/scripts/check-test-power.jl</code> runs the validation block of <code>test/runtests.jl</code> as it is, for five seeds, and then with one known error at a time:</p><table><tr><th style="text-align: right">Case</th><th style="text-align: right">Expected outcome</th><th style="text-align: right">Result</th></tr><tr><td style="text-align: right">Correct model, seeds 2026, 1, 7, 42, 99</td><td style="text-align: right">all pass</td><td style="text-align: right">all pass</td></tr><tr><td style="text-align: right">Simulated Ne halved (theory assumes 100)</td><td style="text-align: right">diversity, SFS and LD fail</td><td style="text-align: right">all 9 fail: ratios ≈ 0.5; LD 1.35, 1.64</td></tr><tr><td style="text-align: right">Recombination rate doubled</td><td style="text-align: right">LD and crossover counts fail</td><td style="text-align: right">LD 0.65, 0.54; both crossover means fail</td></tr><tr><td style="text-align: right">Pre-v0.3.5 generation loop</td><td style="text-align: right">S fails</td><td style="text-align: right">S/θaₙ = 0.919</td></tr></table><p>Each error is caught by the test aimed at it, and only by tests that should be sensitive to it. For example, the pre-fix loop only removed rare variants, so Σ2pq, the sample SFS and LD are unaffected.</p><pre><code class="language-text hljs"># Date: 2026-09-30T13:00Z  Commit: 4a24282 (+ uncommitted test/bench changes)
+# julia version 1.13.1, msprime 1.4.4, CPU: AMD Ryzen 9 3900X 12-Core Processor
+# $ julia -t 4 --project=. docs/src/validation/scripts/check-test-power.jl
+
+Power check of the population genetics tests in test/runtests.jl
+Julia 1.13.1, threads = 4
+
+Correct model, CI seeds (2026 for the theory tests, 42 for the crossover test)
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       2/2  pass
+  Neutral Wright-Fisher theory / Site frequency spectrum                    5/5  pass
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               2/2  pass
+  Crossovers per meiosis matches Poisson and assortment                     5/5  pass
+Correct model, seed 1
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       2/2  pass
+  Neutral Wright-Fisher theory / Site frequency spectrum                    5/5  pass
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               2/2  pass
+  Crossovers per meiosis matches Poisson and assortment                     5/5  pass
+
+Correct model, seed 7
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       2/2  pass
+  Neutral Wright-Fisher theory / Site frequency spectrum                    5/5  pass
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               2/2  pass
+  Crossovers per meiosis matches Poisson and assortment                     5/5  pass
+
+Correct model, seed 42
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       2/2  pass
+  Neutral Wright-Fisher theory / Site frequency spectrum                    5/5  pass
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               2/2  pass
+  Crossovers per meiosis matches Poisson and assortment                     5/5  pass
+
+Correct model, seed 99
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       2/2  pass
+  Neutral Wright-Fisher theory / Site frequency spectrum                    5/5  pass
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               2/2  pass
+  Crossovers per meiosis matches Poisson and assortment                     5/5  pass
+
+Known error: simulated Ne halved (50); theory assumes 100
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       0/2  FAIL
+      failed: 0.97 &lt; 0.4488951315407717 &lt; 1.06
+      failed: 0.9 &lt; 0.5024032250000038 &lt; 1.1
+  Neutral Wright-Fisher theory / Site frequency spectrum                    0/5  FAIL
+      failed: 0.9 &lt; 0.515125 &lt; 1.1
+      failed: 0.9 &lt; 0.49975 &lt; 1.1
+      failed: 0.9 &lt; 0.49071428571428577 &lt; 1.1
+      failed: 0.9 &lt; 0.5025918041511442 &lt; 1.1
+      failed: 0.9 &lt; 0.50937613597663 &lt; 1.1
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               0/2  FAIL
+      failed: 0.85 &lt; 1.351952863583687 &lt; 1.15
+      failed: 0.85 &lt; 1.641277548655979 &lt; 1.15
+  Crossovers per meiosis matches Poisson and assortment                     5/5  pass
+
+Known error: recombination rate doubled (M halved)
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       2/2  pass
+  Neutral Wright-Fisher theory / Site frequency spectrum                    5/5  pass
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               0/2  FAIL
+      failed: 0.85 &lt; 0.646443015312005 &lt; 1.15
+      failed: 0.85 &lt; 0.5417070577563691 &lt; 1.15
+  Crossovers per meiosis matches Poisson and assortment                     3/5  FAIL
+      failed: 0.49119999999999997 &lt; 0.025
+      failed: 0.9704999999999999 &lt; 0.035
+
+Known error: pre-v0.3.5 generation loop (src/fwp.jl from 4a24282~1)
+  Neutral Wright-Fisher theory / Segregating sites and heterozygosity       1/2  FAIL
+      failed: 0.97 &lt; 0.9190739922333508 &lt; 1.06
+  Neutral Wright-Fisher theory / Site frequency spectrum                    5/5  pass
+  Neutral Wright-Fisher theory / Linkage disequilibrium decay               2/2  pass
+  Crossovers per meiosis matches Poisson and assortment                     5/5  pass
+</code></pre><p>Script (a copy used for this documentation):</p><pre><code class="language-julia hljs"># Power check for the population genetics tests in test/runtests.jl.
+#
+# Run from the repository root:
+#
+#   julia -t 4 --project=. docs/src/validation/scripts/check-test-power.jl
+#
+# A test is only useful if it passes for the correct model and fails for a
+# wrong one. This script takes the block between the &quot;BEGIN/END population
+# genetics validation&quot; markers in test/runtests.jl and runs it unchanged for
+# several seeds, then with one known error introduced at a time:
+#
+#   - simulated Ne halved (the theory still assumes Ne = 100);
+#   - recombination rate doubled (M halved), in the simulation and in the
+#     crossover test;
+#   - the pre-v0.3.5 generation loop (src/fwp.jl from commit 4a24282~1), which
+#     mutated parents before mating.
+#
+# For each case it prints pass/total per testset and the evaluated expression
+# of every failed test.
+
+using Test, Printf
+
+const ROOT = dirname(dirname(dirname(dirname(@__DIR__))))
+const PREFIX_COMMIT = &quot;4a24282~1&quot;
+const SIM = &quot;fisher_wright(ne, 20ne, chr, 1.0; result = true)&quot;
+const XMAP = &quot;rmap = uniform_recombination_map(chr; M=M)&quot;
+
+# Records results without printing or throwing, so every case runs to the end.
+mutable struct Collect &lt;: Test.AbstractTestSet
+    description::String
+    results::Vector{Any}
+end
+Collect(desc; kw...) = Collect(desc, Any[])
+Test.record(ts::Collect, r) = (push!(ts.results, r); r)
+function Test.finish(ts::Collect)
+    Test.get_testset_depth() &gt; 0 &amp;&amp; Test.record(Test.get_testset(), ts)
+    return ts
+end
+
+&quot;The validation block of test/runtests.jl, split into setup code and top-level testsets.&quot;
+function validation_block()
+    src = read(joinpath(ROOT, &quot;test&quot;, &quot;runtests.jl&quot;), String)
+    a = findfirst(&quot;# BEGIN population genetics validation&quot;, src)
+    b = findfirst(&quot;# END population genetics validation&quot;, src)
+    (a === nothing || b === nothing) &amp;&amp; error(&quot;validation markers not found in test/runtests.jl&quot;)
+    code = src[first(a):first(b)-1]
+    i = first(findfirst(&quot;\n@testset &quot;, code))
+    return code[1:i], split(strip(code[i:end]), r&quot;\n(?=@testset )&quot;)
+end
+
+&quot;Source of the package with src/fwp.jl replaced by the pre-fix version.&quot;
+function prefix_source()
+    dir = mktempdir()
+    cp(joinpath(ROOT, &quot;src&quot;), joinpath(dir, &quot;src&quot;))
+    write(joinpath(dir, &quot;src&quot;, &quot;fwp.jl&quot;), read(`git -C $ROOT show $PREFIX_COMMIT:src/fwp.jl`, String))
+    return joinpath(dir, &quot;src&quot;, &quot;FisherWright.jl&quot;)
+end
+
+function run_case(setup, sets; edits = (), package = nothing)
+    m = Module()
+    Core.eval(m, :(using Test, Random, Statistics))
+    Core.eval(m, :(const Collect = $Collect))
+    if package === nothing
+        Core.eval(m, :(using FisherWright: fisher_wright, muts2bitarray, uniform_recombination_map, cobp!))
+    else
+        Base.include(m, package)
+        Core.eval(m, :(using .FisherWright: fisher_wright, muts2bitarray, uniform_recombination_map, cobp!))
+    end
+    Base.include_string(m, setup)
+    return map(sets) do s
+        s = replace(s, &quot;@testset \&quot;&quot; =&gt; &quot;@testset Collect \&quot;&quot;)
+        for e in edits
+            s = replace(s, e)
+        end
+        Base.include_string(m, s)
+    end
+end
+
+function report(label, results)
+    println(label)
+    function show_set(ts, path)
+        tests = filter(r -&gt; !(r isa Collect), ts.results)
+        if !isempty(tests)
+            npass = count(r -&gt; r isa Test.Pass, tests)
+            @printf(&quot;  %-72s %2d/%-2d %s\n&quot;, path, npass, length(tests), npass == length(tests) ? &quot;pass&quot; : &quot;FAIL&quot;)
+            for r in tests
+                r isa Test.Fail &amp;&amp; println(&quot;      failed: &quot;, r.data)
+                r isa Test.Error &amp;&amp; println(&quot;      error: &quot;, first(split(sprint(show, r), &#39;\n&#39;)))
+            end
+        end
+        foreach(r -&gt; r isa Collect &amp;&amp; show_set(r, path * &quot; / &quot; * r.description), ts.results)
+    end
+    foreach(ts -&gt; show_set(ts, ts.description), results)
+    println()
+end
+
+function main()
+    setup, sets = validation_block()
+    any(s -&gt; occursin(SIM, s), sets) || error(&quot;simulation call not found in the validation block&quot;)
+    any(s -&gt; occursin(XMAP, s), sets) || error(&quot;recombination map call not found in the validation block&quot;)
+
+    println(&quot;Power check of the population genetics tests in test/runtests.jl&quot;)
+    println(&quot;Julia $(VERSION), threads = $(Threads.nthreads())\n&quot;)
+    report(&quot;Correct model, CI seeds (2026 for the theory tests, 42 for the crossover test)&quot;, run_case(setup, sets))
+    for s in (1, 7, 42, 99)
+        seeds = (&quot;Random.seed!(2026)&quot; =&gt; &quot;Random.seed!($s)&quot;, &quot;Random.seed!(42)&quot; =&gt; &quot;Random.seed!($s)&quot;)
+        report(&quot;Correct model, seed $s&quot;, run_case(setup, sets; edits = seeds))
+    end
+    report(&quot;Known error: simulated Ne halved (50); theory assumes 100&quot;,
+        run_case(setup, sets; edits = (SIM =&gt; replace(SIM, &quot;fisher_wright(ne,&quot; =&gt; &quot;fisher_wright(ne ÷ 2,&quot;),)))
+    report(&quot;Known error: recombination rate doubled (M halved)&quot;,
+        run_case(setup, sets; edits = (SIM =&gt; replace(SIM, &quot;result = true&quot; =&gt; &quot;M = 5e7, result = true&quot;),
+            XMAP =&gt; replace(XMAP, &quot;M=M)&quot; =&gt; &quot;M=M / 2)&quot;))))
+    report(&quot;Known error: pre-v0.3.5 generation loop (src/fwp.jl from $PREFIX_COMMIT)&quot;,
+        run_case(setup, sets; package = prefix_source()))
+end
+
+main()
+</code></pre><h2 id="Full-validation-against-msprime"><a class="docs-heading-anchor" href="#Full-validation-against-msprime">Full validation against msprime</a><a id="Full-validation-against-msprime-1"></a><a class="docs-heading-anchor-permalink" href="#Full-validation-against-msprime" title="Permalink"></a></h2><p><code>docs/src/validation/scripts/validate-popgen-theory.jl</code> runs 50 FisherWright replicates and 50 msprime DTWF replicates of the model above (msprime through <code>docs/src/validation/scripts/validate-popgen-msprime.py</code>, run with <code>uv</code>). Every comparison is a z-score; a check fails when |z| &gt; 3.5, and the script then exits with status 1. With 24 checks, the chance that at least one fails by chance is about 1%.</p><p>Run it from the directory containing the downloaded scripts; it takes about 25 s with 8 threads:</p><pre><code class="language-bash hljs">julia -t 8 validate-popgen-theory.jl [reps=50] [ne=100] [seed=2026]</code></pre><h3 id="Results,-seed-2026"><a class="docs-heading-anchor" href="#Results,-seed-2026">Results, seed 2026</a><a id="Results,-seed-2026-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-seed-2026" title="Permalink"></a></h3><pre><code class="language-text hljs"># Date: 2026-10-01T14:06Z  Commit: 30d8569 (v0.3.7-3-g30d8569); tree: clean
+# CPU: AMD Ryzen 9 3900X 12-Core Processor; julia version 1.13.1; deps: BnGStructs v0.2.6 Distributions v0.25.131 DataFrames v1.8.2 Random v1.11.0 Statistics v1.11.5 
+# $ julia -t 8 --project=. docs/src/validation/scripts/validate-popgen-theory.jl 50 100 2026
+
+==============================================================================
+ FisherWright.jl population genetics validation
+ ne = 100, nt = 2000, 10 × 10 Mb, μ = r = 1.0e-8, reps = 50, threads = 8
+ A check fails when |z| &gt; 3.5
+==============================================================================
+
+[1/4] Crossovers per meiosis (K = 100000, chromosomes of 50 and 100 Mb, M = 1e8)
+  statistic                     observed  expected        z  
+  chr 1 mean                      0.4978    0.5000    -0.98  pass
+  chr 1 variance/mean             1.0045    1.0000     1.02  pass
+  chr 2 mean                      0.9942    1.0000    -1.83  pass
+  chr 2 variance/mean             0.9949    1.0000    -1.14  pass
+  assortment P(switch)            0.4998    0.5000    -0.10  pass
+
+Simulating 50 FisherWright replicates ...
+  done in 16.5 s
+Simulating 50 msprime DTWF replicates ...
+  done in 4.7 s
+
+[2/4] Equilibrium diversity (z: FisherWright vs. theory, then vs. msprime DTWF)
+  statistic                    FisherWright       msprime DTWF    theory        z
+  S (θ·aₙ)                  2364.1 ± 13.9      2372.9 ± 13.3      2349.2     1.07  pass
+  S vs. msprime             2364.1 ± 13.9      2372.9 ± 13.3      2349.2    -0.46  pass
+  Σ2pq (θ(1-1/n))            390.0 ± 3.4        393.4 ± 3.6        398.0    -2.31  pass
+  Σ2pq vs. msprime           390.0 ± 3.4        393.4 ± 3.6        398.0    -0.67  pass
+  S / θ·aₙ                   1.006                        1.010
+
+[3/4] Site frequency spectrum
+  Whole population (200 haplotypes), z: FisherWright vs. msprime DTWF
+  statistic                    FisherWright       msprime DTWF    theory        z
+  k = 1                      449.6 ± 3.7        446.8 ± 3.6        400.0     0.54  pass
+  k = 2                      186.7 ± 2.9        195.9 ± 2.4        200.0    -2.43  pass
+  k = 3-5                    315.6 ± 3.5        313.0 ± 3.6        313.3     0.52  pass
+  k = 6-20                   522.4 ± 6.4        517.7 ± 5.8        525.8     0.55  pass
+  k = 21-199                 889.7 ± 9.0        899.5 ± 9.0        910.1    -0.77  pass
+  Random sample of 20 haplotypes, z: FisherWright vs. θ/k
+  statistic                    FisherWright       msprime DTWF    theory        z
+  k = 1                      397.9 ± 4.7        398.0 ± 5.0        400.0    -0.44  pass
+  k = 2                      200.5 ± 3.9        203.1 ± 3.5        200.0     0.12  pass
+  k = 3-4                    223.8 ± 3.8        224.8 ± 3.7        233.3    -2.49  pass
+  k = 5-9                    293.4 ± 4.9        294.8 ± 4.5        298.3    -0.99  pass
+  k = 10-19                  281.2 ± 3.8        287.3 ± 3.8        287.5    -1.68  pass
+
+[4/4] LD decay, pooled σ²_d (MAF ≥ 0.1), z: FisherWright vs. msprime DTWF
+  distance             FisherWright       msprime DTWF         z  Ohta-K.     Sved
+  0.01-0.03 Mb      0.5829 ± 0.0055    0.5926 ± 0.0060     -1.19   0.4396   0.9352  pass
+  0.03-0.1 Mb       0.5376 ± 0.0039    0.5458 ± 0.0045     -1.37   0.4105   0.8203  pass
+  0.1-0.3 Mb        0.4426 ± 0.0031    0.4516 ± 0.0045     -1.64   0.3396   0.5907  pass
+  0.3-1 Mb          0.2833 ± 0.0030    0.2892 ± 0.0037     -1.26   0.2205   0.3134  pass
+  1-3 Mb            0.1362 ± 0.0021    0.1407 ± 0.0022     -1.44   0.1058   0.1261  pass
+
+==============================================================================
+ All checks passed.
+==============================================================================
+# exit status: 0
+</code></pre><h3 id="Results,-seed-7"><a class="docs-heading-anchor" href="#Results,-seed-7">Results, seed 7</a><a id="Results,-seed-7-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-seed-7" title="Permalink"></a></h3><pre><code class="language-text hljs"># Date: 2026-10-01T14:07Z  Commit: 30d8569 (v0.3.7-3-g30d8569); tree: clean
+# CPU: AMD Ryzen 9 3900X 12-Core Processor; julia version 1.13.1; deps: BnGStructs v0.2.6 Distributions v0.25.131 DataFrames v1.8.2 Random v1.11.0 Statistics v1.11.5 
+# $ julia -t 8 --project=. docs/src/validation/scripts/validate-popgen-theory.jl 50 100 7
+
+==============================================================================
+ FisherWright.jl population genetics validation
+ ne = 100, nt = 2000, 10 × 10 Mb, μ = r = 1.0e-8, reps = 50, threads = 8
+ A check fails when |z| &gt; 3.5
+==============================================================================
+
+[1/4] Crossovers per meiosis (K = 100000, chromosomes of 50 and 100 Mb, M = 1e8)
+  statistic                     observed  expected        z  
+  chr 1 mean                      0.4984    0.5000    -0.73  pass
+  chr 1 variance/mean             0.9996    1.0000    -0.09  pass
+  chr 2 mean                      1.0042    1.0000     1.32  pass
+  chr 2 variance/mean             0.9967    1.0000    -0.73  pass
+  assortment P(switch)            0.5023    0.5000     1.45  pass
+
+Simulating 50 FisherWright replicates ...
+  done in 16.4 s
+Simulating 50 msprime DTWF replicates ...
+  done in 4.2 s
+
+[2/4] Equilibrium diversity (z: FisherWright vs. theory, then vs. msprime DTWF)
+  statistic                    FisherWright       msprime DTWF    theory        z
+  S (θ·aₙ)                  2373.8 ± 12.8      2398.1 ± 10.5      2349.2     1.92  pass
+  S vs. msprime             2373.8 ± 12.8      2398.1 ± 10.5      2349.2    -1.48  pass
+  Σ2pq (θ(1-1/n))            392.7 ± 3.3        402.1 ± 3.5        398.0    -1.61  pass
+  Σ2pq vs. msprime           392.7 ± 3.3        402.1 ± 3.5        398.0    -1.97  pass
+  S / θ·aₙ                   1.010                        1.021
+
+[3/4] Site frequency spectrum
+  Whole population (200 haplotypes), z: FisherWright vs. msprime DTWF
+  statistic                    FisherWright       msprime DTWF    theory        z
+  k = 1                      449.8 ± 4.8        444.3 ± 3.5        400.0     0.92  pass
+  k = 2                      193.1 ± 2.4        193.1 ± 2.7        200.0    -0.01  pass
+  k = 3-5                    316.3 ± 3.3        309.3 ± 3.7        313.3     1.42  pass
+  k = 6-20                   520.2 ± 6.0        535.6 ± 5.9        525.8    -1.82  pass
+  k = 21-199                 894.4 ± 7.4        915.9 ± 8.6        910.1    -1.90  pass
+  Random sample of 20 haplotypes, z: FisherWright vs. θ/k
+  statistic                    FisherWright       msprime DTWF    theory        z
+  k = 1                      392.3 ± 4.6        408.3 ± 5.1        400.0    -1.68  pass
+  k = 2                      198.6 ± 3.2        205.6 ± 3.5        200.0    -0.45  pass
+  k = 3-4                    229.3 ± 3.8        240.1 ± 3.7        233.3    -1.07  pass
+  k = 5-9                    297.5 ± 4.1        300.8 ± 4.8        298.3    -0.20  pass
+  k = 10-19                  279.8 ± 3.5        286.1 ± 3.9        287.5    -2.21  pass
+
+[4/4] LD decay, pooled σ²_d (MAF ≥ 0.1), z: FisherWright vs. msprime DTWF
+  distance             FisherWright       msprime DTWF         z  Ohta-K.     Sved
+  0.01-0.03 Mb      0.5784 ± 0.0056    0.5882 ± 0.0054     -1.26   0.4396   0.9352  pass
+  0.03-0.1 Mb       0.5449 ± 0.0045    0.5462 ± 0.0044     -0.22   0.4105   0.8203  pass
+  0.1-0.3 Mb        0.4505 ± 0.0037    0.4461 ± 0.0041      0.81   0.3396   0.5907  pass
+  0.3-1 Mb          0.2882 ± 0.0028    0.2837 ± 0.0030      1.08   0.2205   0.3134  pass
+  1-3 Mb            0.1397 ± 0.0014    0.1349 ± 0.0016      2.24   0.1058   0.1261  pass
+
+==============================================================================
+ All checks passed.
+==============================================================================
+# exit status: 0
+</code></pre><h3 id="Reading-the-results"><a class="docs-heading-anchor" href="#Reading-the-results">Reading the results</a><a id="Reading-the-results-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-the-results" title="Permalink"></a></h3><ul><li><strong>Diversity.</strong> S is within 1% of θ·aₙ in both runs, as for msprime. Σ2pq was slightly below msprime in both runs (z = −0.67 and −1.97). This is not significant; more replicates would settle it.</li><li><strong>SFS.</strong> The whole-population classes match msprime, including the excess of singletons over θ, which both simulators share. The sample SFS matches θ/k.</li><li><strong>LD.</strong> FisherWright is slightly below msprime in all bins with seed 2026 and above it at 0.1–3 Mb with seed 7. The bins share simulations, so their z-scores are correlated; the change of sign shows no consistent bias.</li></ul><h3 id="Driver-scripts"><a class="docs-heading-anchor" href="#Driver-scripts">Driver scripts</a><a id="Driver-scripts-1"></a><a class="docs-heading-anchor-permalink" href="#Driver-scripts" title="Permalink"></a></h3><p><code>docs/src/validation/scripts/validate-popgen-theory.jl</code>:</p><pre><code class="language-julia hljs"># Population genetics validation of FisherWright.jl against theory and msprime.
+#
+# With FisherWright installed, run from this directory:
+#
+#   julia -t 8 validate-popgen-theory.jl [reps] [ne] [seed]
+#
+# 1. Crossovers per meiosis: Poisson counts per chromosome, 0.5 assortment.
+# 2. Equilibrium diversity: S vs. Watterson&#39;s θ·aₙ, Σ2pq vs. θ.
+# 3. Site frequency spectrum: whole population vs. msprime DTWF, and a random
+#    sample of `nsub` ≪ 2N haplotypes vs. the coalescent θ/k.
+# 4. LD decay: pooled σ²_d = ΣD²/Σp₁q₁p₂q₂ per distance bin vs. msprime DTWF.
+#    Ohta-Kimura and Sved curves are printed for reference only.
+#
+# FisherWright runs `ne` diploids for 20ne generations (10×2N, equilibrium) on
+# 10 chromosomes of 10 Mb, μ = r = 1e-8, and `reps` replicates; msprime DTWF
+# (via `uv`, docs/src/validation/scripts/validate-popgen-msprime.py) simulates
+# the same model. Each
+# comparison is a z-score, and a check fails when |z| &gt; ZMAX. The script exits
+# with status 1 if any check fails.
+
+using FisherWright: uniform_recombination_map, cobp!, fisher_wright, muts2bitarray
+using Random, Statistics, Printf
+
+const ZMAX = 3.5
+const NCHR, CHRLEN, MU = 10, 10_000_000, 1e-8
+const NSUB, MAF = 20, 0.1
+const WHOLE = [(1, 1), (2, 2), (3, 5), (6, 20), (21, typemax(Int))]
+const SUB = [1:1, 2:2, 3:4, 5:9, 10:19]
+const BINS = [(10_000, 30_000), (30_000, 100_000), (100_000, 300_000), (300_000, 1_000_000), (1_000_000, 3_000_000)]
+
+const failures = String[]
+const section = Ref(&quot;&quot;)
+
+function check(name, z)
+    ok = abs(z) &lt;= ZMAX
+    ok || push!(failures, section[] * &quot;: &quot; * strip(name))
+    return ok ? &quot;pass&quot; : &quot;FAIL&quot;
+end
+
+se(x) = std(x) / sqrt(length(x))
+
+function ld_sums(bm, chr, pos)
+    n = size(bm, 2)
+    p = vec(sum(bm; dims = 2)) ./ n
+    num, den = zeros(length(BINS)), zeros(length(BINS))
+    for c in unique(chr)
+        k = findall(i -&gt; chr[i] == c &amp;&amp; MAF &lt;= p[i] &lt;= 1 - MAF, eachindex(p))
+        G = Float64.(bm[k, :])
+        q = p[k]
+        D = G * G&#39; ./ n .- q * q&#39;
+        V = (q .* (1 .- q)) * (q .* (1 .- q))&#39;
+        d = Int.(pos[k])&#39; .- Int.(pos[k])
+        for (j, (lo, hi)) in enumerate(BINS)
+            m = (lo .&lt;= d) .&amp; (d .&lt; hi)
+            num[j] += sum(abs2, D[m])
+            den[j] += sum(V[m])
+        end
+    end
+    return num, den
+end
+
+# Per-replicate statistics in the same layout as validate-popgen-msprime.py.
+function fw_replicate(ne)
+    res = fisher_wright(ne, 20ne, fill(CHRLEN, NCHR), MU * 1e8; result = true)
+    haps = res.active_haplotypes
+    n = length(haps)
+    cnt = Dict{UInt32,Int}()
+    for h in haps, p in h
+        cnt[p] = get(cnt, p, 0) + 1
+    end
+    k = [c for c in values(cnt) if 0 &lt; c &lt; n]
+    f = k ./ n
+    w = [count(c -&gt; lo &lt;= c &lt;= hi, k) for (lo, hi) in WHOLE]
+    sub = Dict{UInt32,Int}()
+    for h in haps[randperm(n)[1:NSUB]], p in h
+        sub[p] = get(sub, p, 0) + 1
+    end
+    ks = [c for c in values(sub) if c &lt; NSUB]
+    s = [count(in(g), ks) for g in SUB]
+    bm, lmp = muts2bitarray(haps, res.chromosome_ends)
+    num, den = ld_sums(bm, lmp.chr, lmp.pos)
+    return vcat(length(k), sum(2 .* f .* (1 .- f)), w, s, num, den)
+end
+
+function msprime_replicates(ne, reps, seed)
+    script = joinpath(@__DIR__, &quot;validate-popgen-msprime.py&quot;)
+    cmd = `uv run --with msprime --with numpy python $script --ne $ne --nchr $NCHR
+           --chr-len $CHRLEN --mu $MU --r $MU --reps $reps --nsub $NSUB --maf $MAF --seed $seed`
+    rows = [parse.(Float64, split(l)) for l in eachline(cmd) if !isempty(strip(l))]
+    return permutedims(reduce(hcat, rows))
+end
+
+function validate_crossovers(; K = 100_000)
+    section[] = &quot;crossovers&quot;
+    println(&quot;\n[1/4] Crossovers per meiosis (K = $K, chromosomes of 50 and 100 Mb, M = 1e8)&quot;)
+    rmap = uniform_recombination_map([50_000_000, 100_000_000]; M = 1e8)
+    buf = UInt32[]
+    c1, c2, as = zeros(Int, K), zeros(Int, K), zeros(Int, K)
+    for k = 1:K
+        cobp!(buf, rmap)
+        c1[k] = count(&lt;=(50_000_000), buf)
+        c2[k] = count(x -&gt; 50_000_001 &lt; x &lt;= 150_000_000, buf)
+        as[k] = count(==(50_000_001), buf)
+    end
+    @printf(&quot;  %-28s %9s %9s %8s  %s\n&quot;, &quot;statistic&quot;, &quot;observed&quot;, &quot;expected&quot;, &quot;z&quot;, &quot;&quot;)
+    for (name, x, λ) in ((&quot;chr 1 mean&quot;, c1, 0.5), (&quot;chr 2 mean&quot;, c2, 1.0))
+        z = (mean(x) - λ) / sqrt(λ / K)
+        @printf(&quot;  %-28s %9.4f %9.4f %8.2f  %s\n&quot;, name, mean(x), λ, z, check(name, z))
+        d = var(x) / mean(x)
+        z = (d - 1) / sqrt(2 / (K - 1))
+        @printf(&quot;  %-28s %9.4f %9.4f %8.2f  %s\n&quot;, replace(name, &quot;mean&quot; =&gt; &quot;variance/mean&quot;), d, 1.0, z,
+            check(replace(name, &quot;mean&quot; =&gt; &quot;variance/mean&quot;), z))
+    end
+    z = (mean(as) - 0.5) / sqrt(0.25 / K)
+    @printf(&quot;  %-28s %9.4f %9.4f %8.2f  %s\n&quot;, &quot;assortment P(switch)&quot;, mean(as), 0.5, z, check(&quot;assortment&quot;, z))
+end
+
+function main(reps = 50, ne = 100, seed = 2026)
+    println(&quot;=&quot;^78)
+    println(&quot; FisherWright.jl population genetics validation&quot;)
+    println(&quot; ne = $ne, nt = $(20ne), $NCHR × $(CHRLEN ÷ 10^6) Mb, μ = r = $MU, reps = $reps, threads = $(Threads.nthreads())&quot;)
+    println(&quot; A check fails when |z| &gt; $ZMAX&quot;)
+    println(&quot;=&quot;^78)
+    Random.seed!(seed)
+    validate_crossovers()
+
+    println(&quot;\nSimulating $reps FisherWright replicates ...&quot;)
+    t = @elapsed fw = permutedims(reduce(hcat, [fw_replicate(ne) for _ = 1:reps]))
+    @printf(&quot;  done in %.1f s\n&quot;, t)
+    println(&quot;Simulating $reps msprime DTWF replicates ...&quot;)
+    t = @elapsed ms = msprime_replicates(ne, reps, seed)
+    @printf(&quot;  done in %.1f s\n&quot;, t)
+
+    n = 2ne
+    θ = 4ne * MU * NCHR * CHRLEN
+    aₙ = sum(1 / i for i = 1:n-1)
+    col(M, j) = M[:, j]
+    zdiff(a, b) = (mean(a) - mean(b)) / sqrt(se(a)^2 + se(b)^2)
+    zth(a, e) = (mean(a) - e) / se(a)
+    row(name, a, b, e, z) = @printf(&quot;  %-22s %9.1f ± %-6.1f %9.1f ± %-6.1f %9.1f %8.2f  %s\n&quot;,
+        name, mean(a), se(a), mean(b), se(b), e, z, check(name, z))
+    hdr() = @printf(&quot;  %-22s %18s %18s %9s %8s\n&quot;, &quot;statistic&quot;, &quot;FisherWright&quot;, &quot;msprime DTWF&quot;, &quot;theory&quot;, &quot;z&quot;)
+
+    # Σ2pq over the whole population uses population frequencies, so its
+    # expectation is θ(1 - 1/n) rather than θ.
+    section[] = &quot;diversity&quot;
+    println(&quot;\n[2/4] Equilibrium diversity (z: FisherWright vs. theory, then vs. msprime DTWF)&quot;)
+    hdr()
+    row(&quot;S (θ·aₙ)&quot;, col(fw, 1), col(ms, 1), θ * aₙ, zth(col(fw, 1), θ * aₙ))
+    row(&quot;S vs. msprime&quot;, col(fw, 1), col(ms, 1), θ * aₙ, zdiff(col(fw, 1), col(ms, 1)))
+    row(&quot;Σ2pq (θ(1-1/n))&quot;, col(fw, 2), col(ms, 2), θ * (1 - 1 / n), zth(col(fw, 2), θ * (1 - 1 / n)))
+    row(&quot;Σ2pq vs. msprime&quot;, col(fw, 2), col(ms, 2), θ * (1 - 1 / n), zdiff(col(fw, 2), col(ms, 2)))
+    @printf(&quot;  %-22s %9.3f %28.3f\n&quot;, &quot;S / θ·aₙ&quot;, mean(col(fw, 1)) / (θ * aₙ), mean(col(ms, 1)) / (θ * aₙ))
+
+    println(&quot;\n[3/4] Site frequency spectrum&quot;)
+    section[] = &quot;SFS whole population&quot;
+    println(&quot;  Whole population ($n haplotypes), z: FisherWright vs. msprime DTWF&quot;)
+    hdr()
+    for (j, (lo, hi)) in enumerate(WHOLE)
+        hi = min(hi, n - 1)
+        e = θ * sum(1 / k for k = lo:hi)
+        row(lo == hi ? &quot;k = $lo&quot; : &quot;k = $lo-$hi&quot;, col(fw, 2 + j), col(ms, 2 + j), e, zdiff(col(fw, 2 + j), col(ms, 2 + j)))
+    end
+    section[] = &quot;SFS sample&quot;
+    println(&quot;  Random sample of $NSUB haplotypes, z: FisherWright vs. θ/k&quot;)
+    hdr()
+    for (j, g) in enumerate(SUB)
+        e = θ * sum(1 / k for k in g)
+        c = 2 + length(WHOLE) + j
+        row(length(g) == 1 ? &quot;k = $(first(g))&quot; : &quot;k = $(first(g))-$(last(g))&quot;, col(fw, c), col(ms, c), e, zth(col(fw, c), e))
+    end
+
+    section[] = &quot;LD&quot;
+    println(&quot;\n[4/4] LD decay, pooled σ²_d (MAF ≥ $MAF), z: FisherWright vs. msprime DTWF&quot;)
+    @printf(&quot;  %-14s %18s %18s %9s %8s %8s\n&quot;, &quot;distance&quot;, &quot;FisherWright&quot;, &quot;msprime DTWF&quot;, &quot;z&quot;, &quot;Ohta-K.&quot;, &quot;Sved&quot;)
+    o = 2 + length(WHOLE) + length(SUB)
+    nb = length(BINS)
+    for (j, (lo, hi)) in enumerate(BINS)
+        r(M) = M[:, o+j] ./ M[:, o+nb+j]
+        pooled(M) = sum(M[:, o+j]) / sum(M[:, o+nb+j])
+        a, b = r(fw), r(ms)
+        z = (pooled(fw) - pooled(ms)) / sqrt(se(a)^2 + se(b)^2)
+        ρ = 4ne * sqrt(lo * hi) * 1e-8
+        name = @sprintf(&quot;%g-%g Mb&quot;, lo / 1e6, hi / 1e6)
+        @printf(&quot;  %-14s %9.4f ± %-6.4f %9.4f ± %-6.4f %9.2f %8.4f %8.4f  %s\n&quot;, name, pooled(fw), se(a),
+            pooled(ms), se(b), z, (10 + ρ) / (22 + 13ρ + ρ^2), 1 / (1 + ρ), check(name, z))
+    end
+
+    println(&quot;\n&quot;, &quot;=&quot;^78)
+    if isempty(failures)
+        println(&quot; All checks passed.&quot;)
+    else
+        println(&quot; FAILED: &quot;, join(failures, &quot;; &quot;))
+    end
+    println(&quot;=&quot;^78)
+    return isempty(failures)
+end
+
+if abspath(PROGRAM_FILE) == @__FILE__
+    args = parse.(Int, ARGS)
+    exit(main(args...) ? 0 : 1)
+end
+</code></pre><p><code>docs/src/validation/scripts/validate-popgen-msprime.py</code>:</p><pre><code class="language-python hljs">&quot;&quot;&quot;msprime DTWF reference statistics for docs/src/validation/scripts/validate-popgen-theory.jl.
+
+Simulates the same neutral diploid Wright-Fisher population as the Julia script
+(whole population sampled, chromosomes simulated independently, which is free
+recombination between them) and prints one line per replicate:
+
+    S H w1..w5 s1..s5 num1..num5 den1..den5
+
+S, H: segregating sites and Σ2pq in the whole population; w: whole-population
+SFS groups; s: SFS groups in a random sample of `nsub` haplotypes; num/den:
+ΣD² and Σp₁q₁p₂q₂ per LD distance bin (MAF filter as in the Julia script).
+
+With --summary it prints instead the pooled σ²_d ± SE per LD bin, which is how
+the reference values in test/runtests.jl were made:
+
+    # Run from this directory:
+    uv run --with msprime --with numpy python validate-popgen-msprime.py --reps 100 --seed 1 --summary
+&quot;&quot;&quot;
+
+import argparse
+
+import msprime
+import numpy as np
+
+WHOLE = [(1, 1), (2, 2), (3, 5), (6, 20), (21, None)]
+SUB = [(1, 1), (2, 2), (3, 4), (5, 9), (10, 19)]
+BINS = [(10_000, 30_000), (30_000, 100_000), (100_000, 300_000), (300_000, 1_000_000), (1_000_000, 3_000_000)]
+
+
+def groups(counts, spec, n):
+    out = []
+    for lo, hi in spec:
+        hi = n - 1 if hi is None else hi
+        out.append(((counts &gt;= lo) &amp; (counts &lt;= hi)).sum())
+    return out
+
+
+def ld_sums(G, pos, n, maf):
+    p = G.sum(1) / n
+    keep = (p &gt;= maf) &amp; (p &lt;= 1 - maf)
+    G, p, x = G[keep].astype(float), p[keep], pos[keep]
+    D = G @ G.T / n - np.outer(p, p)
+    V = np.outer(p * (1 - p), p * (1 - p))
+    d = x[None, :] - x[:, None]
+    num, den = [], []
+    for lo, hi in BINS:
+        m = (d &gt;= lo) &amp; (d &lt; hi)
+        num.append((D[m] ** 2).sum())
+        den.append(V[m].sum())
+    return np.array(num), np.array(den)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument(&quot;--ne&quot;, type=int, default=100)
+    ap.add_argument(&quot;--nchr&quot;, type=int, default=10)
+    ap.add_argument(&quot;--chr-len&quot;, type=int, default=10_000_000)
+    ap.add_argument(&quot;--mu&quot;, type=float, default=1e-8)
+    ap.add_argument(&quot;--r&quot;, type=float, default=1e-8)
+    ap.add_argument(&quot;--reps&quot;, type=int, default=50)
+    ap.add_argument(&quot;--nsub&quot;, type=int, default=20)
+    ap.add_argument(&quot;--maf&quot;, type=float, default=0.1)
+    ap.add_argument(&quot;--seed&quot;, type=int, default=1)
+    ap.add_argument(&quot;--summary&quot;, action=&quot;store_true&quot;, help=&quot;print pooled LD per bin instead of replicate rows&quot;)
+    a = ap.parse_args()
+    n = 2 * a.ne
+    rng = np.random.default_rng(a.seed)
+    ratios, NUM, DEN = [], np.zeros(len(BINS)), np.zeros(len(BINS))
+    for rep in range(a.reps):
+        S = H = 0.0
+        w = np.zeros(len(WHOLE))
+        s = np.zeros(len(SUB))
+        num = np.zeros(len(BINS))
+        den = np.zeros(len(BINS))
+        sub = rng.choice(n, a.nsub, replace=False)
+        for c in range(a.nchr):
+            seed = a.seed * 1_000_003 + rep * a.nchr + c + 1
+            ts = msprime.sim_ancestry(
+                samples=a.ne,
+                population_size=a.ne,
+                sequence_length=a.chr_len,
+                recombination_rate=a.r,
+                model=msprime.DiscreteTimeWrightFisher(),
+                random_seed=seed,
+            )
+            ts = msprime.sim_mutations(ts, rate=a.mu, random_seed=seed)
+            G = ts.genotype_matrix()
+            bi = G.max(1) == 1  # biallelic sites only
+            G, pos = G[bi], ts.tables.sites.position[bi]
+            k = G.sum(1)
+            f = k / n
+            S += len(k)
+            H += (2 * f * (1 - f)).sum()
+            w += groups(k, WHOLE, n)
+            ks = G[:, sub].sum(1)
+            s += groups(ks[(ks &gt; 0) &amp; (ks &lt; a.nsub)], SUB, a.nsub)
+            x, y = ld_sums(G, pos, n, a.maf)
+            num += x
+            den += y
+        if a.summary:
+            ratios.append(num / den)
+            NUM += num
+            DEN += den
+        else:
+            print(&quot; &quot;.join(str(v) for v in [S, H, *w, *s, *num, *den]))
+    if a.summary:
+        se = np.std(ratios, axis=0, ddof=1) / np.sqrt(a.reps)
+        print(f&quot;msprime DTWF, ne = {a.ne}, {a.reps} reps x {a.nchr} chromosomes of {a.chr_len} bp, mu = {a.mu}, r = {a.r}, MAF &gt;= {a.maf}&quot;)
+        for (lo, hi), v, e in zip(BINS, NUM / DEN, se):
+            print(f&quot;  {lo / 1e6:g}-{hi / 1e6:g} Mb  sigma2_d = {v:.4f} +/- {e:.4f}&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre><h2 id="LD-reference-values"><a class="docs-heading-anchor" href="#LD-reference-values">LD reference values</a><a id="LD-reference-values-1"></a><a class="docs-heading-anchor-permalink" href="#LD-reference-values" title="Permalink"></a></h2><p>The CI LD test compares with fixed msprime values, since CI can&#39;t run msprime. They come from 100 replicates of 10 chromosomes:</p><pre><code class="language-bash hljs">cd docs/src/validation/scripts
+uv run --with msprime --with numpy python validate-popgen-msprime.py --reps 100 --seed 1 --summary</code></pre><pre><code class="language-text hljs"># Date: 2026-09-30T13:01Z
+$ uv run --with msprime --with numpy python docs/src/validation/scripts/validate-popgen-msprime.py --reps 100 --seed 1 --summary
+msprime DTWF, ne = 100, 100 reps x 10 chromosomes of 10000000 bp, mu = 1e-08, r = 1e-08, MAF &gt;= 0.1
+  0.01-0.03 Mb  sigma2_d = 0.5861 +/- 0.0047
+  0.03-0.1 Mb  sigma2_d = 0.5411 +/- 0.0036
+  0.1-0.3 Mb  sigma2_d = 0.4443 +/- 0.0032
+  0.3-1 Mb  sigma2_d = 0.2869 +/- 0.0024
+  1-3 Mb  sigma2_d = 0.1398 +/- 0.0015
+</code></pre><p>The test uses the 0.3–1 Mb and 1–3 Mb values, 0.2869 and 0.1398. If the model settings in the CI testset change, regenerate these values with matching arguments.</p><h2 id="Comparison-with-early-releases"><a class="docs-heading-anchor" href="#Comparison-with-early-releases">Comparison with early releases</a><a id="Comparison-with-early-releases-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-with-early-releases" title="Permalink"></a></h2><p>Releases before v0.3.0 contain the <code>recombine</code> defect described in the v0.3.0 notes of the README. They also contain the mutate-before-mating loop (fixed in v0.3.5) and the chromosome-boundary off-by-one (fixed in v0.3.8). v0.1.x was used to generate a historical population with <span>$t = N$</span> for a breeding-scheme study (<a href="https://doi.org/10.31274/wcgalp.23521">Yu et al. 2026</a>), whose QTL were sampled among loci segregating in the founders. This comparison asks whether founders drawn from such a population differ between v0.1.6 and the current release. It also asks how much stopping at <span>$t = N$</span> instead of at equilibrium matters for them.</p><p><code>docs/src/validation/scripts/compare-early-version.sh</code> runs <code>docs/src/validation/scripts/compare-early-version.jl</code> for v0.1.6 (in a temporary Git worktree) and for the current checkout, at <span>$t = N$</span> and <span>$t = 10N$</span>. The model is <span>$N = 200$</span>, 10 chromosomes of 20 Mb, <span>$\mu = 10^{-8}$</span>, 1 cM/Mb, with 30 replicates. Population statistics use all <span>$2N$</span> haplotypes. Founder statistics use 75 individuals sampled from the final generation, over the sites that segregate among them. Positions are counted once per haplotype, because v0.1.6 haplotypes can repeat positions.</p><table><tr><th style="text-align: right">Statistic</th><th style="text-align: right">v0.1.6, <span>$t = N$</span></th><th style="text-align: right">current, <span>$t = N$</span></th><th style="text-align: right">v0.1.6, <span>$t = 10N$</span></th><th style="text-align: right">current, <span>$t = 10N$</span></th></tr><tr><td style="text-align: right">Haplotypes unsorted, per replicate (of 400)</td><td style="text-align: right">292</td><td style="text-align: right">0</td><td style="text-align: right">283</td><td style="text-align: right">0</td></tr><tr><td style="text-align: right"><span>$S$</span></td><td style="text-align: right">6,858</td><td style="text-align: right">7,645</td><td style="text-align: right">9,819</td><td style="text-align: right">10,638</td></tr><tr><td style="text-align: right"><span>$\Sigma 2pq$</span></td><td style="text-align: right">625</td><td style="text-align: right">626</td><td style="text-align: right">1,577</td><td style="text-align: right">1,584</td></tr><tr><td style="text-align: right">Sites with MAF ≥ 0.2</td><td style="text-align: right">517</td><td style="text-align: right">511</td><td style="text-align: right">2,187</td><td style="text-align: right">2,198</td></tr><tr><td style="text-align: right">Founders: fraction of sites with MAF ≥ 0.2</td><td style="text-align: right">0.093</td><td style="text-align: right">0.088</td><td style="text-align: right">0.254</td><td style="text-align: right">0.246</td></tr><tr><td style="text-align: right">Founders: share of <span>$\Sigma 2pq$</span> from MAF &lt; 0.05</td><td style="text-align: right">0.207</td><td style="text-align: right">0.214</td><td style="text-align: right">0.092</td><td style="text-align: right">0.095</td></tr></table><p>Standard errors and the r² bins are in the output below.</p><ul><li><strong>v0.1.6 vs. the current release.</strong> <span>$S$</span> is 8–10% lower in v0.1.6. These are the missing newest singletons, as expected from the pre-v0.3.5 loop. <span>$\Sigma 2pq$</span>, the number of sites with MAF ≥ 0.2 and r² among them show no detectable difference. The founder spectrum differs by about 5% in mean <span>$2pq$</span> per site, because some of the extra population singletons enter the sample.</li><li><strong>v0.1.6 haplotypes are mostly unsorted.</strong> About 70% of them are unsorted, and a few repeat a position. Allele counts are unaffected once positions are counted once per haplotype, as above. Code that assumes sorted, unique positions (binary search, two-pointer merges, chip extraction) can give wrong results on v0.1.x output.</li><li><strong><span>$t = N$</span> vs. equilibrium.</strong> This difference is much larger than the difference between versions. At <span>$t = N$</span>, <span>$\Sigma 2pq$</span> is 40% and the number of MAF ≥ 0.2 sites is 23% of the equilibrium value (expected <span>$1 - e^{-1/2} = 0.39$</span> and <span>$\theta \ln 4 \approx 2{,}218$</span>). In the founders, only 9% of segregating sites have MAF ≥ 0.2, against 25% at equilibrium. Rare sites (MAF &lt; 0.05) carry 21% of <span>$\Sigma 2pq$</span>, against 9.5%. QTL sampled from such founders are therefore enriched for rare variants.</li></ul><p>The allele-frequency results depend on <span>$t/N$</span> and on the fraction of the population sampled. Here 150 of 400 haplotypes are sampled. A smaller fraction reduces the difference between versions, because fewer of the newest singletons enter the sample. The r² values do not transfer to other values of <span>$N$</span> or genome scales.</p><pre><code class="language-bash hljs">docs/src/validation/scripts/compare-early-version.sh v0.1.6 30 2026 8 \
+    &gt; docs/src/validation/early-version-comparison.txt</code></pre><p>The script takes about 3 minutes with 8 threads.</p><pre><code class="language-text hljs"># Date: 2026-10-06T15:52Z  Commit: 9f346e7 (v0.3.8-1-g9f346e7); tree: clean
+# Early release: v0.1.6 (0c6071b)
+# CPU: AMD Ryzen 9 3900X 12-Core Processor; julia version 1.13.1
+# $ docs/src/validation/scripts/compare-early-version.sh v0.1.6 30 2026 8
+
+FisherWright v0.1.6, N = 200, t = 1N, 10 × 20 Mb, μ = 1e-8, 1 cM/Mb, reps = 30, seed = 2026, threads = 8
+  final generation, per replicate: 292.1 haplotypes unsorted, 13.0 with repeated positions (13.2 repeats in total)
+  population (2N = 400 haplotypes)
+    S                         6857.6 ±   24.4
+    Σ2pq                       625.4 ±    2.4
+    sites with MAF ≥ 0.2       516.8 ±    5.3
+    r², MAF ≥ 0.2, 0.0–0.5 Mb   0.3705 ± 0.0540
+    r², MAF ≥ 0.2, 0.5–2.0 Mb   0.1508 ± 0.0203
+    r², MAF ≥ 0.2, 2.0–5.0 Mb   0.0441 ± 0.0046
+  founder sample (75 individuals, 150 haplotypes; sites segregating in the sample)
+    segregating sites         5711.6 ±   19.8
+    fraction MAF ≥ 0.2        0.0931 ± 0.0009
+    fraction MAF &lt; 0.05       0.6372 ± 0.0022
+    mean 2pq per site         0.1091 ± 0.0004
+    Σ2pq share, MAF &lt; 0.05    0.2070 ± 0.0015
+
+FisherWright v0.3.8, N = 200, t = 1N, 10 × 20 Mb, μ = 1e-8, 1 cM/Mb, reps = 30, seed = 2026, threads = 8
+  final generation, per replicate: 0.0 haplotypes unsorted, 0.0 with repeated positions (0.0 repeats in total)
+  population (2N = 400 haplotypes)
+    S                         7645.2 ±   21.8
+    Σ2pq                       626.1 ±    2.0
+    sites with MAF ≥ 0.2       510.9 ±    4.1
+    r², MAF ≥ 0.2, 0.0–0.5 Mb   0.4498 ± 0.0701
+    r², MAF ≥ 0.2, 0.5–2.0 Mb   0.1435 ± 0.0198
+    r², MAF ≥ 0.2, 2.0–5.0 Mb   0.0435 ± 0.0044
+  founder sample (75 individuals, 150 haplotypes; sites segregating in the sample)
+    segregating sites         5990.1 ±   21.3
+    fraction MAF ≥ 0.2        0.0877 ± 0.0007
+    fraction MAF &lt; 0.05       0.6569 ± 0.0016
+    mean 2pq per site         0.1042 ± 0.0003
+    Σ2pq share, MAF &lt; 0.05    0.2141 ± 0.0012
+
+FisherWright v0.1.6, N = 200, t = 10N, 10 × 20 Mb, μ = 1e-8, 1 cM/Mb, reps = 30, seed = 2026, threads = 8
+  final generation, per replicate: 283.4 haplotypes unsorted, 27.0 with repeated positions (27.0 repeats in total)
+  population (2N = 400 haplotypes)
+    S                         9819.2 ±   38.0
+    Σ2pq                      1577.0 ±   10.9
+    sites with MAF ≥ 0.2      2186.5 ±   20.9
+    r², MAF ≥ 0.2, 0.0–0.5 Mb   0.4512 ± 0.0498
+    r², MAF ≥ 0.2, 0.5–2.0 Mb   0.1386 ± 0.0165
+    r², MAF ≥ 0.2, 2.0–5.0 Mb   0.0438 ± 0.0056
+  founder sample (75 individuals, 150 haplotypes; sites segregating in the sample)
+    segregating sites         8638.2 ±   36.5
+    fraction MAF ≥ 0.2        0.2538 ± 0.0018
+    fraction MAF &lt; 0.05       0.4566 ± 0.0026
+    mean 2pq per site         0.1818 ± 0.0008
+    Σ2pq share, MAF &lt; 0.05    0.0917 ± 0.0009
+
+FisherWright v0.3.8, N = 200, t = 10N, 10 × 20 Mb, μ = 1e-8, 1 cM/Mb, reps = 30, seed = 2026, threads = 8
+  final generation, per replicate: 0.0 haplotypes unsorted, 0.0 with repeated positions (0.0 repeats in total)
+  population (2N = 400 haplotypes)
+    S                        10638.1 ±   42.6
+    Σ2pq                      1584.4 ±    9.3
+    sites with MAF ≥ 0.2      2198.2 ±   20.0
+    r², MAF ≥ 0.2, 0.0–0.5 Mb   0.4620 ± 0.0477
+    r², MAF ≥ 0.2, 0.5–2.0 Mb   0.1409 ± 0.0202
+    r², MAF ≥ 0.2, 2.0–5.0 Mb   0.0457 ± 0.0069
+  founder sample (75 individuals, 150 haplotypes; sites segregating in the sample)
+    segregating sites         8956.0 ±   38.7
+    fraction MAF ≥ 0.2        0.2458 ± 0.0019
+    fraction MAF &lt; 0.05       0.4773 ± 0.0017
+    mean 2pq per site         0.1760 ± 0.0006
+    Σ2pq share, MAF &lt; 0.05    0.0946 ± 0.0006
+
+</code></pre><p><code>docs/src/validation/scripts/compare-early-version.jl</code>:</p><pre><code class="language-julia hljs"># Compare an early FisherWright release with the current one, at t = N and at
+# equilibrium, on population statistics and on the spectrum of a founder sample.
+#
+# Run through compare-early-version.sh, which runs this script once per
+# (version, t) arm. With a FisherWright environment active:
+#
+#   julia -t 8 compare-early-version.jl &lt;tmult&gt; [reps=30] [seed=2026]
+#
+# Model: N = 200 diploids, 10 chromosomes of 20 Mb, μ = 1e-8 per bp per
+# meiosis, 1 cM/Mb, tmult·N generations from no variation.
+#
+# Population statistics (all 2N haplotypes):
+#   S, Σ2pq, number of sites with MAF ≥ 0.2, and mean r² among MAF ≥ 0.2 sites
+#   on the same chromosome in three distance bins.
+# Founder statistics (NF individuals sampled from the final generation; QTL
+# candidates are the sites segregating in the sample, as in a breeding
+# simulation that samples QTL from its founders):
+#   number of segregating sites, fraction with MAF ≥ 0.2, fraction with
+#   MAF &lt; 0.05, mean 2pq per site, and share of Σ2pq from MAF &lt; 0.05 sites.
+#
+# Versions before v0.3.0 return `(haplotypes, cbp)` and can leave haplotypes
+# unsorted or with repeated positions (see the v0.3.0 notes in the README).
+# Positions are counted once per haplotype, and the number of affected
+# haplotypes is reported.
+
+using FisherWright, Random, Statistics, Printf
+
+const tmult = parse(Int, ARGS[1])
+const reps = length(ARGS) ≥ 2 ? parse(Int, ARGS[2]) : 30
+const seed = length(ARGS) ≥ 3 ? parse(Int, ARGS[3]) : 2026
+const N, NF, NCHR, CLEN = 200, 75, 10, 20_000_000
+const BINS = [(0, 500_000), (500_000, 2_000_000), (2_000_000, 5_000_000)]
+const old_api = pkgversion(FisherWright) &lt; v&quot;0.3.0&quot;
+
+# Early releases print progress to stdout.
+simulate() = old_api ?
+    first(redirect_stdout(() -&gt; fisher_wright(N, tmult * N, fill(CLEN, NCHR), 1.0), devnull)) :
+    fisher_wright(N, tmult * N, fill(CLEN, NCHR), 1.0; result = true).active_haplotypes
+
+function counts(haps)
+    cnt = Dict{UInt32,Int}()
+    for h in haps, p in unique(h)
+        cnt[p] = get(cnt, p, 0) + 1
+    end
+    cnt
+end
+
+function population_stats(haps)
+    n = length(haps)
+    S, H, com = 0, 0.0, UInt32[]
+    for (p, c) in counts(haps)
+        0 &lt; c &lt; n || continue
+        q = c / n
+        S += 1
+        H += 2q * (1 - q)
+        0.2 ≤ q ≤ 0.8 &amp;&amp; push!(com, p)
+    end
+    sort!(com)
+    idx = Dict(p =&gt; i for (i, p) in enumerate(com))
+    X = zeros(length(com), n)
+    for (j, h) in enumerate(haps), p in h
+        i = get(idx, p, 0)
+        i &gt; 0 &amp;&amp; (X[i, j] = 1.0)
+    end
+    pf = vec(mean(X, dims = 2))
+    r2 = [Float64[] for _ in BINS]
+    for i in eachindex(com), k = i+1:length(com)
+        d = Int(com[k]) - Int(com[i])
+        d ≥ BINS[end][2] &amp;&amp; break
+        div(Int(com[i]) - 1, CLEN) == div(Int(com[k]) - 1, CLEN) || continue
+        D = mean(view(X, i, :) .* view(X, k, :)) - pf[i] * pf[k]
+        v = D^2 / (pf[i] * (1 - pf[i]) * pf[k] * (1 - pf[k]))
+        for (b, (lo, hi)) in enumerate(BINS)
+            lo ≤ d &lt; hi &amp;&amp; push!(r2[b], v)
+        end
+    end
+    (S = S, H = H, ncom = length(com), r2 = mean.(r2))
+end
+
+function founder_stats(haps)
+    ids = randperm(N)[1:NF]
+    fh = [haps[h] for i in ids for h in (2i - 1, 2i)]
+    n = length(fh)
+    q = [c / n for c in values(counts(fh)) if 0 &lt; c &lt; n]
+    maf = min.(q, 1 .- q)
+    h2 = 2 .* q .* (1 .- q)
+    (seg = length(q), fcom = mean(maf .≥ 0.2), frare = mean(maf .&lt; 0.05),
+     h2 = mean(h2), rareshare = sum(h2[maf .&lt; 0.05]) / sum(h2))
+end
+
+bad(haps) = (count(!issorted, haps), count(!allunique, haps), sum(h -&gt; length(h) - length(unique(h)), haps))
+
+Random.seed!(seed)
+res = map(1:reps) do _
+    haps = simulate()
+    (population_stats(haps), founder_stats(haps), bad(haps))
+end
+
+ms(v) = (v = filter(!isnan, v); (mean(v), std(v) / sqrt(length(v))))
+pop, fnd = first.(res), getindex.(res, 2)
+@printf(&quot;FisherWright v%s, N = %d, t = %dN, %d × %d Mb, μ = 1e-8, 1 cM/Mb, reps = %d, seed = %d, threads = %d\n&quot;,
+    pkgversion(FisherWright), N, tmult, NCHR, CLEN ÷ 1_000_000, reps, seed, Threads.nthreads())
+@printf(&quot;  final generation, per replicate: %.1f haplotypes unsorted, %.1f with repeated positions (%.1f repeats in total)\n&quot;,
+    (mean(getindex.(last.(res), i)) for i = 1:3)...)
+println(&quot;  population (2N = $(2N) haplotypes)&quot;)
+@printf(&quot;    S                     %10.1f ± %6.1f\n&quot;, ms([r.S for r in pop])...)
+@printf(&quot;    Σ2pq                  %10.1f ± %6.1f\n&quot;, ms([r.H for r in pop])...)
+@printf(&quot;    sites with MAF ≥ 0.2  %10.1f ± %6.1f\n&quot;, ms([r.ncom for r in pop])...)
+for (b, (lo, hi)) in enumerate(BINS)
+    @printf(&quot;    r², MAF ≥ 0.2, %3.1f–%3.1f Mb %8.4f ± %6.4f\n&quot;, lo / 1e6, hi / 1e6, ms([r.r2[b] for r in pop])...)
+end
+println(&quot;  founder sample ($NF individuals, $(2NF) haplotypes; sites segregating in the sample)&quot;)
+@printf(&quot;    segregating sites     %10.1f ± %6.1f\n&quot;, ms([r.seg for r in fnd])...)
+@printf(&quot;    fraction MAF ≥ 0.2    %10.4f ± %6.4f\n&quot;, ms([r.fcom for r in fnd])...)
+@printf(&quot;    fraction MAF &lt; 0.05   %10.4f ± %6.4f\n&quot;, ms([r.frare for r in fnd])...)
+@printf(&quot;    mean 2pq per site     %10.4f ± %6.4f\n&quot;, ms([r.h2 for r in fnd])...)
+@printf(&quot;    Σ2pq share, MAF &lt; 0.05 %9.4f ± %6.4f\n&quot;, ms([r.rareshare for r in fnd])...)
+println()
+</code></pre><p><code>docs/src/validation/scripts/compare-early-version.sh</code>:</p><pre><code class="language-bash hljs">#!/usr/bin/env bash
+# Run compare-early-version.jl for an early release (default v0.1.6) and for
+# the current checkout, at t = N and t = 10N. Run from the repository root:
+#
+#   docs/src/validation/scripts/compare-early-version.sh [old_tag=v0.1.6] [reps=30] [seed=2026] [threads=8] \
+#       &gt; docs/src/validation/early-version-comparison.txt
+#
+# The early release is checked out into a temporary Git worktree, which is
+# removed on exit.
+set -euo pipefail
+
+OLD=${1:-v0.1.6}
+REPS=${2:-30}
+SEED=${3:-2026}
+THREADS=${4:-8}
+
+ROOT=$(git rev-parse --show-toplevel)
+SCRIPT=&quot;$ROOT/docs/src/validation/scripts/compare-early-version.jl&quot;
+WT=$(mktemp -d)
+trap &#39;git -C &quot;$ROOT&quot; worktree remove --force &quot;$WT&quot; &gt;/dev/null 2&gt;&amp;1 || true; rm -rf &quot;$WT&quot;&#39; EXIT
+
+git -C &quot;$ROOT&quot; worktree add --detach -f &quot;$WT&quot; &quot;$OLD&quot; &gt;/dev/null 2&gt;&amp;1
+julia --startup-file=no --project=&quot;$WT&quot; -e &#39;using Pkg; Pkg.instantiate()&#39; &gt;/dev/null 2&gt;&amp;1
+julia --startup-file=no --project=&quot;$ROOT&quot; -e &#39;using Pkg; Pkg.instantiate()&#39; &gt;/dev/null 2&gt;&amp;1
+
+TREE=$(git -C &quot;$ROOT&quot; diff --quiet HEAD &amp;&amp; echo clean || echo dirty)
+echo &quot;# Date: $(date -u +%Y-%m-%dT%H:%MZ)  Commit: $(git -C &quot;$ROOT&quot; rev-parse --short HEAD) ($(git -C &quot;$ROOT&quot; describe --tags --always)); tree: $TREE&quot;
+echo &quot;# Early release: $OLD ($(git -C &quot;$ROOT&quot; rev-parse --short &quot;$OLD^{commit}&quot;))&quot;
+echo &quot;# CPU: $(lscpu 2&gt;/dev/null | sed -n &#39;s/^Model name:[ \t]*//p&#39; | head -n1); $(julia --version)&quot;
+echo &quot;# \$ docs/src/validation/scripts/compare-early-version.sh $OLD $REPS $SEED $THREADS&quot;
+echo
+
+for T in 1 10; do
+    for PROJ in &quot;$WT&quot; &quot;$ROOT&quot;; do
+        julia --startup-file=no -t &quot;$THREADS&quot; --project=&quot;$PROJ&quot; &quot;$SCRIPT&quot; &quot;$T&quot; &quot;$REPS&quot; &quot;$SEED&quot; 2&gt;/dev/null
+    done
+done
+</code></pre><h2 id="History"><a class="docs-heading-anchor" href="#History">History</a><a id="History-1"></a><a class="docs-heading-anchor-permalink" href="#History" title="Permalink"></a></h2><ul><li><strong>Diversity deficit (fixed in v0.3.5).</strong> A comparison with θ·aₙ and msprime showed about 8% fewer segregating sites, while Σ2pq was unaffected. The generation loop mutated parents and then reproduced, so the returned population had gone through one round of reproduction since its last mutations. Expected loss: <span>$\theta \sum_k e^{-k}/k \approx 0.46\theta$</span>, which matched the observed deficit. The loop now mates first and mutates the offspring.</li><li><strong>Earlier SFS and LD tests replaced.</strong> An earlier version compared shapes with a Pearson correlation, which doesn&#39;t change when Ne or the recombination rate is scaled. It used one replicate, compared LD with Sved&#39;s curve despite a 40–45% gap, and its bench script printed &quot;PASSED&quot; unconditionally. Over 10 seeds, its SFS test passed 6/10 for the correct model and 6/10 with Ne halved; its LD test passed 2/10 for the correct model and 5/10 with recombination doubled.</li></ul><h2 id="Not-covered"><a class="docs-heading-anchor" href="#Not-covered">Not covered</a><a id="Not-covered-1"></a><a class="docs-heading-anchor-permalink" href="#Not-covered" title="Permalink"></a></h2><ul><li>The crossover test checks <code>cobp!</code> only. Transmission of crossovers through <code>recombine</code> is covered indirectly: doubling the recombination rate fails the LD test. <code>recombine</code> itself is checked against a reference implementation in the testset &quot;recombine correctness&quot;.</li><li>Only a constant-size, neutral, panmictic population is checked; the package doesn&#39;t model demography, selection or subdivision.</li><li>Benchmark-scale runs (N = 2,000, 1 Gb) are checked only through their SNP count against msprime.</li></ul><h2 id="When-to-rerun"><a class="docs-heading-anchor" href="#When-to-rerun">When to rerun</a><a id="When-to-rerun-1"></a><a class="docs-heading-anchor-permalink" href="#When-to-rerun" title="Permalink"></a></h2><p>The CI tests run on every <code>Pkg.test()</code>. Rerun the full validation and the power check, and replace the result files in <code>docs/src/validation/</code>, when any of these change:</p><ul><li>the generation loop in <code>src/fwp.jl</code>, <code>recombine</code>, <code>cobp!</code> or the recombination map, <code>random_mate!</code>, or <code>muts2bitarray</code>;</li><li>the validation block in <code>test/runtests.jl</code> (bounds, settings or seeds);</li><li>the model settings or statistics in <code>docs/src/validation/scripts/validate-popgen-theory.jl</code>.</li></ul><pre><code class="language-bash hljs">D=docs/src/validation
+julia -t 4 --project=. docs/src/validation/scripts/check-test-power.jl &gt; $D/test-power.txt
+julia -t 8 --project=. docs/src/validation/scripts/validate-popgen-theory.jl 50 100 2026 &gt; $D/validate-popgen-seed2026.txt
+julia -t 8 --project=. docs/src/validation/scripts/validate-popgen-theory.jl 50 100 7 &gt; $D/validate-popgen-seed7.txt</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../utilities/">« Utilities</a><a class="docs-footer-nextpage" href="../../api/">API reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Wednesday 7 October 2026 10:34">Wednesday 7 October 2026</span>. Using Julia version 1.13.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
