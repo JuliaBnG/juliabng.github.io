@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Apply the stored theme before first paint; the menu is wired at the end of body -->
+  <script>try{var t=localStorage.getItem('juliabng:theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
   <title>JuliaBnG Packages · Quantitative Genetics &amp; Breeding</title>
 
   <!-- Typography: EB Garamond for scholarly book typography and JuliaMono / JetBrains Mono for code -->
@@ -38,8 +40,14 @@
       --toc-active-bar: #8e2b1c;
     }
 
+    /* Themes. No data-theme = Auto (follows the system); the header menu
+       sets data-theme to light, sepia, dark or black (same set as Coauthors). */
+    :root:not([data-theme]) { color-scheme: light dark; }
+    :root[data-theme="light"], :root[data-theme="sepia"] { color-scheme: light; }
+    :root[data-theme="dark"], :root[data-theme="black"] { color-scheme: dark; }
+
     @media (prefers-color-scheme: dark) {
-      :root {
+      :root:not([data-theme]) {
         --bg-canvas: #131210;
         --page-bg: #1c1a17;
         --page-border: #332e26;
@@ -65,6 +73,100 @@
         --toc-active-bg: rgba(223, 122, 96, 0.18);
         --toc-active-bar: #df7a60;
       }
+    }
+
+    :root[data-theme="dark"], :root[data-theme="black"] {
+      --bg-canvas: #131210;
+      --page-bg: #1c1a17;
+      --page-border: #332e26;
+      --page-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+      --inner-border: #29251f;
+
+      --ink-primary: #efe9de;
+      --ink-secondary: #c7beaf;
+      --ink-muted: #958b7c;
+      --ink-faint: #696053;
+
+      --rubric: #df7a60;
+      --rubric-hover: #f39178;
+      --rubric-light: rgba(223, 122, 96, 0.14);
+      --rubric-border: #6e3d30;
+
+      --code-bg: #27241f;
+      --code-border: #3c372e;
+      --code-text: #f0eae0;
+
+      --divider-ornament: #675e51;
+      --toc-hover-bg: rgba(223, 122, 96, 0.1);
+      --toc-active-bg: rgba(223, 122, 96, 0.18);
+      --toc-active-bar: #df7a60;
+    }
+
+    :root[data-theme="sepia"] {
+      --bg-canvas: #e9dfc6;
+      --page-bg: #f4ecd8;
+      --page-border: #dacdb0;
+      --page-shadow: 0 12px 36px rgba(59, 47, 34, 0.12), 0 2px 6px rgba(59, 47, 34, 0.06);
+      --inner-border: #e2d6ba;
+
+      --ink-primary: #3b2f22;
+      --ink-secondary: #5a4a37;
+      --ink-muted: #76664f;
+      --ink-faint: #a5937a;
+
+      --rubric: #8a3b1f;
+      --rubric-hover: #a84a29;
+      --rubric-light: #efe0c8;
+      --rubric-border: #dcbfa0;
+
+      --code-bg: #ebdfc4;
+      --code-border: #dacdb0;
+      --code-text: #3b2f22;
+
+      --divider-ornament: #a5937a;
+      --toc-hover-bg: rgba(138, 59, 31, 0.07);
+      --toc-active-bg: rgba(138, 59, 31, 0.12);
+      --toc-active-bar: #8a3b1f;
+    }
+
+    :root[data-theme="black"] {
+      --bg-canvas: #000;
+      --page-bg: #0a0a0a;
+      --page-border: #2b2b2b;
+      --page-shadow: none;
+      --inner-border: #1e1e1e;
+
+      --ink-primary: #d4d4d4;
+      --ink-secondary: #b0b0b0;
+      --ink-muted: #8f8f8f;
+      --ink-faint: #5e5e5e;
+
+      --code-bg: #141414;
+      --code-border: #2b2b2b;
+      --code-text: #e0e0e0;
+
+      --divider-ornament: #4a4a4a;
+    }
+
+    /* Theme menu, top-right of the folio */
+    .theme-picker {
+      position: absolute;
+      top: 1.1rem;
+      right: 1.25rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+    }
+
+    .theme-picker select {
+      font: inherit;
+      color: var(--ink-secondary);
+      background: var(--page-bg);
+      border: 1px solid var(--page-border);
+      border-radius: 3px;
+      padding: 0.1rem 0.3rem;
+      margin-left: 0.3rem;
+      cursor: pointer;
     }
 
     * {
@@ -467,6 +569,13 @@
 
     /* Responsive Adaptation for Tablets and Mobile */
     @media (max-width: 900px) {
+      .theme-picker {
+        position: static;
+        display: block;
+        text-align: right;
+        margin: -1rem -0.5rem 1rem 0;
+      }
+
       body {
         padding: 1.25rem 0.75rem 2.5rem;
       }
@@ -512,6 +621,15 @@
 </head>
 <body>
   <div class="book-folio">
+    <label class="theme-picker">Theme
+      <select id="theme-select" aria-label="Colour theme">
+        <option value="auto">Auto</option>
+        <option value="light">Light</option>
+        <option value="sepia">Sepia</option>
+        <option value="dark">Dark</option>
+        <option value="black">Black</option>
+      </select>
+    </label>
     <header class="book-header">
       <div class="book-running-head">JuliaBnG Monograph Series · Open-Source Genomics</div>
       <h1 class="book-title">JuliaBnG Ecosystem</h1>
@@ -725,6 +843,22 @@
       <p>Maintained by the <a href="https://github.com/JuliaBnG">JuliaBnG organization</a> &middot; Licensed under the MIT License.</p>
     </footer>
   </div>
+
+  <!-- Theme menu: Auto removes data-theme so the system preference applies -->
+  <script>
+    (function () {
+      var KEY = 'juliabng:theme', root = document.documentElement;
+      var sel = document.getElementById('theme-select');
+      sel.value = root.dataset.theme || 'auto';
+      sel.addEventListener('change', function () {
+        var t = sel.value;
+        try {
+          if (t === 'auto') { delete root.dataset.theme; localStorage.removeItem(KEY); }
+          else { root.dataset.theme = t; localStorage.setItem(KEY, t); }
+        } catch (e) { if (t === 'auto') delete root.dataset.theme; else root.dataset.theme = t; }
+      });
+    })();
+  </script>
 
   <!-- Dynamic Scroll Spy for active Table of Contents reading indicator -->
   <script>
