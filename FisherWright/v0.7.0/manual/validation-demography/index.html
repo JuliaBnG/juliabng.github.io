@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Validation: changing population size · FisherWright.jl</title><meta name="title" content="Validation: changing population size · FisherWright.jl"/><meta property="og:title" content="Validation: changing population size · FisherWright.jl"/><meta property="twitter:title" content="Validation: changing population size · FisherWright.jl"/><meta name="description" content="Documentation for FisherWright.jl."/><meta property="og:description" content="Documentation for FisherWright.jl."/><meta property="twitter:description" content="Documentation for FisherWright.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/juliabng/juliabng-sepia.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-sepia"/><link href="../../assets/juliabng/juliabng-black.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-black"/><script src="../../assets/juliabng/themes.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">FisherWright.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../simulation/">Simulation</a></li><li><a class="tocitem" href="../results/">Results and export</a></li><li><a class="tocitem" href="../utilities/">Utilities</a></li><li><a class="tocitem" href="../validation/">Population genetics validation</a></li><li class="is-active"><a class="tocitem" href>Validation: changing population size</a><ul class="internal"><li><a class="tocitem" href="#Results,-200-replicates,-seed-2026"><span>Results, 200 replicates, seed 2026</span></a></li><li><a class="tocitem" href="#Results,-200-replicates,-seed-7"><span>Results, 200 replicates, seed 7</span></a></li><li><a class="tocitem" href="#Reading-the-results-of-both-runs"><span>Reading the results of both runs</span></a></li></ul></li><li><a class="tocitem" href="../validation-selection/">Validation: selection</a></li></ul></li><li><a class="tocitem" href="../../api/">API reference</a></li><li><a class="tocitem" href="../../api-models/">API reference: population models</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Manual</a></li><li class="is-active"><a href>Validation: changing population size</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Validation: changing population size</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/manual/validation-demography.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Validation-under-a-changing-population-size"><a class="docs-heading-anchor" href="#Validation-under-a-changing-population-size">Validation under a changing population size</a><a id="Validation-under-a-changing-population-size-1"></a><a class="docs-heading-anchor-permalink" href="#Validation-under-a-changing-population-size" title="Permalink"></a></h1><p><code>docs/src/validation/scripts/validate-demography.jl</code> checks <code>popsize</code> against an exact expectation and against msprime DTWF with the same demography. The model is that of the <a href="../validation/#Population-genetics-validation">Population genetics validation</a>, <span>$N = 100$</span> for 2,000 generations from a population without variation; each replicate is then continued through <code>init</code> in two scenarios, and the whole final population is the sample:</p><table><tr><th style="text-align: right">Scenario</th><th style="text-align: right">Trajectory after the burn-in</th><th style="text-align: right">Sample</th></tr><tr><td style="text-align: right">Bottleneck</td><td style="text-align: right">20 individuals for 20 generations, then 100 for 20 generations</td><td style="text-align: right">200 haplotypes</td></tr><tr><td style="text-align: right">Expansion</td><td style="text-align: right">400 individuals for 100 generations</td><td style="text-align: right">800 haplotypes</td></tr></table><p>The two scenarios share their burn-in, so they are correlated with each other; every check is within one scenario.</p><p><strong>Exact expectation of Σ2pq.</strong> With <span>$U = \mu L$</span> new mutations per haplotype per generation (infinite sites) the recursion of <a href="../validation/#Effective-size">Effective size</a> becomes</p><p class="math-container">\[H_B&#39; = (1 - a)H_B + \tfrac{a}{2}H_W + 2U, \qquad H_W&#39; = H_B + 2U,\]</p><p>with <span>$a = E[1/(4N_m) + 1/(4N_f)]$</span> over the sex counts of the parents of that generation, and <span>$\Sigma 2pq = H_W/(2N) + (1 - 1/N)H_B$</span> for the <span>$N$</span> individuals of a cohort. It is run from <span>$H = 0$</span> through the same generations as the simulation, so it assumes neither equilibrium nor an effective size. At the end of the burn-in it gives 395.9, the <span>$\theta(1 - 1/n)$</span> of the constant-size validation.</p><p><strong>msprime with the same demography.</strong> Two differences between the models have to be mapped:</p><ul><li><em>Effective size.</em> msprime&#39;s DTWF picks both parents of an individual from one pool of <span>$N&#39;$</span> individuals, so a cohort of <span>$N$</span> two-sex parents is represented by <span>$N&#39; = N_e(N)$</span>: 19.38, 99.48 and 399.50 for <span>$N$</span> = 20, 100 and 400. <span>$N&#39;$</span> must be an integer, so each msprime chromosome draws <span>$\lfloor N_e \rfloor$</span> or <span>$\lceil N_e \rceil$</span> for every epoch, with probabilities that make the mean <span>$N_e$</span>. The statistics are smooth in <span>$N&#39;$</span>, so their mean over replicates is the value at <span>$N_e$</span> up to terms of order <span>$(1/N&#39;)^2$</span>, below 0.1% here. No statistic is rescaled.</li><li><em>Timing.</em> Generation <span>$g$</span> of FisherWright draws the parents of its <span>$N_g$</span> offspring from the <span>$N_{g-1}$</span> individuals of generation <span>$g - 1$</span>. msprime draws the parents of the individuals at time <span>$t - 1$</span> from the size set for time <span>$t$</span>; this was checked with a population reduced to one individual at time <span>$T$</span>, where all lineages collapse into two genomes at time <span>$T$</span>, not <span>$T + 1$</span> (msprime 1.4.5). Cohort <span>$g$</span> is at time <span>$nt - g$</span>, so an epoch that starts with cohort <span>$g_0$</span> ends, backwards, at time <span>$nt - g_0$</span>, and the earlier size applies from time <span>$nt - g_0 + 1$</span>.</li></ul><p>Each scenario has 18 checks at |z| ≤ 3.5: Σ2pq against the recursion, and Σ2pq, <span>$S$</span>, five classes of the whole-population SFS, five classes of the SFS of 20 random haplotypes and five bins of <span>$\sigma^2_d$</span> against msprime. There is no coalescent <span>$\theta/k$</span> reference out of equilibrium, so the sample SFS is compared with msprime as well. With 36 checks, the chance that at least one fails by chance is about 2%.</p><p>It takes about 2 minutes with 8 threads for 200 replicates:</p><pre><code class="language-bash hljs">julia -t 8 validate-demography.jl [reps=100] [seed=2026]</code></pre><h2 id="Results,-200-replicates,-seed-2026"><a class="docs-heading-anchor" href="#Results,-200-replicates,-seed-2026">Results, 200 replicates, seed 2026</a><a id="Results,-200-replicates,-seed-2026-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-200-replicates,-seed-2026" title="Permalink"></a></h2><pre><code class="language-text hljs"># Date: 2026-11-11T08:57Z  Commit: a21d619 (v0.4.2 + unreleased 0.5.0 work); tree: dirty (validation scripts only; package source unchanged)
+# CPU: AMD Ryzen 9 3900X 12-Core Processor; julia version 1.13.3; msprime 1.4.5; deps: BnGStructs v0.2.5 Distributions v0.25.130 DataFrames v1.8.2 Random v1.11.0 Statistics v1.11.1
+# $ julia -t 8 --project=. docs/src/validation/scripts/validate-demography.jl 200 2026
+
+==============================================================================
+ FisherWright.jl validation under a changing population size
+ N = 100 for 2000 generations, then
+   bottleneck: 20 for 20 generations, 100 for 20 generations
+   expansion:  400 for 100 generations
+ 10 × 10 Mb, μ = r = 1.0e-8, reps = 200, threads = 8
+ A check fails when |z| &gt; 3.5
+==============================================================================
+
+Simulating 200 FisherWright replicates (one burn-in, two scenarios) ...
+  done in 82.3 s
+
+Effective size of a two-sex cohort (msprime N&#39;): Ne(20) = 19.38, Ne(100) = 99.48, Ne(400) = 399.50
+Simulating 200 msprime DTWF replicates per scenario ...
+  done in 44.7 s
+
+[1/2] Bottleneck: 100 → 20 (20 generations) → 100 (20 generations)
+
+  Diversity
+  Σ2pq vs. recursion         279.1 ± 2.0                 277.9     0.62  pass
+  statistic                    FisherWright       msprime DTWF        z
+  Σ2pq vs. msprime           279.1 ± 2.0        278.7 ± 2.2        0.16  pass
+  S vs. msprime             1789.8 ± 6.1       1787.1 ± 6.3        0.30  pass
+  SFS, whole population (200 haplotypes)
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                      429.4 ± 1.7        426.0 ± 1.7        1.41  pass
+  k = 2                      167.9 ± 1.2        166.8 ± 1.1        0.63  pass
+  k = 3-5                    248.0 ± 1.6        251.9 ± 1.4       -1.83  pass
+  k = 6-20                   308.9 ± 2.1        308.8 ± 2.0        0.03  pass
+  k = 21-199                 635.7 ± 4.7        633.5 ± 5.0        0.31  pass
+  SFS, random sample of 20 haplotypes
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                      280.2 ± 1.9        275.1 ± 1.9        1.86  pass
+  k = 2                      113.0 ± 1.3        113.5 ± 1.3       -0.27  pass
+  k = 3-4                    126.6 ± 1.7        126.0 ± 1.7        0.28  pass
+  k = 5-9                    199.4 ± 2.5        199.3 ± 2.6        0.01  pass
+  k = 10-19                  257.0 ± 2.2        257.6 ± 2.4       -0.18  pass
+  LD decay, pooled σ²_d (MAF ≥ 0.1)
+  distance                     FisherWright       msprime DTWF        z
+  0.01-0.03 Mb              0.7340 ± 0.0036    0.7332 ± 0.0042     0.15  pass
+  0.03-0.1 Mb               0.7020 ± 0.0032    0.7035 ± 0.0030    -0.36  pass
+  0.1-0.3 Mb                0.6200 ± 0.0030    0.6256 ± 0.0032    -1.28  pass
+  0.3-1 Mb                  0.4529 ± 0.0029    0.4606 ± 0.0031    -1.83  pass
+  1-3 Mb                    0.2341 ± 0.0021    0.2414 ± 0.0023    -2.34  pass
+
+[2/2] Expansion: 100 → 400 (100 generations)
+
+  Diversity
+  Σ2pq vs. recursion         537.2 ± 1.7                 537.2     0.03  pass
+  statistic                    FisherWright       msprime DTWF        z
+  Σ2pq vs. msprime           537.2 ± 1.7        536.5 ± 1.7        0.30  pass
+  S vs. msprime             7814.9 ± 8.6       7786.7 ± 8.5        2.34  pass
+  SFS, whole population (800 haplotypes)
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                     1771.0 ± 3.6       1770.1 ± 3.3        0.18  pass
+  k = 2                      743.6 ± 2.7        740.6 ± 2.5        0.81  pass
+  k = 3-5                   1200.3 ± 3.3       1192.5 ± 3.4        1.61  pass
+  k = 6-20                  1808.5 ± 4.2       1795.2 ± 4.6        2.15  pass
+  k = 21-799                2291.5 ± 5.5       2288.3 ± 5.6        0.41  pass
+  SFS, random sample of 20 haplotypes
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                     1088.1 ± 4.2       1084.4 ± 3.6        0.67  pass
+  k = 2                      388.2 ± 2.1        389.9 ± 2.2       -0.58  pass
+  k = 3-4                    325.8 ± 1.9        326.2 ± 1.9       -0.14  pass
+  k = 5-9                    312.4 ± 2.2        313.5 ± 2.1       -0.33  pass
+  k = 10-19                  288.2 ± 1.9        285.1 ± 2.0        1.14  pass
+  LD decay, pooled σ²_d (MAF ≥ 0.1)
+  distance                     FisherWright       msprime DTWF        z
+  0.01-0.03 Mb              0.5305 ± 0.0028    0.5323 ± 0.0029    -0.46  pass
+  0.03-0.1 Mb               0.4670 ± 0.0020    0.4650 ± 0.0020     0.72  pass
+  0.1-0.3 Mb                0.3312 ± 0.0014    0.3338 ± 0.0015    -1.30  pass
+  0.3-1 Mb                  0.1479 ± 0.0007    0.1490 ± 0.0008    -1.10  pass
+  1-3 Mb                    0.0433 ± 0.0002    0.0434 ± 0.0002    -0.29  pass
+
+  Resolution of Σ2pq vs. recursion (change in E[Σ2pq] / SE)
+  bottleneck of 21 instead of 20 generations      -4.4  ( -2.2 SE)
+  bottleneck of 21 instead of 20 individuals       6.0  (  3.0 SE)
+  expansion of 110 instead of 100 generations     13.2  (  7.8 SE)
+  E[Σ2pq] at the end of the burn-in              395.9
+
+==============================================================================
+ All checks passed.
+==============================================================================
+exit status: 0
+</code></pre><h2 id="Results,-200-replicates,-seed-7"><a class="docs-heading-anchor" href="#Results,-200-replicates,-seed-7">Results, 200 replicates, seed 7</a><a id="Results,-200-replicates,-seed-7-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-200-replicates,-seed-7" title="Permalink"></a></h2><pre><code class="language-text hljs"># Date: 2026-11-11T08:59Z  Commit: a21d619 (v0.4.2 + unreleased 0.5.0 work); tree: dirty (validation scripts only; package source unchanged)
+# CPU: AMD Ryzen 9 3900X 12-Core Processor; julia version 1.13.3; msprime 1.4.5; deps: BnGStructs v0.2.5 Distributions v0.25.130 DataFrames v1.8.2 Random v1.11.0 Statistics v1.11.1
+# $ julia -t 8 --project=. docs/src/validation/scripts/validate-demography.jl 200 7
+
+==============================================================================
+ FisherWright.jl validation under a changing population size
+ N = 100 for 2000 generations, then
+   bottleneck: 20 for 20 generations, 100 for 20 generations
+   expansion:  400 for 100 generations
+ 10 × 10 Mb, μ = r = 1.0e-8, reps = 200, threads = 8
+ A check fails when |z| &gt; 3.5
+==============================================================================
+
+Simulating 200 FisherWright replicates (one burn-in, two scenarios) ...
+  done in 81.7 s
+
+Effective size of a two-sex cohort (msprime N&#39;): Ne(20) = 19.38, Ne(100) = 99.48, Ne(400) = 399.50
+Simulating 200 msprime DTWF replicates per scenario ...
+  done in 43.9 s
+
+[1/2] Bottleneck: 100 → 20 (20 generations) → 100 (20 generations)
+
+  Diversity
+  Σ2pq vs. recursion         276.3 ± 1.9                 277.9    -0.81  pass
+  statistic                    FisherWright       msprime DTWF        z
+  Σ2pq vs. msprime           276.3 ± 1.9        281.6 ± 2.1       -1.89  pass
+  S vs. msprime             1774.8 ± 5.5       1791.0 ± 5.9       -2.01  pass
+  SFS, whole population (200 haplotypes)
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                      427.0 ± 1.7        426.4 ± 1.7        0.24  pass
+  k = 2                      167.2 ± 1.2        168.7 ± 1.1       -0.92  pass
+  k = 3-5                    248.6 ± 1.5        250.6 ± 1.4       -1.00  pass
+  k = 6-20                   305.0 ± 2.0        307.0 ± 1.9       -0.74  pass
+  k = 21-199                 627.2 ± 4.5        638.4 ± 4.9       -1.67  pass
+  SFS, random sample of 20 haplotypes
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                      278.5 ± 2.2        278.1 ± 1.7        0.14  pass
+  k = 2                      110.6 ± 1.3        109.8 ± 1.3        0.45  pass
+  k = 3-4                    124.3 ± 1.4        126.0 ± 1.7       -0.79  pass
+  k = 5-9                    198.5 ± 2.4        203.1 ± 2.4       -1.35  pass
+  k = 10-19                  253.9 ± 2.1        258.6 ± 2.3       -1.52  pass
+  LD decay, pooled σ²_d (MAF ≥ 0.1)
+  distance                     FisherWright       msprime DTWF        z
+  0.01-0.03 Mb              0.7450 ± 0.0040    0.7418 ± 0.0037     0.59  pass
+  0.03-0.1 Mb               0.7073 ± 0.0032    0.7084 ± 0.0032    -0.24  pass
+  0.1-0.3 Mb                0.6276 ± 0.0034    0.6253 ± 0.0030     0.52  pass
+  0.3-1 Mb                  0.4615 ± 0.0032    0.4589 ± 0.0028     0.61  pass
+  1-3 Mb                    0.2422 ± 0.0024    0.2408 ± 0.0022     0.44  pass
+
+[2/2] Expansion: 100 → 400 (100 generations)
+
+  Diversity
+  Σ2pq vs. recursion         534.2 ± 1.7                 537.2    -1.72  pass
+  statistic                    FisherWright       msprime DTWF        z
+  Σ2pq vs. msprime           534.2 ± 1.7        535.7 ± 1.9       -0.58  pass
+  S vs. msprime             7795.0 ± 8.5       7791.8 ± 8.5        0.26  pass
+  SFS, whole population (800 haplotypes)
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                     1773.1 ± 3.9       1773.0 ± 3.3        0.02  pass
+  k = 2                      748.3 ± 2.8        738.8 ± 2.7        2.45  pass
+  k = 3-5                   1198.4 ± 3.5       1192.1 ± 3.2        1.32  pass
+  k = 6-20                  1793.1 ± 3.9       1801.4 ± 4.5       -1.39  pass
+  k = 21-799                2282.0 ± 6.0       2286.6 ± 5.9       -0.55  pass
+  SFS, random sample of 20 haplotypes
+  statistic                    FisherWright       msprime DTWF        z
+  k = 1                     1078.5 ± 4.5       1080.0 ± 4.2       -0.25  pass
+  k = 2                      390.3 ± 2.3        386.4 ± 2.1        1.22  pass
+  k = 3-4                    327.6 ± 1.9        330.6 ± 1.9       -1.09  pass
+  k = 5-9                    311.9 ± 1.9        313.9 ± 2.1       -0.70  pass
+  k = 10-19                  283.7 ± 2.0        285.3 ± 2.0       -0.56  pass
+  LD decay, pooled σ²_d (MAF ≥ 0.1)
+  distance                     FisherWright       msprime DTWF        z
+  0.01-0.03 Mb              0.5316 ± 0.0028    0.5324 ± 0.0030    -0.19  pass
+  0.03-0.1 Mb               0.4669 ± 0.0022    0.4674 ± 0.0021    -0.16  pass
+  0.1-0.3 Mb                0.3303 ± 0.0016    0.3345 ± 0.0015    -1.92  pass
+  0.3-1 Mb                  0.1471 ± 0.0008    0.1495 ± 0.0008    -2.14  pass
+  1-3 Mb                    0.0435 ± 0.0003    0.0438 ± 0.0002    -0.79  pass
+
+  Resolution of Σ2pq vs. recursion (change in E[Σ2pq] / SE)
+  bottleneck of 21 instead of 20 generations      -4.4  ( -2.3 SE)
+  bottleneck of 21 instead of 20 individuals       6.0  (  3.1 SE)
+  expansion of 110 instead of 100 generations     13.2  (  7.6 SE)
+  E[Σ2pq] at the end of the burn-in              395.9
+
+==============================================================================
+ All checks passed.
+==============================================================================
+exit status: 0
+</code></pre><h2 id="Reading-the-results-of-both-runs"><a class="docs-heading-anchor" href="#Reading-the-results-of-both-runs">Reading the results of both runs</a><a id="Reading-the-results-of-both-runs-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-the-results-of-both-runs" title="Permalink"></a></h2><ul><li>All 36 checks pass for both seeds; the largest |z| is 2.45 (seed<ol><li>and 2.34 (seed 7), in different statistics.</li></ol></li><li><strong>Σ2pq.</strong> The bottleneck leaves 277.9 of the 395.9 at equilibrium, and the expansion raises it to 537.2; FisherWright is within 1.7 SE of both in both runs.</li><li><strong>LD.</strong> The bottleneck raises <span>$\sigma^2_d$</span> in every bin (0.24 against 0.14 at 1–3 Mb at constant size) and the expansion lowers it (0.043); both simulators agree in all bins.</li><li><strong>Resolution.</strong> The standard error of Σ2pq is about 0.7% for the bottleneck and 0.3% for the expansion. The last lines of each run give what that resolves: ten more generations of expansion are 7.7 SE away, but one more generation of bottleneck, or 21 instead of 20 individuals, only 2 to 3 SE. An error of one generation in the bottleneck would therefore not be caught reliably here; the CI test &quot;Heterozygosity through a bottleneck and an expansion&quot; is the check aimed at that, and separates parents from offspring by more than 12 SE.</li><li>Not covered: growth that changes every generation (<code>growth</code>), fixed sex ratios combined with a changing size (the CI test of heterozygosity decay covers Σ2pq only), and sizes below 20.</li></ul><p>The driver is <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-demography.jl"><code>validate-demography.jl</code></a>; it reuses the statistics of <code>validate-popgen-theory.jl</code> and calls <code>validate-popgen-msprime.py</code> with <code>--epochs</code>, both shown under <a href="../validation/#Driver-scripts">Driver scripts</a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../validation/">« Population genetics validation</a><a class="docs-footer-nextpage" href="../validation-selection/">Validation: selection »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Thursday 12 November 2026 16:18">Thursday 12 November 2026</span>. Using Julia version 1.13.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
