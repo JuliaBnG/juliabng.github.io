@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Validation: selection · FisherWright.jl</title><meta name="title" content="Validation: selection · FisherWright.jl"/><meta property="og:title" content="Validation: selection · FisherWright.jl"/><meta property="twitter:title" content="Validation: selection · FisherWright.jl"/><meta name="description" content="Documentation for FisherWright.jl."/><meta property="og:description" content="Documentation for FisherWright.jl."/><meta property="twitter:description" content="Documentation for FisherWright.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/juliabng/juliabng-sepia.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-sepia"/><link href="../../assets/juliabng/juliabng-black.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-black"/><script src="../../assets/juliabng/themes.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">FisherWright.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../simulation/">Simulation</a></li><li><a class="tocitem" href="../results/">Results and export</a></li><li><a class="tocitem" href="../utilities/">Utilities</a></li><li><a class="tocitem" href="../validation/">Population genetics validation</a></li><li><a class="tocitem" href="../validation-demography/">Validation: changing population size</a></li><li class="is-active"><a class="tocitem" href>Validation: selection</a><ul class="internal"><li><a class="tocitem" href="#Model"><span>Model</span></a></li><li><a class="tocitem" href="#Reference"><span>Reference</span></a></li><li><a class="tocitem" href="#Engine-against-the-reference"><span>Engine against the reference</span></a></li><li><a class="tocitem" href="#Recurrent-mutation-at-many-sites"><span>Recurrent mutation at many sites</span></a></li><li><a class="tocitem" href="#Weak-selection-at-large-N:-Poisson-random-field"><span>Weak selection at large N: Poisson random field</span></a></li><li><a class="tocitem" href="#Selection-on-a-trait"><span>Selection on a trait</span></a></li><li><a class="tocitem" href="#Stabilizing-selection:-matched-SLiM-model"><span>Stabilizing selection: matched SLiM model</span></a></li><li><a class="tocitem" href="#Drift-under-FamilySize-with-selection:-the-pedigree"><span>Drift under <code>FamilySize</code> with selection: the pedigree</span></a></li><li><a class="tocitem" href="#CI-test"><span>CI test</span></a></li><li><a class="tocitem" href="#Not-covered"><span>Not covered</span></a></li><li><a class="tocitem" href="#Scripts"><span>Scripts</span></a></li></ul></li><li><a class="tocitem" href="../validation-mating/">Validation: mating schemes</a></li><li><a class="tocitem" href="../validation-linked/">Validation: linked selection</a></li></ul></li><li><a class="tocitem" href="../../api/">API reference</a></li><li><a class="tocitem" href="../../api-models/">API reference: population models</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Manual</a></li><li class="is-active"><a href>Validation: selection</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Validation: selection</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/manual/validation-selection.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Validation-of-selection"><a class="docs-heading-anchor" href="#Validation-of-selection">Validation of selection</a><a id="Validation-of-selection-1"></a><a class="docs-heading-anchor-permalink" href="#Validation-of-selection" title="Permalink"></a></h1><p>Selection in <code>fisher_wright</code> (<code>fitness = SiteFitness(loci)</code>) is checked by the fixation probability of one new copy of a selected allele, which depends on every part of the mechanism: the fitness of each genotype, the draw of parents in proportion to fitness, and the transmission of the selected allele through meiosis.</p><h2 id="Model"><a class="docs-heading-anchor" href="#Model">Model</a><a id="Model-1"></a><a class="docs-heading-anchor-permalink" href="#Model" title="Permalink"></a></h2><ul><li><span>$N$</span> diploid individuals, discrete non-overlapping generations, two sexes. Sex is Binomial(<span>$N$</span>, ½) per generation, conditioned on both sexes being present, or exactly <span>$N/2$</span> males where stated.</li><li>One selected site; a genotype has fitness <span>$1$</span>, <span>$1 + hs$</span> or <span>$1 + s$</span> with zero, one or two copies of the derived allele.</li><li>Soft selection within each sex: every offspring draws its sire among the males and its dam among the females with probability proportional to fitness, with replacement.</li><li>A replicate starts from one copy on a random haplotype of a population without other variation, has no further mutation, and runs to loss or fixation of the allele.</li></ul><h2 id="Reference"><a class="docs-heading-anchor" href="#Reference">Reference</a><a id="Reference-1"></a><a class="docs-heading-anchor-permalink" href="#Reference" title="Permalink"></a></h2><p>Kimura&#39;s diffusion formula and the exact Markov chain of an ideal Wright–Fisher population describe a single pool of <span>$2N$</span> genes. The two-sex model differs from that by terms of order <span>$1/N$</span>:</p><ul><li>the binomial sex ratio lowers the variance effective size to about <span>$4N_mN_f/N$</span>, and the probability of fixation of a favoured allele is proportional to <span>$N_e/N$</span>;</li><li>a rare allele competes only within the sex of its carrier, where its frequency is twice its frequency in the population, so its advantage over the mean of its competitors is reduced by about <span>$s/(2N)$</span> more than in a single pool.</li></ul><p>The reference for the implementation is therefore an independent simulation of the same model, <code>fixation-reference.jl</code>. It follows one locus as genotype counts and shares no code with the package: sex by coin flips, parents by rejection sampling on fitness, one Bernoulli draw per transmitted gene. The ideal Wright–Fisher value (<code>wf_exact</code>, the exact chain for <span>$2N$</span> genes) is printed beside it.</p><pre><code class="language-text hljs"># Date: 2026-11-11T16:14Z  Script: docs/src/validation/scripts/fixation-reference.jl at 9258478 + uncommitted (independent of the package)
+# CPU: AMD Ryzen 9 5950X 16-Core Processor; julia version 1.13.3; Distributions v0.25.134
+# $ julia -t 16 fixation-reference.jl 2000000 2026   (run alongside validate-selection.jl; timing not meaningful)
+
+==============================================================================
+ Fixation probability of one new copy: naive two-sex reference
+ reps = 2000000 per case, seed = 2026, threads = 16
+==============================================================================
+
+[1/2] Reference values for the CI test (binomial sex)
+     N       s     h            u         SE     ideal WF
+    30   0.200  0.50     0.160166   0.000259     0.174194
+    30   0.200  0.00     0.055675   0.000162     0.064011
+    30   0.200  1.00     0.278524   0.000317     0.295523
+    30   0.000  0.50     0.016693   0.000091     0.016667
+    30  -0.100  0.50     0.000309   0.000012     0.000205
+
+[2/2] The two-sex model against the ideal Wright-Fisher population, 2Ns = 10, h = 1/2
+      N       s     Kimura   ideal WF    two sexes, binomial   two sexes, N/2 males
+     50   0.100    0.09517    0.09309      0.08842 ± 0.00020      0.09082 ± 0.00020
+    500   0.010    0.00995    0.00993      0.00969 ± 0.00022      0.00979 ± 0.00022
+==============================================================================
+</code></pre><ul><li>At <span>$N = 30$</span> and <span>$s = 0.2$</span> the two-sex model is 8% below the ideal Wright–Fisher value for <span>$h = ½$</span>, 13% for a recessive and 6% for a dominant allele. A neutral allele fixes with probability <span>$1/(2N) = 0.01667$</span>, as it must (0.01669 ± 0.00009).</li><li>A deleterious allele (<span>$s = -0.1$</span>) fixes more often than in the ideal population, 0.00031 against 0.00021: selection is weaker in both directions.</li><li>With <span>$2Ns = 10$</span> the deficit is 5.0% at <span>$N = 50$</span> and 2.4% with exactly <span>$N/2$</span> males, so about half of it is the binomial sex ratio. At <span>$N = 500$</span> both are within 2.4% of the ideal value and within 1.1 standard errors of it: the difference vanishes as <span>$N$</span> grows.</li></ul><h2 id="Engine-against-the-reference"><a class="docs-heading-anchor" href="#Engine-against-the-reference">Engine against the reference</a><a id="Engine-against-the-reference-1"></a><a class="docs-heading-anchor-permalink" href="#Engine-against-the-reference" title="Permalink"></a></h2><p><code>validate-selection.jl</code> runs the same cases with the package&#39;s engine and compares each with the naive reference by a z-score of the difference of two proportions; a check fails when |z| &gt; 3.5.</p><pre><code class="language-text hljs"># Date: 2026-11-11T17:40Z  Commit: 9258478 (v0.5.0) + uncommitted selection code (src/fitness.jl and the changes of this pull request)
+# CPU: AMD Ryzen 9 5950X 16-Core Processor; julia version 1.13.3; deps: BnGStructs v0.2.7 DataFrames v1.8.3 Distributions v0.25.134
+# $ julia -t 8 --project=. docs/src/validation/scripts/validate-selection.jl 200000 2000000 2026
+
+======================================================================================
+ FisherWright.jl validation of selection: fixation probability of one new copy
+ engine reps = 200000, naive reference reps = 2000000, seed = 2026, threads = 8
+ A check fails when |z| &gt; 3.5
+======================================================================================
+     N      s     h sexes                    engine       naive reference       z         ideal WF
+    30   0.20  0.50 binomial     0.15929 ± 0.00082     0.15998 ± 0.00026    -0.80  pass    0.17419
+    30   0.20  0.00 binomial     0.05552 ± 0.00051     0.05536 ± 0.00016     0.29  pass    0.06401
+    30   0.20  1.00 binomial     0.27847 ± 0.00100     0.27876 ± 0.00032    -0.27  pass    0.29552
+    30   0.00  0.50 binomial     0.01615 ± 0.00029     0.01665 ± 0.00009    -1.64  pass    0.01667
+    30  -0.10  0.50 binomial     0.00034 ± 0.00004     0.00034 ± 0.00001    -0.09  pass    0.00021
+    50   0.10  0.50 binomial     0.08830 ± 0.00063     0.08839 ± 0.00020    -0.13  pass    0.09309
+    50   0.10  0.50 N/2 males    0.09091 ± 0.00064     0.09058 ± 0.00020     0.49  pass    0.09309
+    50   0.02  0.50 binomial     0.02194 ± 0.00033     0.02194 ± 0.00010     0.01  pass    0.02279
+======================================================================================
+ All checks passed.
+======================================================================================
+exit status: 0
+</code></pre><p>All eight cases pass, with |z| ≤ 1.64, at 200,000 engine replicates and 2,000,000 reference replicates per case. The standard error of the engine is 0.5% of the value for <span>$s = 0.2$</span> and 0.7% for <span>$2Ns = 10$</span>, so the 5 to 13% between the two-sex model and the ideal population are resolved many times over: the engine agrees with the two-sex reference and not with the ideal Wright–Fisher column. The reference values of this run differ from those of the first table by sampling error only; the two runs use different seeds.</p><h2 id="Recurrent-mutation-at-many-sites"><a class="docs-heading-anchor" href="#Recurrent-mutation-at-many-sites">Recurrent mutation at many sites</a><a id="Recurrent-mutation-at-many-sites-1"></a><a class="docs-heading-anchor-permalink" href="#Recurrent-mutation-at-many-sites" title="Permalink"></a></h2><p>The fixation probability checks one new allele at one site. <code>validate-selection-balance.jl</code> checks the full multi-site path of <code>fisher_wright</code>: mutation at the fitness loci, selection on the product of fitness over sites, and the extraction of selected substitutions.</p><p><strong>Design.</strong> <span>$N = 30$</span>, <span>$K$</span> selected sites, each on its own chromosome of 100 bp, so that the sites recombine freely and the neutral process is switched off. The population starts without variation and runs for <span>$T = 300$</span> generations (<span>$10N$</span>); at the end, each site is classified by its derived-allele count, with substituted sites in the class &quot;fixed&quot;. The reference is a naive simulation of one site of the same model (the mutation probability per gene and generation, <span>$1 - e^{-\mu}$</span>, follows from the engine&#39;s Poisson hits). Sites in one population share its pedigree, so the unit of replication of the engine is the run; standard errors are taken over runs.</p><table><tr><th style="text-align: right">Case</th><th style="text-align: right"><span>$K$</span></th><th style="text-align: right"><span>$s$</span></th><th style="text-align: right"><span>$h$</span></th><th style="text-align: right"><span>$\mu$</span></th><th style="text-align: right">What it covers</th></tr><tr><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">−0.1</td><td style="text-align: right">0.5</td><td style="text-align: right">0.002</td><td style="text-align: right">mutation–selection–drift balance, additive</td></tr><tr><td style="text-align: right">2</td><td style="text-align: right">10</td><td style="text-align: right">−0.1</td><td style="text-align: right">0.1</td><td style="text-align: right">0.001</td><td style="text-align: right">nearly recessive deleterious alleles</td></tr><tr><td style="text-align: right">3</td><td style="text-align: right">50</td><td style="text-align: right">0</td><td style="text-align: right"></td><td style="text-align: right">0.002</td><td style="text-align: right">neutral sites: drift and neutral substitutions</td></tr><tr><td style="text-align: right">4</td><td style="text-align: right">20</td><td style="text-align: right">0.05</td><td style="text-align: right">0.5</td><td style="text-align: right">0.0005</td><td style="text-align: right">beneficial alleles: sweeps and substitutions</td></tr><tr><td style="text-align: right">5</td><td style="text-align: right">50</td><td style="text-align: right">−0.1</td><td style="text-align: right">0.5</td><td style="text-align: right">0.002</td><td style="text-align: right">as 1 with more sites: interference (not checked)</td></tr></table><p>The reference omits the other <span>$K - 1$</span> sites. Selection at unlinked sites adds variance in offspring number and lowers the effective size at each site (Robertson 1961), by a factor of about <span>$1/(1 + 4C^2)$</span>, <span>$C^2$</span> the variance of relative fitness (Santiago and Caballero 1995). The checked cases keep <span>$C^2$</span> at 0.002 or less, where the effect is below 1% and below the resolution. Case 5 is case 1 with 50 sites, <span>$C^2 = 0.010$</span>, and is reported but not checked; it is compared with the reference at <span>$N$</span> and at <span>$N - 1$</span>.</p><pre><code class="language-text hljs"># Date: 2026-11-12T08:07Z  Commit: 5a9a57b (main after PR #27; package source unchanged on this branch)
+# CPU: AMD Ryzen Threadripper 3970X 32-Core Processor (shared with other jobs); julia version 1.13.3; deps: BnGStructs v0.2.7 DataFrames v1.8.3 Distributions v0.25.134
+# $ julia -t 32 --project=. docs/src/validation/scripts/validate-selection-balance.jl 4000 400000 2026
+
+========================================================================================
+ FisherWright.jl validation of selection under recurrent mutation
+ derived-allele count per selected site after T generations; engine runs = 4000,
+ naive reference reps = 400000, seed = 2026, threads = 32
+ A check fails when |z| &gt; 3.5
+========================================================================================
+
+[1/5] N = 30, K = 10 sites, s = -0.1, h = 0.5, μ = 0.002, T = 300, 20000 runs  (409 s)
+  count                     engine       naive reference        z
+  0             0.50316 ± 0.00113     0.50406 ± 0.00079     -0.65  pass
+  1             0.13108 ± 0.00076     0.13020 ± 0.00053      0.95  pass
+  2-3           0.11532 ± 0.00071     0.11572 ± 0.00051     -0.46  pass
+  4-9           0.13410 ± 0.00076     0.13503 ± 0.00054     -0.99  pass
+  10-59         0.10333 ± 0.00068     0.10229 ± 0.00048      1.24  pass
+  fixed         0.01301 ± 0.00025     0.01270 ± 0.00018      1.01  pass
+  mean q        0.06568 ± 0.00034     0.06502 ± 0.00024      1.57  pass
+  for comparison: var(log w) of the parents 0.0020; μ/(h|s|) = 0.0400; mean fitness 0.9363 against exp(-2Kμ) = 0.9608
+
+[2/5] N = 30, K = 10 sites, s = -0.1, h = 0.1, μ = 0.001, T = 300, 20000 runs  (414 s)
+  count                     engine       naive reference        z
+  0             0.63444 ± 0.00108     0.63441 ± 0.00076      0.02  pass
+  1             0.08498 ± 0.00063     0.08504 ± 0.00044     -0.08  pass
+  2-3           0.07096 ± 0.00058     0.07131 ± 0.00041     -0.51  pass
+  4-9           0.09498 ± 0.00065     0.09477 ± 0.00046      0.27  pass
+  10-59         0.10709 ± 0.00070     0.10687 ± 0.00049      0.25  pass
+  fixed         0.00756 ± 0.00019     0.00759 ± 0.00014     -0.16  pass
+  mean q        0.05676 ± 0.00032     0.05668 ± 0.00022      0.20  pass
+  for comparison: var(log w) of the parents 0.0011; μ/(h|s|) = 0.1000; mean fitness 0.9716 against exp(-2Kμ) = 0.9802
+
+[3/5] N = 30, K = 50 sites, s = 0, h = 0.5, μ = 0.002, T = 300, 4000 runs  (224 s)
+  count                     engine       naive reference        z
+  0             0.22985 ± 0.00094     0.22865 ± 0.00066      1.05  pass
+  1             0.06180 ± 0.00054     0.06094 ± 0.00038      1.30  pass
+  2-3           0.05885 ± 0.00053     0.05985 ± 0.00038     -1.56  pass
+  4-9           0.09048 ± 0.00064     0.09102 ± 0.00045     -0.69  pass
+  10-59         0.23313 ± 0.00095     0.23359 ± 0.00067     -0.39  pass
+  fixed         0.32588 ± 0.00106     0.32594 ± 0.00074     -0.05  pass
+  mean q        0.45072 ± 0.00099     0.45082 ± 0.00069     -0.08  pass
+  for comparison: var(log w) of the parents 0.0000
+
+[4/5] N = 30, K = 20 sites, s = 0.05, h = 0.5, μ = 0.0005, T = 300, 10016 runs  (293 s)
+  count                     engine       naive reference        z
+  0             0.54169 ± 0.00111     0.54117 ± 0.00079      0.38  pass
+  1             0.03577 ± 0.00042     0.03570 ± 0.00029      0.14  pass
+  2-3           0.02845 ± 0.00037     0.02814 ± 0.00026      0.67  pass
+  4-9           0.03891 ± 0.00043     0.03919 ± 0.00031     -0.53  pass
+  10-59         0.11523 ± 0.00071     0.11561 ± 0.00051     -0.44  pass
+  fixed         0.23996 ± 0.00096     0.24019 ± 0.00068     -0.20  pass
+  mean q        0.30613 ± 0.00096     0.30659 ± 0.00068     -0.39  pass
+  for comparison: var(log w) of the parents 0.0006
+
+[5/5] N = 30, K = 50 sites, s = -0.1, h = 0.5, μ = 0.002, T = 300, 4000 runs  (233 s)  -- not checked
+  count                     engine       naive reference        z
+  0             0.50304 ± 0.00114     0.50277 ± 0.00079      0.19  (not checked)
+  1             0.13056 ± 0.00075     0.13074 ± 0.00053     -0.20  (not checked)
+  2-3           0.11367 ± 0.00071     0.11622 ± 0.00051     -2.91  (not checked)
+  4-9           0.13327 ± 0.00078     0.13486 ± 0.00054     -1.67  (not checked)
+  10-59         0.10518 ± 0.00069     0.10271 ± 0.00048      2.93  (not checked)
+  fixed         0.01428 ± 0.00026     0.01269 ± 0.00018      4.99  (not checked)
+  mean q        0.06768 ± 0.00035     0.06517 ± 0.00024      5.92  (not checked)
+  for comparison: var(log w) of the parents 0.0103; μ/(h|s|) = 0.0400; mean fitness 0.7124 against exp(-2Kμ) = 0.8187
+  predicted Ne/N = 1/(1 + 4C²) = 0.960; reference at N = 29: mean q 0.06781 ± 0.00025, fixed 0.01493 ± 0.00019
+  engine against the reference at N: mean q +3.9%, fixed +12.5%
+
+========================================================================================
+ All checks passed.
+========================================================================================
+exit status: 0
+started 2026-11-12T08:07Z, finished 2026-11-12T08:36Z
+</code></pre><ul><li>All 28 checked comparisons pass, with |z| ≤ 1.57, at about 200,000 engine sites and 400,000 reference replicates per case. The standard error of the mean derived frequency is 0.5% of its value for the deleterious cases.</li><li>The neutral case also checks neutral substitutions: 32.6% of sites are fixed after 300 generations in both. In the beneficial case 24.0% are fixed, and the sites still segregating match class by class.</li><li>Case 5 shows the interference between sites. With 50 sites, the mean derived frequency is 3.9% above the single-site reference (z = 5.9) and deleterious fixations are 12.5% more frequent. The predicted loss of effective size is <span>$1/(1 + 4 \cdot 0.0103) = 0.960$</span>, and the engine agrees with the reference at <span>$N = 29$</span> (mean frequency 0.0677 against 0.0678). This is a property of the model, not of the implementation: in runs with many selected sites, the effective size at each site is below that of a neutral population.</li><li>The deterministic values are not reached at this population size (<span>$4Nh|s| = 6$</span> and <span>$1.2$</span>): drift raises the frequency of deleterious alleles above <span>$\mu/(h|s|)$</span> (0.065 against 0.040 for case 1) and lowers the mean fitness below <span>$e^{-2K\mu}$</span> (0.936 against 0.961).</li></ul><h2 id="Weak-selection-at-large-N:-Poisson-random-field"><a class="docs-heading-anchor" href="#Weak-selection-at-large-N:-Poisson-random-field">Weak selection at large N: Poisson random field</a><a id="Weak-selection-at-large-N:-Poisson-random-field-1"></a><a class="docs-heading-anchor-permalink" href="#Weak-selection-at-large-N:-Poisson-random-field" title="Permalink"></a></h2><p>The checks above compare the engine with exact simulations of the same model at <span>$N = 30$</span>. <code>validate-prf.jl</code> compares it with diffusion theory at large <span>$N$</span> and weak selection: the stationary site frequency spectrum of the Poisson random field (Sawyer and Hartl 1992).</p><p><strong>Design.</strong> <span>$N = 1{,}000$</span> (binomial sex, <span>$N_e = 1/a + ½ = 999.5$</span>), run for <span>$T = 20N$</span> generations from a population without variation, so that <span>$e^{-10}$</span> of the slowest neutral mode is left. There are <span>$K = 500{,}000$</span> selected sites, evenly spaced on 20 chromosomes of 1 Morgan, in five interleaved classes of 100,000 sites with <span>$\alpha = 2N_e s \in \{-10, -2, 0, 2, 10\}$</span> and <span>$h = ½$</span>. Mutation is <span>$4N\mu = 10^{-4}$</span> per site, and neutral mutation is off.</p><p><strong>Infinite sites.</strong> The fitness loci are finite: a fixed site stays fixed, and a hit on a carried site has no effect. The low per-site rate keeps recurrent hits at about <span>$10^{-4}$</span> of the spectrum. At most 0.44% of the sites fix (<span>$\alpha = 10$</span>), so the influx is that of the sites not fixed at the end, <span>$K_a$</span>, to well under 0.1% over the lifetime of the variants seen. About 400 sites segregate at a time, so interference between them is negligible.</p><p><strong>Statistic and reference.</strong> For each run and class, the expected spectrum <span>$\xi_i$</span> of a sample of <span>$n = 20$</span> genes, drawn without replacement from the <span>$2N$</span>, is computed exactly (hypergeometric) from the derived-allele counts. It is divided by <span>$K_a$</span> and by <span>$\theta = 4N_e\mu$</span>, and summed over bins of <span>$i$</span>. The reference is</p><p class="math-container">\[\frac{\xi_i}{\theta} = \int_0^1 \binom{n}{i} x^i (1 - x)^{n-i}
+\frac{1 - e^{-\alpha(1-x)}}{(1 - e^{-\alpha})\,x(1 - x)}\,dx,\]</p><p>with <span>$1/i$</span> for <span>$\alpha = 0$</span>. This is the diffusion limit for genic selection, <span>$\Delta x = (s/2)x(1 - x)$</span>, with drift variance <span>$x(1 - x)/(2N_e)$</span>. Its error at <span>$N = 1{,}000$</span> is of order <span>$1/N$</span>. The unit of replication is the run: 1,000 runs per seed, standard errors over runs, and failure at <span>$|z| &gt; 3.5$</span>.</p><p><strong>Results, seed 2026</strong> (64 threads, 2 hours):</p><pre><code class="language-text hljs">FisherWright 0.8.0, Julia 1.13.4, threads 64
+N = 1000 (Ne = 999.50), 20000 generations, 500000 sites on 20 × 100 Mb (1 Morgan each), 4Nμ = 0.0001 per site
+h = 1/2, α = 2Ne·s ∈ [-10.0, -2.0, 0.0, 2.0, 10.0]; sample of 20 genes; 1000 runs, seed 2026
+ξ_i/θ per available site, summed over the bins of i; reference: Poisson random field
+
+α        i                FisherWright        PRF    ratio       z
+-10      1             0.7036 ± 0.0041     0.6978   1.0082    1.40
+-10      2             0.2451 ± 0.0021     0.2427   1.0098    1.13
+-10      3-4           0.1709 ± 0.0021     0.1704   1.0026    0.22
+-10      5-9           0.0708 ± 0.0016     0.0717   0.9880   -0.52
+-10      10-19         0.0065 ± 0.0005     0.0063   1.0280    0.33
+-10      all           1.1969 ± 0.0080     1.1890   1.0066    0.99
+-10      fixed in 20000 generations: 0.0000% of the sites
+-2       1             0.9457 ± 0.0049     0.9415   1.0045    0.86
+-2       2             0.4438 ± 0.0030     0.4434   1.0009    0.14
+-2       3-4           0.4742 ± 0.0038     0.4755   0.9974   -0.33
+-2       5-9           0.4994 ± 0.0050     0.5037   0.9916   -0.85
+-2       10-19         0.3355 ± 0.0050     0.3285   1.0214    1.40
+-2       all           2.6987 ± 0.0142     2.6926   1.0023    0.43
+-2       fixed in 20000 generations: 0.0129% of the sites
+0        1             0.9921 ± 0.0052     1.0000   0.9921   -1.52
+0        2             0.4946 ± 0.0031     0.5000   0.9892   -1.72
+0        3-4           0.5797 ± 0.0043     0.5833   0.9938   -0.83
+0        5-9           0.7446 ± 0.0064     0.7456   0.9987   -0.16
+0        10-19         0.7284 ± 0.0076     0.7188   1.0134    1.27
+0        all           3.5395 ± 0.0172     3.5477   0.9977   -0.48
+0        fixed in 20000 generations: 0.0402% of the sites
+2        1             1.0314 ± 0.0052     1.0344   0.9970   -0.59
+2        2             0.5329 ± 0.0032     0.5353   0.9954   -0.78
+2        3-4           0.6550 ± 0.0044     0.6569   0.9971   -0.44
+2        5-9           0.9486 ± 0.0073     0.9484   1.0002    0.02
+2        10-19         1.2221 ± 0.0099     1.2278   0.9953   -0.58
+2        all           4.3898 ± 0.0187     4.4029   0.9970   -0.70
+2        fixed in 20000 generations: 0.0934% of the sites
+10       1             1.0478 ± 0.0052     1.0526   0.9955   -0.93
+10       2             0.5523 ± 0.0033     0.5555   0.9942   -0.98
+10       3-4           0.7006 ± 0.0047     0.7044   0.9946   -0.81
+10       5-9           1.1293 ± 0.0080     1.1313   0.9982   -0.25
+10       10-19         2.4543 ± 0.0144     2.4627   0.9966   -0.58
+10       all           5.8842 ± 0.0221     5.9065   0.9962   -1.00
+10       fixed in 20000 generations: 0.4404% of the sites
+</code></pre><p><strong>Results, seed 7</strong> (32 threads, 3 hours):</p><pre><code class="language-text hljs">FisherWright 0.8.0, Julia 1.13.4, threads 32
+N = 1000 (Ne = 999.50), 20000 generations, 500000 sites on 20 × 100 Mb (1 Morgan each), 4Nμ = 0.0001 per site
+h = 1/2, α = 2Ne·s ∈ [-10.0, -2.0, 0.0, 2.0, 10.0]; sample of 20 genes; 1000 runs, seed 7
+ξ_i/θ per available site, summed over the bins of i; reference: Poisson random field
+
+α        i                FisherWright        PRF    ratio       z
+-10      1             0.6950 ± 0.0042     0.6978   0.9959   -0.69
+-10      2             0.2407 ± 0.0021     0.2427   0.9916   -0.96
+-10      3-4           0.1695 ± 0.0022     0.1704   0.9947   -0.42
+-10      5-9           0.0717 ± 0.0017     0.0717   1.0004    0.02
+-10      10-19         0.0067 ± 0.0006     0.0063   1.0602    0.65
+-10      all           1.1836 ± 0.0083     1.1890   0.9955   -0.65
+-10      fixed in 20000 generations: 0.0000% of the sites
+-2       1             0.9390 ± 0.0049     0.9415   0.9974   -0.51
+-2       2             0.4409 ± 0.0029     0.4434   0.9945   -0.84
+-2       3-4           0.4714 ± 0.0037     0.4755   0.9914   -1.10
+-2       5-9           0.4995 ± 0.0051     0.5037   0.9916   -0.84
+-2       10-19         0.3317 ± 0.0049     0.3285   1.0098    0.66
+-2       all           2.6825 ± 0.0137     2.6926   0.9963   -0.74
+-2       fixed in 20000 generations: 0.0127% of the sites
+0        1             1.0002 ± 0.0051     1.0000   1.0002    0.03
+0        2             0.4985 ± 0.0031     0.5000   0.9970   -0.47
+0        3-4           0.5791 ± 0.0043     0.5833   0.9928   -0.99
+0        5-9           0.7386 ± 0.0062     0.7456   0.9906   -1.13
+0        10-19         0.7113 ± 0.0075     0.7188   0.9896   -1.00
+0        all           3.5277 ± 0.0172     3.5477   0.9944   -1.16
+0        fixed in 20000 generations: 0.0403% of the sites
+2        1             1.0365 ± 0.0053     1.0344   1.0020    0.39
+2        2             0.5364 ± 0.0033     0.5353   1.0019    0.31
+2        3-4           0.6588 ± 0.0045     0.6569   1.0029    0.42
+2        5-9           0.9487 ± 0.0072     0.9484   1.0004    0.05
+2        10-19         1.2242 ± 0.0098     1.2278   0.9971   -0.36
+2        all           4.4047 ± 0.0196     4.4029   1.0004    0.09
+2        fixed in 20000 generations: 0.0933% of the sites
+10       1             1.0479 ± 0.0053     1.0526   0.9955   -0.89
+10       2             0.5525 ± 0.0034     0.5555   0.9947   -0.87
+10       3-4           0.6988 ± 0.0046     0.7044   0.9921   -1.22
+10       5-9           1.1234 ± 0.0074     1.1313   0.9930   -1.06
+10       10-19         2.4829 ± 0.0147     2.4627   1.0082    1.37
+10       all           5.9056 ± 0.0222     5.9065   0.9998   -0.04
+10       fixed in 20000 generations: 0.4411% of the sites
+</code></pre><ul><li>All 60 bins pass, with <span>$|z| \le 1.72$</span>. The total <span>$\sum_i \xi_i/\theta$</span> is within 0.7% of the PRF in every class and seed, at a standard error of 0.4% to 0.7%. Pooled over the two seeds and five classes, the totals are 0.14% below the PRF, at <span>$z \approx -1.0$</span>. This is within the <span>$1/N$</span> error expected of the diffusion.</li><li>The classes are far apart: the total is 1.19, 2.69, 3.55, 4.40 and 5.91 for <span>$\alpha$</span> from −10 to 10. Near <span>$\alpha = 2$</span>, the total changes by about 0.43 per unit of <span>$\alpha$</span>. So an error of 10% in the effective strength of selection would shift it by 2%, about four standard errors in one seed.</li><li>The shape is resolved as well. Beneficial alleles shift the spectrum to high frequencies (bin 10–19: 2.46 against 0.72 neutral), and deleterious alleles to singletons (0.70 of a total of 1.19 at <span>$\alpha = -10$</span>). Every bin matches within its standard error; the largest relative departure, 6% (<span>$z = 0.65$</span>), is in the sparse bin 10–19 at <span>$\alpha = -10$</span>.</li><li>Selection within each sex at <span>$N_e = 999.5$</span>, with <span>$s = \alpha/(2N_e)$</span>, therefore behaves as genic selection in the diffusion limit. The deviations of order <span>$1/N$</span> from the ideal Wright–Fisher model that the fixation check shows at small <span>$N$</span> are below the resolution here.</li></ul><h2 id="Selection-on-a-trait"><a class="docs-heading-anchor" href="#Selection-on-a-trait">Selection on a trait</a><a id="Selection-on-a-trait-1"></a><a class="docs-heading-anchor-permalink" href="#Selection-on-a-trait" title="Permalink"></a></h2><p><code>validate-trait.jl</code> checks <code>TraitFitness</code> against quantitative-genetic theory. The mechanism itself, that one generation of selection moves the mean genotypic value by exactly the fitness-weighted mean of the parents within each sex, is tested exactly in CI (&quot;Selection on a trait&quot;).</p><p><strong>Neutral genetic variance.</strong> <span>$K = 20{,}000$</span> additive loci (<span>$h = ½$</span>, so the allele substitution effect is <span>$\alpha = a/2$</span>) with effects <span>$a \sim N(0, 0.2^2)$</span> drawn anew for every replicate, mutation <span>$\mu = 10^{-5}$</span> per site (<span>$U = K\mu = 0.2$</span> per haplotype and generation), constant fitness, a population without variation at the start. For allele indicators, the sample variance of the dosage among the <span>$N$</span> individuals has expectation <span>$2H_B - H_W$</span>; with independent effects of zero mean the loci add, so</p><p class="math-container">\[E[\operatorname{var} G] = E[\alpha^2]\,(2H_B - H_W),\]</p><p>with <span>$H_B$</span> and <span>$H_W$</span> from the two-sex recursion with <span>$2U$</span> new alleles per pair of genes (infinite sites). The expectation is exact at every generation, not only at equilibrium, where it is <span>$2N_eV_m$</span> with <span>$N_e = 1/a$</span> and <span>$V_m = 2UE[\alpha^2]$</span> (Lynch and Hill 1986). With <span>$\sigma_e &gt; 0$</span>, also <span>$E[\operatorname{var} P] = E[\operatorname{var} G] + \sigma_e^2$</span>.</p><p><strong>Directional response, for comparison.</strong> With fitness <span>$e^{\beta P}$</span> and Gaussian <span>$G$</span> and <span>$P$</span>, the fitness-weighted mean of <span>$G$</span> is shifted by <span>$\beta V_G$</span> and its variance is unchanged (no Bulmer effect), so the response per generation is about <span>$\beta V_G$</span>. In a finite population the weighted mean over <span>$n$</span> parents of a sex is a ratio estimator, with a first-order bias of <span>$-\beta V_G e^{\beta^2 V_P}/n$</span>.</p><pre><code class="language-text hljs"># Date: 2026-11-12T14:45Z  Commit: e2deb3a (main; package source unchanged on this branch)
+# CPU: AMD Ryzen 9 3900X 12-Core Processor; julia version 1.13.3; deps: BnGStructs v0.2.7 DataFrames v1.8.3 Distributions v0.25.134
+# $ julia -t 8 --project=. docs/src/validation/scripts/validate-trait.jl 1000 2026
+
+================================================================================
+ FisherWright.jl validation of selection on a trait
+ K = 20000 additive loci, a ~ Normal(0, 0.2²), μ = 1.0e-5, reps = 1000, seed = 2026,
+ threads = 8. A check fails when |z| &gt; 3.5
+================================================================================
+
+[1/2] Neutral genetic variance against its exact expectation
+
+  N = 20, T = 200, σe = 0  (11 s); equilibrium 2NeVm = 0.1510 with Ne = 1/a = 18.87
+  generation              mean var G   expected        z
+  2               0.00401 ± 0.00008     0.00400     0.07  pass
+  5               0.01538 ± 0.00028     0.01508     1.06  pass
+  10              0.03262 ± 0.00057     0.03172     1.56  pass
+  20              0.06029 ± 0.00103     0.05915     1.11  pass
+  50              0.11035 ± 0.00188     0.10904     0.70  pass
+  100             0.13729 ± 0.00228     0.13961    -1.02  pass
+  200             0.14649 ± 0.00253     0.15013    -1.44  pass
+
+  N = 50, T = 500, σe = 0  (38 s); equilibrium 2NeVm = 0.3917 with Ne = 1/a = 48.96
+  generation              mean var G   expected        z
+  2               0.00400 ± 0.00005     0.00400     0.04  pass
+  5               0.01594 ± 0.00019     0.01564     1.61  pass
+  10              0.03444 ± 0.00040     0.03426     0.45  pass
+  20              0.07036 ± 0.00081     0.06879     1.93  pass
+  50              0.15554 ± 0.00170     0.15362     1.13  pass
+  100             0.24882 ± 0.00279     0.24843     0.14  pass
+  200             0.33608 ± 0.00413     0.33980    -0.90  pass
+  500             0.38516 ± 0.00507     0.38919    -0.79  pass
+
+  N = 50, T = 100, σe = 1  (7 s); equilibrium 2NeVm = 0.3917 with Ne = 1/a = 48.96
+  generation              mean var G   expected        z
+  2               0.00400 ± 0.00006     0.00400     0.00  pass
+  5               0.01552 ± 0.00018     0.01564    -0.68  pass
+  10              0.03414 ± 0.00039     0.03426    -0.32  pass
+  20              0.06896 ± 0.00077     0.06879     0.22  pass
+  50              0.15126 ± 0.00170     0.15362    -1.39  pass
+  100             0.24528 ± 0.00286     0.24843    -1.10  pass
+  var P - var G    0.99769 ± 0.00784     1.00000    -0.30  pass
+
+[2/2] Response to directional selection exp(βP), for comparison
+  N = 50, 30 generations of selection after 500 neutral, β = 0.5, σe = 1, 200 replicates
+  cumulative response / Σ β V_G = 0.923 ± 0.008
+  Gaussian prediction 1; with the finite-N bias of the weighted mean 0.943
+
+================================================================================
+ All checks passed.
+================================================================================
+
+real	1m9.504s
+user	8m54.949s
+sys	0m18.792s
+exit status: 0
+</code></pre><ul><li>All 22 checks of the neutral variance pass, |z| ≤ 1.93, at 1,000 replicates per case, from the second generation (one round of mutation) to near equilibrium (<span>$0.385 \pm 0.005$</span> against <span>$0.389$</span> after 500 generations at <span>$N = 50$</span>, where <span>$2N_eV_m$</span> is <span>$0.392$</span>). <span>$\operatorname{var} P - \operatorname{var} G$</span> is <span>$0.998 \pm 0.008$</span> for <span>$\sigma_e^2 = 1$</span>.</li><li>The cumulative response over 30 generations of directional selection is <span>$0.923 \pm 0.008$</span> of <span>$\beta\sum V_G$</span>. The finite-<span>$N$</span> bias of the weighted mean explains most of the difference (prediction 0.943); the rest, <span>$2.0 \pm 0.8$</span>%, is within what finite loci and drift within a generation would give, and is not tested.</li></ul><h2 id="Stabilizing-selection:-matched-SLiM-model"><a class="docs-heading-anchor" href="#Stabilizing-selection:-matched-SLiM-model">Stabilizing selection: matched SLiM model</a><a id="Stabilizing-selection:-matched-SLiM-model-1"></a><a class="docs-heading-anchor-permalink" href="#Stabilizing-selection:-matched-SLiM-model" title="Permalink"></a></h2><p><code>validate-stabilizing.jl</code> checks the genetic variance maintained by mutation, Gaussian stabilizing selection and drift (<code>TraitFitness</code> with <code>Stabilizing</code>). The theory for this balance is approximate, so the test reference is a matched model in SLiM (<code>validate-stabilizing.slim</code>), an independent implementation with SLiM&#39;s own meiosis and mutation; the diffusion theory is reported alongside for comparison.</p><p><strong>Model.</strong> <span>$N = 500$</span> diploids. In every generation the roles of sire and dam are assigned anew (binomial sex, conditioned on both; <span>$N_e = 499.5$</span>), and every offspring draws its sire among the males and its dam among the females in proportion to fitness, with replacement. <span>$P = G + e$</span>, <span>$e \sim N(0, 1)$</span> drawn anew, fitness <span>$\exp(-P^2/2\omega^2)$</span> with <span>$\omega^2 = 49$</span> and the optimum at 0. There are <span>$K = 8{,}000$</span> additive trait loci (<span>$h = ½$</span>), evenly spaced on 20 chromosomes of 1 Morgan, in four interleaved classes of 2,000 with substitution effect <span>$|\alpha|$</span> fixed per class and a sign drawn anew for each run. The sizes give <span>$B = 2N_e\alpha^2/V_s \approx 1, 4, 16, 64$</span> at <span>$V_s = \omega^2 + V_P \approx 51$</span>. Mutation to the derived allele is at <span>$4N\mu = 10^{-3}$</span> per site; the sites are biallelic, with no back mutation, and a fixed site stays fixed (SLiM: stacking policy &quot;f&quot;, no conversion to substitutions). Neutral mutation is off. SLiM runs the model as nonWF with explicit reproduction, so that the sexes, the phenotypes and the weighted draw are coded exactly as above.</p><p><strong>Protocol and statistics.</strong> From a population without variation, <span>$20N$</span> generations of burn-in, then 21 samples <span>$2N$</span> apart (30,000 generations per run). Per sample: the genic variance <span>$V_a = \sum 2pq\alpha^2$</span> of each class, divided by the number of sites not fixed, <span>$K_a$</span>, and by <span>$4\mu V_s$</span>; the fixed sites per class; the mean genotypic value; and the means of <span>$V_P$</span>, <span>$V_G$</span> and the variance of log fitness over the preceding window. The samples of a run are averaged and standard errors taken over 2,000 runs per simulator and seed. A comparison of the two simulators fails at <span>$|z| &gt; 3.5$</span>; the mean <span>$G$</span> is also compared with 0, its exact expectation under random signs.</p><p><strong>Theory, for comparison.</strong> Forward mutation at biallelic loci makes every allele unique: this is the house-of-cards family (Turelli 1984; Bürger 2000), not the Gaussian regime (Kimura 1965; Lande 1975), which needs a continuum of alleles per locus. With the mean at the optimum a site is underdominant, <span>$\Delta x = -(\alpha^2/2V_s)x(1-x)(1-2x)$</span> (Robertson 1956). The single-locus diffusion gives the expected genic variance per site, in units of <span>$4\mu V_s$</span>,</p><p class="math-container">\[B \int_0^1 \frac{S(1) - S(x)}{S(1)\,\psi(x)}\,dx,
+\qquad \psi(x) = e^{Bx(1-x)},\quad S(x) = \int_0^x \psi,\]</p><p>which is <span>$B/2$</span> (neutral) for <span>$B \to 0$</span> and 1 (Turelli&#39;s house of cards) for <span>$B \to \infty$</span>, and above 1 in between. Bürger&#39;s stochastic house-of-cards formula, <span>$(B/2)/(1 + B/2)$</span> in these units, is printed too. The diffusion leaves out the linkage disequilibrium that selection builds: carriers of an allele of effect <span>$\alpha$</span> sit on backgrounds shifted by about <span>$-\alpha k/(1 + k)$</span>, <span>$k = V_G/V_s$</span>, which weakens selection on the allele to about <span>$B(1 - k)^2$</span>. The table prints the diffusion with this correction (&quot;LD-corr.&quot;). Neither includes the drift of the mean about the optimum.</p><p><strong>Results, seed 2026</strong> (SLiM 64 processes, 40 min; FisherWright 32 threads, 1.6 hours):</p><pre><code class="language-text hljs">commit 18c2ae4 for both simulators (scripts as committed here), SLiM version 5.2, built Nov 12 2026 21:02:44, SLiM on svr, FisherWright on amd, 2026-11-17
+FisherWright 0.8.0 (commit 18c2ae4), Julia 1.13.4, threads 32, amd.xijiang.org; 2000 runs, seed 2026
+N = 500 (Ne = 499.50), 8000 additive loci on 20 × 100 Mb (1 Morgan each), 4Nμ = 0.001 per site; fitness exp(-P²/(2·49)), σe = 1
+|α| = 0.2259, 0.4519, 0.9038, 1.8076; burn-in 10000 generations, then 21 samples 1000 generations apart
+runs: FisherWright 2000, SLiM 2000; per-run means of the samples, SE over runs
+
+statistic                        FisherWright                   SLiM    ratio       z
+V_a/(K_a 4μV_s), B=1          0.4261 ± 0.0013        0.4262 ± 0.0013   0.9998   -0.04
+V_a/(K_a 4μV_s), B=4          1.1035 ± 0.0037        1.1041 ± 0.0036   0.9995   -0.11
+V_a/(K_a 4μV_s), B=16         1.2656 ± 0.0048        1.2740 ± 0.0048   0.9934   -1.25
+V_a/(K_a 4μV_s), B=64         1.0967 ± 0.0039        1.0952 ± 0.0039   1.0014    0.28
+fixed per site, B=1         0.00728 ± 0.00004      0.00725 ± 0.00004   1.0044    0.58
+fixed per site, B=4         0.00389 ± 0.00003      0.00383 ± 0.00003   1.0155    1.43
+fixed per site, B=16        0.00026 ± 0.00001      0.00025 ± 0.00001   1.0561    1.27
+fixed per site, B=64        0.00000 ± 0.00000      0.00000 ± 0.00000        —       —
+mean G                       -0.0000 ± 0.0012       -0.0008 ± 0.0012        —    0.47
+V_P                           1.7769 ± 0.0011        1.7759 ± 0.0011   1.0006    0.65
+V_G                           0.7769 ± 0.0011        0.7759 ± 0.0011   1.0013    0.65
+var log w                 0.000784 ± 0.000001    0.000783 ± 0.000001   1.0011    0.67
+mean G against 0 (exact), FisherWright: z = -0.01
+mean G against 0 (exact), SLiM: z = -0.68
+
+Theory, for comparison (V_s = ω² + V_P = 50.776, k = V_G/V_s = 0.0153):
+class           B    diffusion     LD-corr.          SHC  FW/LD-corr.
+1           1.004       0.4260       0.4281       0.3343       0.9954
+2           4.018       1.0782       1.0971       0.6676       1.0058
+3          16.070       1.2044       1.2490       0.8893       1.0133
+4          64.282       1.0346       1.0683       0.9698       1.0267
+</code></pre><p><strong>Results, seed 7:</strong></p><pre><code class="language-text hljs">commit 18c2ae4 for both simulators (scripts as committed here), SLiM version 5.2, built Nov 12 2026 21:02:44, SLiM on svr, FisherWright on amd, 2026-11-17
+FisherWright 0.8.0 (commit 18c2ae4), Julia 1.13.4, threads 32, amd.xijiang.org; 2000 runs, seed 7
+N = 500 (Ne = 499.50), 8000 additive loci on 20 × 100 Mb (1 Morgan each), 4Nμ = 0.001 per site; fitness exp(-P²/(2·49)), σe = 1
+|α| = 0.2259, 0.4519, 0.9038, 1.8076; burn-in 10000 generations, then 21 samples 1000 generations apart
+runs: FisherWright 2000, SLiM 2000; per-run means of the samples, SE over runs
+
+statistic                        FisherWright                   SLiM    ratio       z
+V_a/(K_a 4μV_s), B=1          0.4285 ± 0.0013        0.4262 ± 0.0013   1.0053    1.24
+V_a/(K_a 4μV_s), B=4          1.0999 ± 0.0035        1.1079 ± 0.0036   0.9928   -1.58
+V_a/(K_a 4μV_s), B=16         1.2667 ± 0.0047        1.2633 ± 0.0047   1.0027    0.51
+V_a/(K_a 4μV_s), B=64         1.0925 ± 0.0038        1.0838 ± 0.0038   1.0080    1.62
+fixed per site, B=1         0.00731 ± 0.00004      0.00729 ± 0.00004   1.0020    0.27
+fixed per site, B=4         0.00384 ± 0.00003      0.00392 ± 0.00003   0.9813   -1.74
+fixed per site, B=16        0.00025 ± 0.00001      0.00026 ± 0.00001   0.9650   -0.86
+fixed per site, B=64        0.00000 ± 0.00000      0.00000 ± 0.00000        —       —
+mean G                       -0.0014 ± 0.0011        0.0004 ± 0.0011        —   -1.10
+V_P                           1.7754 ± 0.0010        1.7754 ± 0.0010   1.0000    0.03
+V_G                           0.7754 ± 0.0010        0.7754 ± 0.0010   1.0000    0.02
+var log w                 0.000783 ± 0.000001    0.000783 ± 0.000001   1.0003    0.20
+mean G against 0 (exact), FisherWright: z = -1.21
+mean G against 0 (exact), SLiM: z = 0.35
+
+Theory, for comparison (V_s = ω² + V_P = 50.775, k = V_G/V_s = 0.0153):
+class           B    diffusion     LD-corr.          SHC  FW/LD-corr.
+1           1.004       0.4260       0.4281       0.3343       1.0009
+2           4.018       1.0782       1.0971       0.6676       1.0025
+3          16.071       1.2044       1.2490       0.8893       1.0142
+4          64.283       1.0346       1.0682       0.9698       1.0227
+</code></pre><ul><li>FisherWright and SLiM agree on all 26 checks: |z| ≤ 1.74. The genic variance per class matches within 0.8% at a standard error of about 0.45% per simulator. <span>$V_P$</span>, <span>$V_G$</span> and the variance of log fitness match within 0.13%. Both means of <span>$G$</span> are consistent with<ol><li>(No site of the <span>$B = 64$</span> class fixes, so its fixed-site row is</li></ol>empty.)</li><li>The classes are far apart: 0.43, 1.10, 1.27 and 1.09 for <span>$B = 1, 4, 16, 64$</span>. An error in the strength of selection would show at <span>$B = 1$</span> and 4, where the variance changes steeply with <span>$B$</span>.</li><li><span>$V_G = 0.776$</span> is the summed genic variance, 0.790, less the Bulmer disequilibrium, about <span>$V_a^2/V_s = 0.012$</span>.</li><li>Against theory, both simulators exceed the plain diffusion by up to 6% (<span>$B = 64$</span>), as expected of a model with <span>$k = 0.015$</span>. The LD-corrected diffusion leaves 0.3–2.7% at <span>$B \ge 4$</span>, and nothing at <span>$B = 1$</span>. Bürger&#39;s formula is 11–39% low; it is not meant for biallelic, underdominant loci. These departures belong to the model, since SLiM shows them too; they are not tested.</li></ul><h2 id="Drift-under-FamilySize-with-selection:-the-pedigree"><a class="docs-heading-anchor" href="#Drift-under-FamilySize-with-selection:-the-pedigree">Drift under <code>FamilySize</code> with selection: the pedigree</a><a id="Drift-under-FamilySize-with-selection:-the-pedigree-1"></a><a class="docs-heading-anchor-permalink" href="#Drift-under-FamilySize-with-selection:-the-pedigree" title="Permalink"></a></h2><p>The drift test of <code>FamilySize</code> (see <a href="../validation-mating/#Validation-of-the-mating-schemes">Validation of the mating schemes</a>) uses the recursion of the heterozygosity, which holds without selection only. With selection the reference is the pedigree itself. <code>validate-family-selection.jl</code> checks that the alleles FisherWright transmits and the pedigree it records agree, generation after generation, under <code>FamilySize</code> with and without selection.</p><p><strong>Reference.</strong> At a neutral locus unlinked to every selected locus, the expected heterozygosity of generation <span>$t$</span> given the pedigree is</p><p class="math-container">\[E[H_t \mid \text{pedigree}] = H^*\,(1 - \bar\theta_t),\]</p><p>where <span>$H^*$</span> is the heterozygosity of the base from which the founders&#39; alleles are drawn and <span>$\bar\theta_t$</span> is the mean coancestry of generation <span>$t$</span> over all ordered pairs of individuals, self-coancestry <span>$(1 + F_i)/2$</span> included. Mendelian segregation at an unlinked locus is independent of the genotypes that selection acts on, so this holds exactly for any selection. That includes the cumulative effect of heritable fitness on drift (Robertson 1961), which acts through the pedigree. <span>$\bar\theta_t$</span> is computed by the tabular method from the recorded pedigree (<code>pedigree = 10</code> in each of ten continued runs of 10 generations).</p><p><strong>Design.</strong> <span>$N = 100$</span> diploids for 100 generations, with binomial sex. Selection is through <code>TraitFitness</code>: 400 additive loci (<span>$h = ½$</span>, effect <span>$\pm 0.5$</span>, the sign drawn per locus and run) on chromosomes 1–4, mutating at <span>$\mu = 10^{-3}$</span> per locus and generation from a monomorphic start, with <span>$\sigma_e = 1$</span>. The neutral markers are 1,000 loci on chromosomes 5–24, with the founders&#39; alleles drawn independently at frequency ½ (<span>$H^* = ½$</span>) and no mutation. Every chromosome is 100 Mb and 1 Morgan, so the markers are unlinked to the trait loci. The four scenarios are:</p><table><tr><th style="text-align: left"></th><th style="text-align: left">Mating</th><th style="text-align: left">Fitness</th></tr><tr><td style="text-align: left">1</td><td style="text-align: left"><code>FamilySize(dams = :random)</code></td><td style="text-align: left">none (control)</td></tr><tr><td style="text-align: left">2</td><td style="text-align: left"><code>FamilySize(dams = :random)</code></td><td style="text-align: left"><code>Directional(0.5)</code></td></tr><tr><td style="text-align: left">3</td><td style="text-align: left"><code>FamilySize(dams = 1.0)</code> (Gamma(1) dam weights)</td><td style="text-align: left"><code>Directional(0.5)</code></td></tr><tr><td style="text-align: left">4</td><td style="text-align: left"><code>FamilySize(dams = 1.0)</code></td><td style="text-align: left"><code>Stabilizing(0, 4)</code></td></tr></table><p>Per run, every 10 generations: <span>$H_t$</span>, the mean of <span>$2pq$</span> over the markers, and <span>$\bar\theta_t$</span>. The test is that the mean over runs of <span>$H_t - ½(1 - \bar\theta_t)$</span> is 0, with standard errors over 2,000 runs per scenario and seed and failure at <span>$|z| &gt; 3.5$</span>. Reported for comparison are the drift effective size from <span>$\bar\theta$</span> between generations 50 and 100, and <a href="../../api/#FisherWright.effective_size"><code>effective_size</code></a>, the within-generation value from the realized family sizes.</p><p><strong>Results, seed 2026</strong> (64 threads, 5 min):</p><pre><code class="language-text hljs"># FisherWright 0.8.1, Julia 1.13.4, threads 64, svr.xijiang.org; 2000 runs per scenario, seed 2026
+N = 100, 100 generations; trait: 400 loci on 4 chromosomes, |α| = 0.5, μ = 0.001, σe = 1;
+markers: 1000 on 20 other chromosomes (unlinked), founder alleles at ½, H* = ½
+
+1  random, no selection
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000  -0.00000 ± 0.00000    -0.60
+  10   0.46144 ± 0.00007   0.46153 ± 0.00006  -0.00009 ± 0.00004    -2.18
+  20   0.42806 ± 0.00010   0.42812 ± 0.00008  -0.00006 ± 0.00007    -0.83
+  30   0.39707 ± 0.00013   0.39721 ± 0.00009  -0.00014 ± 0.00010    -1.41
+  40   0.36850 ± 0.00015   0.36843 ± 0.00010   0.00007 ± 0.00012     0.61
+  50   0.34179 ± 0.00016   0.34182 ± 0.00010  -0.00003 ± 0.00013    -0.22
+  60   0.31711 ± 0.00017   0.31717 ± 0.00010  -0.00006 ± 0.00014    -0.40
+  70   0.29411 ± 0.00018   0.29426 ± 0.00010  -0.00014 ± 0.00015    -0.96
+  80   0.27284 ± 0.00019   0.27295 ± 0.00010  -0.00012 ± 0.00016    -0.74
+  90   0.25306 ± 0.00019   0.25321 ± 0.00010  -0.00015 ± 0.00016    -0.90
+ 100   0.23489 ± 0.00019   0.23492 ± 0.00010  -0.00004 ± 0.00017    -0.23
+drift Ne from θ̄ (generations 50–100): 66.98 ± 0.05; effective_size (family sizes): 66.42 ± 0.02
+
+2  random, Directional(0.5)
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000   0.00000 ± 0.00000     1.05
+  10   0.41385 ± 0.00053   0.41377 ± 0.00052   0.00008 ± 0.00009     0.82
+  20   0.28454 ± 0.00084   0.28429 ± 0.00081   0.00025 ± 0.00021     1.21
+  30   0.18970 ± 0.00073   0.18947 ± 0.00070   0.00023 ± 0.00023     0.98
+  40   0.12829 ± 0.00059   0.12819 ± 0.00055   0.00009 ± 0.00021     0.44
+  50   0.08748 ± 0.00046   0.08751 ± 0.00042  -0.00003 ± 0.00018    -0.15
+  60   0.06017 ± 0.00036   0.06040 ± 0.00032  -0.00023 ± 0.00016    -1.47
+  70   0.04205 ± 0.00027   0.04213 ± 0.00024  -0.00008 ± 0.00013    -0.61
+  80   0.02970 ± 0.00021   0.02976 ± 0.00018  -0.00006 ± 0.00010    -0.54
+  90   0.02120 ± 0.00016   0.02127 ± 0.00013  -0.00007 ± 0.00009    -0.84
+ 100   0.01534 ± 0.00012   0.01542 ± 0.00010  -0.00008 ± 0.00007    -1.10
+drift Ne from θ̄ (generations 50–100): 14.70 ± 0.04; effective_size (family sizes): 30.26 ± 0.02
+
+3  Gamma(1), Directional(0.5)
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000   0.00000 ± 0.00000     1.09
+  10   0.38643 ± 0.00064   0.38646 ± 0.00063  -0.00003 ± 0.00012    -0.25
+  20   0.25036 ± 0.00084   0.25021 ± 0.00082   0.00015 ± 0.00022     0.68
+  30   0.15795 ± 0.00070   0.15812 ± 0.00066  -0.00017 ± 0.00023    -0.75
+  40   0.10077 ± 0.00053   0.10109 ± 0.00049  -0.00031 ± 0.00020    -1.57
+  50   0.06532 ± 0.00039   0.06532 ± 0.00035  -0.00000 ± 0.00016    -0.01
+  60   0.04255 ± 0.00028   0.04253 ± 0.00025   0.00003 ± 0.00013     0.21
+  70   0.02782 ± 0.00021   0.02784 ± 0.00018  -0.00002 ± 0.00010    -0.23
+  80   0.01843 ± 0.00015   0.01839 ± 0.00013   0.00004 ± 0.00008     0.50
+  90   0.01232 ± 0.00011   0.01233 ± 0.00009  -0.00001 ± 0.00006    -0.18
+ 100   0.00830 ± 0.00008   0.00830 ± 0.00006  -0.00000 ± 0.00005    -0.03
+drift Ne from θ̄ (generations 50–100): 12.38 ± 0.03; effective_size (family sizes): 21.20 ± 0.02
+
+4  Gamma(1), Stabilizing(0, 4)
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000  -0.00000 ± 0.00000    -1.24
+  10   0.43718 ± 0.00017   0.43723 ± 0.00015  -0.00005 ± 0.00007    -0.80
+  20   0.38145 ± 0.00024   0.38151 ± 0.00020  -0.00007 ± 0.00012    -0.56
+  30   0.33097 ± 0.00027   0.33104 ± 0.00023  -0.00007 ± 0.00015    -0.50
+  40   0.28625 ± 0.00029   0.28617 ± 0.00024   0.00008 ± 0.00017     0.45
+  50   0.24669 ± 0.00029   0.24663 ± 0.00023   0.00007 ± 0.00018     0.38
+  60   0.21213 ± 0.00029   0.21220 ± 0.00023  -0.00007 ± 0.00018    -0.38
+  70   0.18215 ± 0.00028   0.18229 ± 0.00021  -0.00014 ± 0.00018    -0.77
+  80   0.15625 ± 0.00028   0.15632 ± 0.00020  -0.00006 ± 0.00018    -0.36
+  90   0.13365 ± 0.00026   0.13383 ± 0.00018  -0.00018 ± 0.00017    -1.04
+ 100   0.11457 ± 0.00024   0.11460 ± 0.00017  -0.00003 ± 0.00016    -0.17
+drift Ne from θ̄ (generations 50–100): 32.95 ± 0.05; effective_size (family sizes): 34.64 ± 0.02
+
+all comparisons within |z| ≤ 3.5 (287 s)
+</code></pre><p><strong>Results, seed 7</strong> (32 threads, 4 min):</p><pre><code class="language-text hljs"># FisherWright 0.8.1, Julia 1.13.4, threads 32, amd.xijiang.org; 2000 runs per scenario, seed 7
+N = 100, 100 generations; trait: 400 loci on 4 chromosomes, |α| = 0.5, μ = 0.001, σe = 1;
+markers: 1000 on 20 other chromosomes (unlinked), founder alleles at ½, H* = ½
+
+1  random, no selection
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000   0.00000 ± 0.00000     1.84
+  10   0.46159 ± 0.00007   0.46158 ± 0.00006   0.00001 ± 0.00004     0.37
+  20   0.42823 ± 0.00010   0.42817 ± 0.00008   0.00006 ± 0.00007     0.89
+  30   0.39718 ± 0.00013   0.39722 ± 0.00009  -0.00004 ± 0.00010    -0.46
+  40   0.36857 ± 0.00015   0.36855 ± 0.00009   0.00002 ± 0.00012     0.15
+  50   0.34182 ± 0.00016   0.34195 ± 0.00010  -0.00014 ± 0.00013    -1.03
+  60   0.31713 ± 0.00018   0.31726 ± 0.00010  -0.00013 ± 0.00015    -0.88
+  70   0.29419 ± 0.00018   0.29441 ± 0.00010  -0.00021 ± 0.00015    -1.42
+  80   0.27289 ± 0.00019   0.27315 ± 0.00010  -0.00026 ± 0.00015    -1.65
+  90   0.25320 ± 0.00019   0.25343 ± 0.00010  -0.00023 ± 0.00016    -1.45
+ 100   0.23489 ± 0.00019   0.23511 ± 0.00010  -0.00021 ± 0.00016    -1.32
+drift Ne from θ̄ (generations 50–100): 67.05 ± 0.05; effective_size (family sizes): 66.44 ± 0.02
+
+2  random, Directional(0.5)
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000  -0.00000 ± 0.00000    -1.19
+  10   0.41410 ± 0.00052   0.41392 ± 0.00051   0.00018 ± 0.00009     1.89
+  20   0.28339 ± 0.00082   0.28351 ± 0.00079  -0.00013 ± 0.00020    -0.63
+  30   0.18929 ± 0.00071   0.18963 ± 0.00068  -0.00034 ± 0.00023    -1.51
+  40   0.12799 ± 0.00057   0.12820 ± 0.00054  -0.00021 ± 0.00021    -1.01
+  50   0.08760 ± 0.00046   0.08764 ± 0.00042  -0.00004 ± 0.00018    -0.23
+  60   0.06057 ± 0.00035   0.06061 ± 0.00031  -0.00004 ± 0.00015    -0.27
+  70   0.04231 ± 0.00027   0.04237 ± 0.00024  -0.00007 ± 0.00012    -0.54
+  80   0.02994 ± 0.00021   0.02993 ± 0.00018   0.00002 ± 0.00010     0.15
+  90   0.02148 ± 0.00016   0.02141 ± 0.00013   0.00007 ± 0.00009     0.78
+ 100   0.01555 ± 0.00013   0.01549 ± 0.00010   0.00007 ± 0.00007     0.93
+drift Ne from θ̄ (generations 50–100): 14.72 ± 0.04; effective_size (family sizes): 30.30 ± 0.02
+
+3  Gamma(1), Directional(0.5)
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000  -0.00000 ± 0.00000    -0.75
+  10   0.38760 ± 0.00064   0.38758 ± 0.00063   0.00002 ± 0.00012     0.19
+  20   0.25099 ± 0.00084   0.25080 ± 0.00081   0.00019 ± 0.00022     0.87
+  30   0.15897 ± 0.00069   0.15881 ± 0.00066   0.00016 ± 0.00022     0.75
+  40   0.10135 ± 0.00053   0.10133 ± 0.00049   0.00002 ± 0.00020     0.11
+  50   0.06510 ± 0.00039   0.06516 ± 0.00036  -0.00006 ± 0.00016    -0.37
+  60   0.04219 ± 0.00028   0.04227 ± 0.00026  -0.00008 ± 0.00013    -0.62
+  70   0.02762 ± 0.00020   0.02766 ± 0.00018  -0.00005 ± 0.00010    -0.46
+  80   0.01843 ± 0.00015   0.01839 ± 0.00013   0.00004 ± 0.00008     0.46
+  90   0.01235 ± 0.00011   0.01229 ± 0.00009   0.00005 ± 0.00006     0.82
+ 100   0.00832 ± 0.00008   0.00831 ± 0.00007   0.00000 ± 0.00005     0.07
+drift Ne from θ̄ (generations 50–100): 12.39 ± 0.03; effective_size (family sizes): 21.22 ± 0.02
+
+4  Gamma(1), Stabilizing(0, 4)
+ gen        H (markers)           ½(1 − θ̄)         difference        z
+   0   0.49750 ± 0.00000   0.49750 ± 0.00000  -0.00000 ± 0.00000    -0.78
+  10   0.43754 ± 0.00016   0.43741 ± 0.00015   0.00013 ± 0.00007     1.99
+  20   0.38150 ± 0.00023   0.38147 ± 0.00020   0.00003 ± 0.00012     0.27
+  30   0.33113 ± 0.00027   0.33111 ± 0.00022   0.00002 ± 0.00015     0.11
+  40   0.28624 ± 0.00029   0.28616 ± 0.00023   0.00007 ± 0.00017     0.44
+  50   0.24682 ± 0.00029   0.24662 ± 0.00023   0.00020 ± 0.00018     1.13
+  60   0.21237 ± 0.00028   0.21220 ± 0.00023   0.00017 ± 0.00018     0.93
+  70   0.18238 ± 0.00027   0.18226 ± 0.00021   0.00011 ± 0.00018     0.62
+  80   0.15651 ± 0.00026   0.15624 ± 0.00020   0.00026 ± 0.00017     1.52
+  90   0.13415 ± 0.00024   0.13387 ± 0.00018   0.00027 ± 0.00017     1.66
+ 100   0.11496 ± 0.00023   0.11463 ± 0.00016   0.00033 ± 0.00016     2.13
+drift Ne from θ̄ (generations 50–100): 32.97 ± 0.05; effective_size (family sizes): 34.66 ± 0.02
+
+all comparisons within |z| ≤ 3.5 (210 s)
+</code></pre><ul><li><strong>The check.</strong> All 88 comparisons pass (4 scenarios × 11 generations × 2 seeds), with <span>$|z| \le 2.18$</span>. The marker heterozygosity follows the pedigree expectation to within 0.00034, while it falls from 0.50 to between 0.008 and 0.23.</li><li><strong>Without selection</strong> the drift effective size is 67.0, and <code>effective_size</code> is 66.4. The difference is the ½ of <span>$N_e \approx 1/a + ½$</span> (see <a href="../validation/#Effective-size">Effective size</a>), so the two agree.</li><li><strong>Directional selection</strong> lowers the drift effective size to 14.7 with random dam families and to 12.4 with Gamma(1) dam families. <code>effective_size</code> gives 30.3 and 21.2. Drift is about twice as fast as the realized family sizes of single generations imply. That is Robertson&#39;s cumulative effect: selected parents are related and pass their advantage on, so the same families keep being favoured. One generation&#39;s record cannot include it.</li><li><strong>Stabilizing selection</strong> (<span>$\omega^2 = 4$</span>) lowers the drift effective size only to 33.0, against 34.6 from the family sizes.</li></ul><h2 id="CI-test"><a class="docs-heading-anchor" href="#CI-test">CI test</a><a id="CI-test-1"></a><a class="docs-heading-anchor-permalink" href="#CI-test" title="Permalink"></a></h2><p>The testset &quot;Selection under recurrent mutation&quot; runs case 1 of the balance check with 1,000 runs against the reference values (about 10 s on one thread); a dominance of <span>$h = 0.1$</span> instead of ½ is 5.3 standard errors away.</p><p>The testset &quot;Fixation probability under selection&quot; runs four of the fixation (<span>$N = 30$</span>; <span>$s = 0.2$</span> with <span>$h$</span> = 0, ½ and 1, and <span>$s = 0$</span>) with 4,000 replicates each and compares them with the reference values of the first table. The three values for <span>$s = 0.2$</span> are far apart, so an error in the fitness of the heterozygote would be caught. Other CI tests check the parts separately: the fitness of an individual against the product over a dense genotype, the joint meiosis of neutral and selected alleles against the recombinant of their union, the mutation rate at the fitness loci, and the weighted draw of parents.</p><h2 id="Not-covered"><a class="docs-heading-anchor" href="#Not-covered">Not covered</a><a id="Not-covered-1"></a><a class="docs-heading-anchor-permalink" href="#Not-covered" title="Permalink"></a></h2><ul><li>A theoretical prediction of the cumulative effect of selection on drift (Robertson 1961; Santiago and Caballero 1995): the drift of <code>FamilySize</code> with selection is checked against the realized pedigree, and its effective size is reported, not compared with a formula.</li><li>Stabilizing selection in the Gaussian regime (a continuum of alleles per locus): the loci are biallelic, so only the house-of-cards regime is compared, against SLiM; the diffusion theory is not tested.</li><li>A distribution of fitness effects rather than a few fixed values of <span>$s$</span>, and dominance other than ½ at large <span>$N$</span>.</li><li>Strong interference between selected sites (Hill–Robertson effects). The effect of selected sites on linked neutral diversity is compared with SLiM on <a href="../validation-linked/#Validation-of-linked-selection">Validation of linked selection</a>.</li></ul><h2 id="Scripts"><a class="docs-heading-anchor" href="#Scripts">Scripts</a><a id="Scripts-1"></a><a class="docs-heading-anchor-permalink" href="#Scripts" title="Permalink"></a></h2><p><a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/fixation-reference.jl"><code>fixation-reference.jl</code></a>, <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-selection.jl"><code>validate-selection.jl</code></a> and <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-selection-balance.jl"><code>validate-selection-balance.jl</code></a>, <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-prf.jl"><code>validate-prf.jl</code></a>, <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-trait.jl"><code>validate-trait.jl</code></a> and the stabilizing-selection driver <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-stabilizing.sh"><code>validate-stabilizing.sh</code></a> with <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-stabilizing.jl"><code>validate-stabilizing.jl</code></a> and <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-stabilizing.slim"><code>validate-stabilizing.slim</code></a>, and <a href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/validation/scripts/validate-family-selection.jl"><code>validate-family-selection.jl</code></a>. Rerun them, and replace the result files and the reference values in <code>test/runtests.jl</code>, when the draw of parents, <code>SiteFitness</code>, <code>TraitFitness</code>, the mutation or the meiosis of the selected stream changes:</p><pre><code class="language-bash hljs">D=docs/src/validation
+julia -t 16 $D/scripts/fixation-reference.jl 2000000 2026 &gt; $D/fixation-reference.txt
+julia -t 8 --project=. $D/scripts/validate-selection.jl 200000 2000000 2026 &gt; $D/validate-selection.txt
+julia -t 16 --project=. $D/scripts/validate-selection-balance.jl 4000 400000 2026 &gt; $D/validate-selection-balance.txt
+julia -t 8 --project=. $D/scripts/validate-trait.jl 1000 2026 &gt; $D/validate-trait.txt
+# about 2 hours on 64 threads
+julia -t 64 --project=. $D/scripts/validate-prf.jl 1000 2026 &gt; $D/validate-prf-seed2026.txt
+# SLiM 5 and FisherWright, 2,000 runs each: about 40 min on 64 and
+# 1.6 hours on 32 cores; STEPS=&quot;slim&quot;, &quot;engine&quot; or &quot;compare&quot; splits
+# the work between machines
+$D/scripts/validate-stabilizing.sh path/to/slim stab-2026 2000 2026 64
+cp stab-2026/report.txt $D/validate-stabilizing-seed2026.txt
+# 2,000 runs per scenario: about 5 min on 64 threads
+julia -t 64 --project=. $D/scripts/validate-family-selection.jl 2000 2026 &gt; $D/validate-family-selection-seed2026.txt</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../validation-demography/">« Validation: changing population size</a><a class="docs-footer-nextpage" href="../validation-mating/">Validation: mating schemes »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Tuesday 17 November 2026 16:57">Tuesday 17 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
