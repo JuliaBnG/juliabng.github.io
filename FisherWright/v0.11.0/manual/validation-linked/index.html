@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Validation: linked selection · FisherWright.jl</title><meta name="title" content="Validation: linked selection · FisherWright.jl"/><meta property="og:title" content="Validation: linked selection · FisherWright.jl"/><meta property="twitter:title" content="Validation: linked selection · FisherWright.jl"/><meta name="description" content="Documentation for FisherWright.jl."/><meta property="og:description" content="Documentation for FisherWright.jl."/><meta property="twitter:description" content="Documentation for FisherWright.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/juliabng/juliabng-sepia.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-sepia"/><link href="../../assets/juliabng/juliabng-black.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-black"/><script src="../../assets/juliabng/themes.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">FisherWright.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../simulation/">Simulation</a></li><li><a class="tocitem" href="../results/">Results and export</a></li><li><a class="tocitem" href="../utilities/">Utilities</a></li><li><a class="tocitem" href="../validation/">Population genetics validation</a></li><li><a class="tocitem" href="../validation-demography/">Validation: changing population size</a></li><li><a class="tocitem" href="../validation-selection/">Validation: selection</a></li><li><a class="tocitem" href="../validation-mating/">Validation: mating schemes</a></li><li class="is-active"><a class="tocitem" href>Validation: linked selection</a><ul class="internal"><li><a class="tocitem" href="#Results,-2,000-replicates,-seed-2026"><span>Results, 2,000 replicates, seed 2026</span></a></li><li><a class="tocitem" href="#Results,-2,000-replicates,-seed-7"><span>Results, 2,000 replicates, seed 7</span></a></li><li><a class="tocitem" href="#Neutral-and-sweep,-2,000-replicates,-seed-11"><span>Neutral and sweep, 2,000 replicates, seed 11</span></a></li><li><a class="tocitem" href="#Sweep,-8,000-replicates,-seed-17"><span>Sweep, 8,000 replicates, seed 17</span></a></li><li><a class="tocitem" href="#Beneficial-sites-alone,-4,000-replicates,-seed-13"><span>Beneficial sites alone, 4,000 replicates, seed 13</span></a></li><li><a class="tocitem" href="#linked-reading"><span>Reading the results</span></a></li><li><a class="tocitem" href="#Scripts"><span>Scripts</span></a></li></ul></li></ul></li><li><a class="tocitem" href="../../api/">API reference</a></li><li><a class="tocitem" href="../../api-models/">API reference: population models</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Manual</a></li><li class="is-active"><a href>Validation: linked selection</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Validation: linked selection</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/manual/validation-linked.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Validation-of-linked-selection"><a class="docs-heading-anchor" href="#Validation-of-linked-selection">Validation of linked selection</a><a id="Validation-of-linked-selection-1"></a><a class="docs-heading-anchor-permalink" href="#Validation-of-linked-selection" title="Permalink"></a></h1><p><code>docs/src/validation/scripts/validate-linked.sh</code> compares FisherWright with SLiM 5 (<code>validate-linked.slim</code>) where selection at many linked sites matters: background selection, selective sweeps and the interference between them, which the single-site checks of <a href="../validation-selection/#Validation-of-selection">Validation of selection</a> cannot reach and for which no exact theory exists. The reference is an independent implementation of the same model in SLiM.</p><p><strong>Model.</strong> <span>$N = 200$</span> diploid individuals, two sexes with exactly 100 males in every generation (SLiM&#39;s WF sexual model; <code>RandomMating(nmale = 100)</code>), soft selection within each sex, 1,600 generations (<span>$8N$</span>) from a monomorphic start. Four chromosomes of 1 Mb and 0.1 Morgan (<span>$M = 10^7$</span> bp; crossovers Poisson along a chromosome, independent assortment between chromosomes). Neutral mutations at <span>$10^{-6}$</span> per bp per haplotype per generation. 2,000 selected sites in 20 genes of 10 kb (100 sites each, positions drawn once), five genes per chromosome with centres 200 kb apart; new derived alleles at <span>$2.5 \times 10^{-5}$</span> per site per haplotype, so <span>$U = 0.1$</span> per diploid genome. Fitness is multiplicative over sites, <span>$1$</span>, <span>$1 + hs$</span>, <span>$1 + s$</span>.</p><table><tr><th style="text-align: right">Scenario</th><th style="text-align: right">Selected sites</th></tr><tr><td style="text-align: right"><code>neutral</code></td><td style="text-align: right"><span>$s = 0$</span> at every site: the machinery of selected sites without selection</td></tr><tr><td style="text-align: right"><code>bgs</code></td><td style="text-align: right"><span>$s \sim -\text{Gamma}(0.5, 0.04)$</span> per site (mean −0.02, median −0.009; <span>$2Ns$</span> below −20 at a tenth of the sites), <span>$h = 0.25$</span></td></tr><tr><td style="text-align: right"><code>sweep</code></td><td style="text-align: right">as <code>bgs</code>, with 40 sites chosen at random beneficial, <span>$s = 0.05$</span>, <span>$h = 0.5$</span></td></tr><tr><td style="text-align: right"><code>ben</code></td><td style="text-align: right">the 40 beneficial sites of <code>sweep</code> only, in place</td></tr><tr><td style="text-align: right"><code>benfree</code></td><td style="text-align: right">the same 40 sites, each on a chromosome of its own (1 bp, after the 4 Mb), unlinked from the rest</td></tr></table><p><code>ben</code> and <code>benfree</code> split the sweep scenario into hitchhiking and selection without linkage (see <a href="#linked-reading">Reading the results</a>); they run only when listed in <code>SCENARIOS</code>. Neutral statistics are always taken over the 4 Mb, with the distance bins of the 2,000 sites.</p><p><strong>Matching the site model.</strong> FisherWright fixes <span>$s$</span> per site, and a site is biallelic: a hit on a haplotype that carries the derived allele, or on a fixed site, changes nothing. SLiM draws a new mutation object at every hit. The SLiM model makes the two the same: a <code>mutation()</code> callback gives a new allele the coefficient of its site, reuses the allele object of the site when one is already in the population, and drops a hit on a haplosome that carries it; selected alleles are not converted to substitutions, so a fixed site keeps blocking hits. The report gives how often each case occurs (about 9% of hits fall on a segregating site and 1–2% on a carried or fixed one); without the reuse, those hits would make second alleles of the same site with a fitness of <span>$(1 + hs)^2$</span> instead of <span>$1 + s$</span> in a carrier of both.</p><p>Neutral sites are biallelic in FisherWright too, and SLiM is matched by its stacking policy and its statistics: a hit on a haplosome that carries an allele at the position is dropped, neutral alleles are not converted to substitutions, and the frequency of a neutral site is the sum over the allele objects at its position. The difference matters at this resolution. When a non-carrier is hit at a segregating site, FisherWright makes the two genes identical, where SLiM without the pooling counts a new, distinct allele, as under infinite sites; the biallelic <span>$\pi_0$</span> below is 0.2% lower than the infinite-sites one, and under sweeps, which carry many neutral alleles to high frequency, the effect is larger still. An earlier run with SLiM&#39;s per-object accounting put FisherWright 0.65% below SLiM in <span>$\pi$</span> under <code>sweep</code> (<span>$z \approx -3$</span> in each of two seeds); with the pooling, what is left is 0.23% over four seeds (see <a href="#linked-reading">Reading the results</a>). The one remaining difference between the models, coefficients kept in single precision in SLiM, is negligible.</p><p><strong>Statistics.</strong> At generation 1,600, over all <span>$2N$</span> haplotypes: <span>$\pi$</span> (<span>$\Sigma 2pq$</span> per bp, with replacement) and the number of segregating neutral sites <span>$S$</span>, by distance to the nearest selected site on the same chromosome (below 1 kb, which holds the genes, 1–5, 5–20, 20–50 and at least 50 kb); <span>$\pi$</span> over the genome and the effective size <span>$N\pi/\pi_0$</span> it implies; neutral substitutions; the selected sites that segregate and that are fixed (deleterious, beneficial), the sum of derived frequencies, and the mean fitness and mean log fitness of the population, fixed alleles included (the load is <span>$1 - \bar w$</span> under <code>bgs</code>). Here <span>$\pi_0$</span> is the neutral expectation per bp at generation 1,600 for a biallelic site (ancestral to derived at rate <span>$\mu$</span>, no back mutation), from the drift recursion of <a href="../validation-mating/#Validation-of-the-mating-schemes">Validation of the mating schemes</a> carried over to pairs of genes. For a pair of genes in different individuals (B) or in one individual (W), let <span>$d$</span> be the probability that exactly one is derived and <span>$b$</span> that both are, and <span>$q$</span> the probability that a gene is derived. With <span>$a = 1/N$</span>, drift gives</p><p class="math-container">\[d_B^* = (1 - a)d_B + \tfrac{a}{2}d_W, \qquad
+b_B^* = (1 - a)b_B + \tfrac{a}{2}(q + b_W), \qquad
+(d_W^*, b_W^*) = (d_B, b_B),\]</p><p>(a coalesced pair is both derived with probability <span>$q$</span>), and then mutation, for either pair,</p><p class="math-container">\[d&#39; = d(1 - \mu) + 2\mu(1 - \mu)(1 - d - b), \qquad
+b&#39; = b + \mu d + \mu^2(1 - d - b), \qquad q&#39; = q + \mu(1 - q).\]</p><p>From a monomorphic start, <span>$\pi_0 = d_W/(2N) + (1 - 1/N)d_B = 7.837 \times 10^{-4}$</span> at generation 1,600 (the infinite-sites recursion gives <span>$7.853 \times 10^{-4}$</span>, and <span>$4N\mu = 8 \times 10^{-4}$</span> at equilibrium). The <code>neutral</code> scenario is also compared with it. Each simulator runs 2,000 replicates per scenario; the table gives mean ± SE and the z-score of the difference.</p><p>A seed takes about 3.5 hours, with 32 SLiM processes and FisherWright on 16 threads:</p><pre><code class="language-bash hljs">docs/src/validation/scripts/validate-linked.sh path/to/slim outdir 2000 2026 32</code></pre><p>To run some scenarios only, list them in <code>SCENARIOS</code>:</p><pre><code class="language-bash hljs">SCENARIOS=&quot;neutral sweep&quot; docs/src/validation/scripts/validate-linked.sh path/to/slim outdir 2000 11 32</code></pre><h2 id="Results,-2,000-replicates,-seed-2026"><a class="docs-heading-anchor" href="#Results,-2,000-replicates,-seed-2026">Results, 2,000 replicates, seed 2026</a><a id="Results,-2,000-replicates,-seed-2026-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-2,000-replicates,-seed-2026" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-13T22:51Z
+FisherWright 0.7.0, Julia 1.13.3, threads 16
+N = 200 (100 males), 1600 generations, 4 chromosomes of 1000 kb and 0.1 Morgan, μ = 1.0e-6 per bp, K = 2000 selected sites, μ_sel = 2.5e-5, R = 2000 replicates per simulator, seed 2026
+neutral expectation of π per bp at generation 1600: 7.8373e-04 (4Nμ = 8.0000e-04)
+
+scenario stat                       FisherWright                   SLiM       z      theory   z(FW)
+# neutral  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+neutral  pi/bp &lt;1k         0.00077907 ± 1.73e-06  0.00078479 ± 1.78e-06   -2.30  7.8373e-04   -2.70
+neutral  pi/bp 1-5k        0.00078056 ± 1.78e-06  0.00078417 ± 1.76e-06   -1.44  7.8373e-04   -1.78
+neutral  pi/bp 5-20k       0.00078202 ± 1.41e-06  0.00078644 ± 1.47e-06   -2.17  7.8373e-04   -1.21
+neutral  pi/bp 20-50k      0.00078369 ± 1.28e-06  0.00078611 ± 1.29e-06   -1.33  7.8373e-04   -0.03
+neutral  pi/bp &gt;=50k        0.0007841 ± 1.25e-06   0.0007845 ± 1.26e-06   -0.23  7.8373e-04    0.30
+neutral  S &lt;1k                       1244 ± 1.35          1247.7 ± 1.38   -1.92                    
+neutral  S 1-5k                    844.65 ± 0.97         845.22 ± 0.984   -0.42                    
+neutral  S 5-20k                   3164.6 ± 2.82          3175.3 ± 2.81   -2.68                    
+neutral  S 20-50k                    6334 ± 5.02          6350.6 ± 4.98   -2.36                    
+neutral  S &gt;=50k                   9528.8 ± 7.23          9543.2 ± 7.32   -1.40                    
+neutral  pi/bp all         0.00078323 ± 1.11e-06  0.00078528 ± 1.11e-06   -1.31  7.8373e-04   -0.45
+neutral  Ne (pi)                  199.87 ± 0.282          200.4 ± 0.284   -1.31       200.0   -0.45
+neutral  neutral subs              3302.2 ± 4.35          3283.6 ± 4.41    2.99                    
+neutral  sel segregating          242.04 ± 0.388         243.11 ± 0.398   -1.92                    
+neutral  sel fixed -              41.007 ± 0.164          41.139 ± 0.16   -0.58                    
+neutral  sel fixed +                           0                      0
+neutral  sum sel freq             78.026 ± 0.169         78.587 ± 0.161   -2.41                    
+neutral  mean w                                1                      1
+neutral  mean log w                            0                      0
+neutral  SLiM selected mutation events: 63994710; at a segregating site 10.10%, on a carried or fixed site 1.97%
+# bgs  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+bgs      pi/bp &lt;1k         0.00072684 ± 1.68e-06  0.00072726 ± 1.69e-06   -0.18  7.8373e-04        
+bgs      pi/bp 1-5k         0.0007294 ± 1.65e-06  0.00073104 ± 1.69e-06   -0.70  7.8373e-04        
+bgs      pi/bp 5-20k       0.00073711 ± 1.36e-06  0.00073664 ± 1.43e-06    0.24  7.8373e-04        
+bgs      pi/bp 20-50k      0.00074636 ± 1.21e-06  0.00074615 ± 1.24e-06    0.12  7.8373e-04        
+bgs      pi/bp &gt;=50k       0.00075357 ± 1.19e-06  0.00075447 ± 1.24e-06   -0.52  7.8373e-04        
+bgs      S &lt;1k                     1206.2 ± 1.32          1208.5 ± 1.34   -1.22                    
+bgs      S 1-5k                   819.68 ± 0.924         821.05 ± 0.946   -1.03                    
+bgs      S 5-20k                   3084.1 ± 2.68          3082.9 ± 2.77    0.30                    
+bgs      S 20-50k                    6199 ± 4.77          6198.7 ± 4.99    0.04                    
+bgs      S &gt;=50k                   9347.2 ± 6.96          9355.5 ± 7.25   -0.82                    
+bgs      pi/bp all         0.00074639 ± 1.05e-06   0.00074676 ± 1.1e-06   -0.24  7.8373e-04        
+bgs      Ne (pi)                  190.47 ± 0.267         190.57 ± 0.281   -0.24       200.0        
+bgs      neutral subs              3443.3 ± 4.16            3440 ± 4.31    0.54                    
+bgs      sel segregating          198.77 ± 0.331         199.23 ± 0.336   -0.97                    
+bgs      sel fixed -             15.734 ± 0.0888        15.756 ± 0.0931   -0.17                    
+bgs      sel fixed +                           0                      0
+bgs      sum sel freq             34.855 ± 0.105         34.934 ± 0.107   -0.53                    
+bgs      mean w               0.88354 ± 0.000441     0.88293 ± 0.000449    0.98                    
+bgs      mean log w          -0.12441 ± 0.000502    -0.12512 ± 0.000512    0.98                    
+bgs      SLiM selected mutation events: 64004597; at a segregating site 9.06%, on a carried or fixed site 0.98%
+# sweep  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+sweep    pi/bp &lt;1k         0.00064755 ± 1.53e-06  0.00064886 ± 1.56e-06   -0.60  7.8373e-04        
+sweep    pi/bp 1-5k        0.00065225 ± 1.54e-06   0.00065464 ± 1.6e-06   -1.08  7.8373e-04        
+sweep    pi/bp 5-20k       0.00066528 ± 1.32e-06  0.00066727 ± 1.34e-06   -1.06  7.8373e-04        
+sweep    pi/bp 20-50k       0.00068453 ± 1.2e-06  0.00068903 ± 1.24e-06   -2.61  7.8373e-04        
+sweep    pi/bp &gt;=50k       0.00070291 ± 1.19e-06  0.00070631 ± 1.23e-06   -1.99  7.8373e-04        
+sweep    S &lt;1k                       1151 ± 1.28          1151.9 ± 1.32   -0.50                    
+sweep    S 1-5k                   783.21 ± 0.904         783.27 ± 0.934   -0.05                    
+sweep    S 5-20k                    2954.5 ± 2.7          2956.4 ± 2.74   -0.49                    
+sweep    S 20-50k                  5975.4 ± 4.81          5987.3 ± 4.92   -1.73                    
+sweep    S &gt;=50k                   9072.6 ± 6.94          9082.6 ± 7.26   -1.00                    
+sweep    pi/bp all         0.00068646 ± 1.06e-06   0.00068981 ± 1.1e-06   -2.19  7.8373e-04        
+sweep    Ne (pi)                  175.18 ± 0.271         176.03 ± 0.281   -2.19       200.0        
+sweep    neutral subs               3694.6 ± 4.3          3684.3 ± 4.39    1.69                    
+sweep    sel segregating          193.99 ± 0.326         194.18 ± 0.326   -0.40                    
+sweep    sel fixed -              19.632 ± 0.103         19.491 ± 0.104    0.96                    
+sweep    sel fixed +              16.832 ± 0.065        16.746 ± 0.0675    0.92                    
+sweep    sum sel freq             55.353 ± 0.138          55.12 ± 0.138    1.20                    
+sweep    mean w                 2.1224 ± 0.00662       2.1114 ± 0.00683    1.16                    
+sweep    mean log w            0.74244 ± 0.00309      0.73646 ± 0.00323    1.34                    
+sweep    SLiM selected mutation events: 63992661; at a segregating site 8.91%, on a carried or fixed site 1.48%
+</code></pre><h2 id="Results,-2,000-replicates,-seed-7"><a class="docs-heading-anchor" href="#Results,-2,000-replicates,-seed-7">Results, 2,000 replicates, seed 7</a><a id="Results,-2,000-replicates,-seed-7-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-2,000-replicates,-seed-7" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-14T02:28Z
+FisherWright 0.7.0, Julia 1.13.3, threads 16
+N = 200 (100 males), 1600 generations, 4 chromosomes of 1000 kb and 0.1 Morgan, μ = 1.0e-6 per bp, K = 2000 selected sites, μ_sel = 2.5e-5, R = 2000 replicates per simulator, seed 7
+neutral expectation of π per bp at generation 1600: 7.8373e-04 (4Nμ = 8.0000e-04)
+
+scenario stat                       FisherWright                   SLiM       z      theory   z(FW)
+# neutral  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+neutral  pi/bp &lt;1k         0.00078462 ± 1.81e-06  0.00078342 ± 1.74e-06    0.48  7.8373e-04    0.49
+neutral  pi/bp 1-5k         0.00078569 ± 1.8e-06  0.00078273 ± 1.77e-06    1.18  7.8373e-04    1.09
+neutral  pi/bp 5-20k       0.00078611 ± 1.45e-06   0.0007827 ± 1.44e-06    1.67  7.8373e-04    1.64
+neutral  pi/bp 20-50k      0.00078424 ± 1.25e-06  0.00078336 ± 1.28e-06    0.49  7.8373e-04    0.41
+neutral  pi/bp &gt;=50k       0.00078424 ± 1.26e-06   0.0007825 ± 1.25e-06    0.98  7.8373e-04    0.41
+neutral  S &lt;1k                     1245.3 ± 1.37            1247 ± 1.37   -0.91                    
+neutral  S 1-5k                   844.39 ± 0.967          845.69 ± 0.98   -0.94                    
+neutral  S 5-20k                   3170.5 ± 2.78          3168.3 ± 2.79    0.55                    
+neutral  S 20-50k                  6339.1 ± 4.89          6337.7 ± 5.08    0.21                    
+neutral  S &gt;=50k                     9527 ± 7.19          9521.2 ± 7.31    0.56                    
+neutral  pi/bp all           0.0007846 ± 1.1e-06  0.00078285 ± 1.12e-06    1.11  7.8373e-04    0.79
+neutral  Ne (pi)                  200.22 ± 0.282         199.78 ± 0.285    1.11       200.0    0.79
+neutral  neutral subs              3295.2 ± 4.36          3296.4 ± 4.48   -0.20                    
+neutral  sel segregating           242.14 ± 0.38         242.47 ± 0.389   -0.61                    
+neutral  sel fixed -               40.97 ± 0.167         41.201 ± 0.165   -0.99                    
+neutral  sel fixed +                           0                      0
+neutral  sum sel freq             78.228 ± 0.169         78.584 ± 0.167   -1.50                    
+neutral  mean w                                1                      1
+neutral  mean log w                            0                      0
+neutral  SLiM selected mutation events: 63994590; at a segregating site 10.10%, on a carried or fixed site 1.97%
+# bgs  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+bgs      pi/bp &lt;1k         0.00073108 ± 1.71e-06  0.00073026 ± 1.68e-06    0.34  7.8373e-04        
+bgs      pi/bp 1-5k        0.00073437 ± 1.68e-06   0.00073107 ± 1.7e-06    1.38  7.8373e-04        
+bgs      pi/bp 5-20k       0.00074144 ± 1.42e-06   0.00073895 ± 1.4e-06    1.25  7.8373e-04        
+bgs      pi/bp 20-50k      0.00074794 ± 1.23e-06  0.00074777 ± 1.21e-06    0.10  7.8373e-04        
+bgs      pi/bp &gt;=50k       0.00075501 ± 1.23e-06   0.0007562 ± 1.23e-06   -0.68  7.8373e-04        
+bgs      S &lt;1k                     1209.6 ± 1.35          1209.3 ± 1.32    0.17                    
+bgs      S 1-5k                    821.2 ± 0.951         819.96 ± 0.943    0.93                    
+bgs      S 5-20k                     3091 ± 2.76          3086.2 ± 2.79    1.21                    
+bgs      S 20-50k                  6200.7 ± 4.98          6201.5 ± 4.92   -0.11                    
+bgs      S &gt;=50k                   9349.9 ± 7.23          9362.3 ± 7.35   -1.20                    
+bgs      pi/bp all         0.00074861 ± 1.09e-06  0.00074855 ± 1.08e-06    0.04  7.8373e-04        
+bgs      Ne (pi)                  191.04 ± 0.278         191.02 ± 0.277    0.04       200.0        
+bgs      neutral subs              3436.9 ± 4.32          3435.1 ± 4.28    0.29                    
+bgs      sel segregating          198.67 ± 0.322          199.52 ± 0.33   -1.85                    
+bgs      sel fixed -              15.514 ± 0.092        15.454 ± 0.0901    0.47                    
+bgs      sel fixed +                           0                      0
+bgs      sum sel freq             34.701 ± 0.108         34.736 ± 0.105   -0.23                    
+bgs      mean w                 0.8839 ± 0.00044     0.88372 ± 0.000449    0.29                    
+bgs      mean log w          -0.12401 ± 0.000501    -0.12422 ± 0.000511    0.30                    
+bgs      SLiM selected mutation events: 64001776; at a segregating site 9.06%, on a carried or fixed site 0.98%
+# sweep  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+sweep    pi/bp &lt;1k         0.00064504 ± 1.54e-06   0.00064796 ± 1.5e-06   -1.36  7.8373e-04        
+sweep    pi/bp 1-5k        0.00065195 ± 1.54e-06  0.00065319 ± 1.52e-06   -0.57  7.8373e-04        
+sweep    pi/bp 5-20k       0.00066345 ± 1.29e-06  0.00066695 ± 1.27e-06   -1.93  7.8373e-04        
+sweep    pi/bp 20-50k      0.00068451 ± 1.18e-06   0.00068668 ± 1.2e-06   -1.29  7.8373e-04        
+sweep    pi/bp &gt;=50k       0.00070083 ± 1.19e-06   0.00070653 ± 1.2e-06   -3.36  7.8373e-04        
+sweep    S &lt;1k                     1149.5 ± 1.28          1151.1 ± 1.26   -0.89                    
+sweep    S 1-5k                   781.82 ± 0.914         782.79 ± 0.917   -0.75                    
+sweep    S 5-20k                   2952.6 ± 2.66           2957.5 ± 2.7   -1.28                    
+sweep    S 20-50k                    5974 ± 4.83          5976.2 ± 4.96   -0.32                    
+sweep    S &gt;=50k                      9058.6 ± 7          9086.6 ± 7.25   -2.77                    
+sweep    pi/bp all         0.00068508 ± 1.05e-06  0.00068905 ± 1.06e-06   -2.65  7.8373e-04        
+sweep    Ne (pi)                  174.83 ± 0.268         175.84 ± 0.271   -2.65       200.0        
+sweep    neutral subs              3700.6 ± 4.22            3692 ± 4.29    1.43                    
+sweep    sel segregating          193.44 ± 0.316         194.51 ± 0.326   -2.36                    
+sweep    sel fixed -              19.744 ± 0.104         19.532 ± 0.102    1.45                    
+sweep    sel fixed +             16.934 ± 0.0665          16.93 ± 0.068    0.04                    
+sweep    sum sel freq             55.468 ± 0.136         55.375 ± 0.136    0.49                    
+sweep    mean w                 2.1339 ± 0.00683       2.1319 ± 0.00696    0.20                    
+sweep    mean log w             0.7473 ± 0.00317      0.74602 ± 0.00323    0.28                    
+sweep    SLiM selected mutation events: 64002782; at a segregating site 8.91%, on a carried or fixed site 1.48%
+</code></pre><h2 id="Neutral-and-sweep,-2,000-replicates,-seed-11"><a class="docs-heading-anchor" href="#Neutral-and-sweep,-2,000-replicates,-seed-11">Neutral and sweep, 2,000 replicates, seed 11</a><a id="Neutral-and-sweep,-2,000-replicates,-seed-11-1"></a><a class="docs-heading-anchor-permalink" href="#Neutral-and-sweep,-2,000-replicates,-seed-11" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-13T19:38Z
+FisherWright 0.7.0, Julia 1.13.3, threads 16
+N = 200 (100 males), 1600 generations, 4 chromosomes of 1000 kb and 0.1 Morgan, μ = 1.0e-6 per bp, K = 2000 selected sites, μ_sel = 2.5e-5, R = 2000 replicates per simulator, seed 11
+neutral expectation of π per bp at generation 1600: 7.8373e-04 (4Nμ = 8.0000e-04)
+
+scenario stat                       FisherWright                   SLiM       z      theory   z(FW)
+# neutral  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+neutral  pi/bp &lt;1k         0.00078547 ± 1.81e-06  0.00078591 ± 1.82e-06   -0.17  7.8373e-04    0.96
+neutral  pi/bp 1-5k        0.00078379 ± 1.77e-06  0.00078642 ± 1.77e-06   -1.05  7.8373e-04    0.03
+neutral  pi/bp 5-20k       0.00078588 ± 1.45e-06  0.00078542 ± 1.44e-06    0.23  7.8373e-04    1.48
+neutral  pi/bp 20-50k      0.00078493 ± 1.27e-06  0.00078509 ± 1.21e-06   -0.10  7.8373e-04    0.95
+neutral  pi/bp &gt;=50k       0.00078377 ± 1.26e-06  0.00078247 ± 1.24e-06    0.74  7.8373e-04    0.03
+neutral  S &lt;1k                     1247.3 ± 1.37            1248 ± 1.38   -0.36                    
+neutral  S 1-5k                   844.63 ± 0.974         846.83 ± 0.988   -1.58                    
+neutral  S 5-20k                     3173 ± 2.81          3170.4 ± 2.84    0.65                    
+neutral  S 20-50k                  6342.4 ± 4.97          6344.7 ± 4.89   -0.34                    
+neutral  S &gt;=50k                   9526.2 ± 7.49          9522.5 ± 7.27    0.35                    
+neutral  pi/bp all         0.00078453 ± 1.12e-06  0.00078406 ± 1.08e-06    0.31  7.8373e-04    0.72
+neutral  Ne (pi)                  200.21 ± 0.285         200.08 ± 0.275    0.31       200.0    0.72
+neutral  neutral subs              3289.5 ± 4.39            3290 ± 4.34   -0.09                    
+neutral  sel segregating           242.92 ± 0.39         242.92 ± 0.386    0.00                    
+neutral  sel fixed -               40.94 ± 0.168         41.178 ± 0.167   -1.00                    
+neutral  sel fixed +                           0                      0
+neutral  sum sel freq             78.459 ± 0.168         78.696 ± 0.172   -0.98                    
+neutral  mean w                                1                      1
+neutral  mean log w                            0                      0
+neutral  SLiM selected mutation events: 64000194; at a segregating site 10.10%, on a carried or fixed site 1.98%
+# sweep  (SLiM replicates: 2000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+sweep    pi/bp &lt;1k          0.00064614 ± 1.5e-06   0.0006465 ± 1.54e-06   -0.17  7.8373e-04        
+sweep    pi/bp 1-5k        0.00065359 ± 1.53e-06  0.00065217 ± 1.54e-06    0.65  7.8373e-04        
+sweep    pi/bp 5-20k       0.00066465 ± 1.29e-06  0.00066428 ± 1.32e-06    0.20  7.8373e-04        
+sweep    pi/bp 20-50k      0.00068505 ± 1.21e-06   0.0006855 ± 1.23e-06   -0.26  7.8373e-04        
+sweep    pi/bp &gt;=50k       0.00070226 ± 1.21e-06  0.00070411 ± 1.22e-06   -1.08  7.8373e-04        
+sweep    S &lt;1k                     1150.3 ± 1.26          1152.3 ± 1.27   -1.16                    
+sweep    S 1-5k                   783.05 ± 0.924         783.99 ± 0.949   -0.71                    
+sweep    S 5-20k                     2956 ± 2.64          2956.2 ± 2.74   -0.05                    
+sweep    S 20-50k                  5977.1 ± 4.86          5979.1 ± 5.11   -0.29                    
+sweep    S &gt;=50k                   9068.3 ± 7.21          9078.8 ± 7.45   -1.01                    
+sweep    pi/bp all          0.0006862 ± 1.07e-06   0.00068708 ± 1.1e-06   -0.58  7.8373e-04        
+sweep    Ne (pi)                  175.11 ± 0.272          175.34 ± 0.28   -0.58       200.0        
+sweep    neutral subs              3703.4 ± 4.34          3692.4 ± 4.43    1.78                    
+sweep    sel segregating          194.06 ± 0.324         194.78 ± 0.325   -1.57                    
+sweep    sel fixed -              19.677 ± 0.103         19.502 ± 0.102    1.22                    
+sweep    sel fixed +             16.797 ± 0.0674        16.828 ± 0.0672   -0.32                    
+sweep    sum sel freq             55.361 ± 0.134         55.205 ± 0.137    0.81                    
+sweep    mean w                   2.12 ± 0.00681       2.1203 ± 0.00679   -0.03                    
+sweep    mean log w             0.7407 ± 0.00319       0.74082 ± 0.0032   -0.03                    
+sweep    SLiM selected mutation events: 63997665; at a segregating site 8.91%, on a carried or fixed site 1.48%
+</code></pre><h2 id="Sweep,-8,000-replicates,-seed-17"><a class="docs-heading-anchor" href="#Sweep,-8,000-replicates,-seed-17">Sweep, 8,000 replicates, seed 17</a><a id="Sweep,-8,000-replicates,-seed-17-1"></a><a class="docs-heading-anchor-permalink" href="#Sweep,-8,000-replicates,-seed-17" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-14T18:26Z
+FisherWright 0.7.0, Julia 1.13.3, threads 16
+N = 200 (100 males), 1600 generations, 4 chromosomes of 1000 kb and 0.1 Morgan, μ = 1.0e-6 per bp, K = 2000 selected sites, μ_sel = 2.5e-5, R = 8000 replicates per simulator, seed 17
+neutral expectation of π per bp at generation 1600: 7.8373e-04 (4Nμ = 8.0000e-04)
+
+scenario stat                       FisherWright                   SLiM       z      theory   z(FW)
+# sweep  (SLiM replicates: 8000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+sweep    pi/bp &lt;1k         0.00064475 ± 7.56e-07  0.00064729 ± 7.68e-07   -2.35  7.8373e-04        
+sweep    pi/bp 1-5k        0.00065171 ± 7.66e-07  0.00065247 ± 7.79e-07   -0.69  7.8373e-04        
+sweep    pi/bp 5-20k       0.00066356 ± 6.49e-07  0.00066468 ± 6.68e-07   -1.20  7.8373e-04        
+sweep    pi/bp 20-50k      0.00068478 ± 6.01e-07  0.00068563 ± 6.07e-07   -0.99  7.8373e-04        
+sweep    pi/bp &gt;=50k       0.00070301 ± 6.05e-07   0.0007033 ± 6.04e-07   -0.34  7.8373e-04        
+sweep    S &lt;1k                    1149.6 ± 0.638         1150.8 ± 0.642   -1.33                    
+sweep    S 1-5k                   782.41 ± 0.456         783.15 ± 0.462   -1.14                    
+sweep    S 5-20k                   2952.8 ± 1.34          2954.9 ± 1.36   -1.12                    
+sweep    S 20-50k                  5976.8 ± 2.45          5977.5 ± 2.44   -0.20                    
+sweep    S &gt;=50k                   9072.4 ± 3.58          9071.6 ± 3.62    0.16                    
+sweep    pi/bp all         0.00068613 ± 5.34e-07   0.00068686 ± 5.4e-07   -0.97  7.8373e-04        
+sweep    Ne (pi)                  175.09 ± 0.136         175.28 ± 0.138   -0.97       200.0        
+sweep    neutral subs              3695.8 ± 2.15          3694.8 ± 2.17    0.33                    
+sweep    sel segregating          194.16 ± 0.161         194.24 ± 0.162   -0.34                    
+sweep    sel fixed -             19.676 ± 0.0511         19.683 ± 0.051   -0.09                    
+sweep    sel fixed +             16.834 ± 0.0331        16.789 ± 0.0333    0.97                    
+sweep    sum sel freq            55.276 ± 0.0683        55.368 ± 0.0681   -0.95                    
+sweep    mean w                 2.1227 ± 0.00337       2.1176 ± 0.00337    1.06                    
+sweep    mean log w            0.74218 ± 0.00158      0.73972 ± 0.00158    1.10                    
+sweep    SLiM selected mutation events: 255991081; at a segregating site 8.90%, on a carried or fixed site 1.48%
+</code></pre><h2 id="Beneficial-sites-alone,-4,000-replicates,-seed-13"><a class="docs-heading-anchor" href="#Beneficial-sites-alone,-4,000-replicates,-seed-13">Beneficial sites alone, 4,000 replicates, seed 13</a><a id="Beneficial-sites-alone,-4,000-replicates,-seed-13-1"></a><a class="docs-heading-anchor-permalink" href="#Beneficial-sites-alone,-4,000-replicates,-seed-13" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-14T13:22Z
+FisherWright 0.7.0, Julia 1.13.3, threads 16
+N = 200 (100 males), 1600 generations, 4 chromosomes of 1000 kb and 0.1 Morgan, μ = 1.0e-6 per bp, K = 2000 selected sites, μ_sel = 2.5e-5, R = 4000 replicates per simulator, seed 13
+neutral expectation of π per bp at generation 1600: 7.8373e-04 (4Nμ = 8.0000e-04)
+
+scenario stat                       FisherWright                   SLiM       z      theory   z(FW)
+# ben  (SLiM replicates: 4000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+ben      pi/bp &lt;1k           0.000675 ± 1.15e-06  0.00067347 ± 1.14e-06    0.95  7.8373e-04        
+ben      pi/bp 1-5k        0.00067953 ± 1.15e-06  0.00067919 ± 1.14e-06    0.20  7.8373e-04        
+ben      pi/bp 5-20k       0.00068999 ± 9.64e-07  0.00068913 ± 9.66e-07    0.63  7.8373e-04        
+ben      pi/bp 20-50k      0.00070686 ± 8.75e-07  0.00070654 ± 8.68e-07    0.26  7.8373e-04        
+ben      pi/bp &gt;=50k        0.00072149 ± 8.7e-07  0.00072241 ± 8.78e-07   -0.74  7.8373e-04        
+ben      S &lt;1k                    1171.8 ± 0.921         1170.8 ± 0.919    0.73                    
+ben      S 1-5k                   796.22 ± 0.662         796.36 ± 0.659   -0.14                    
+ben      S 5-20k                   3002.8 ± 1.92          3001.5 ± 1.94    0.47                    
+ben      S 20-50k                  6061.5 ± 3.48          6061.1 ± 3.51    0.09                    
+ben      S &gt;=50k                   9187.1 ± 5.21          9186.8 ± 5.23    0.04                    
+ben      pi/bp all         0.00070796 ± 7.78e-07   0.00070804 ± 7.8e-07   -0.08  7.8373e-04        
+ben      Ne (pi)                  180.66 ± 0.198         180.69 ± 0.199   -0.08       200.0        
+ben      neutral subs              3617.3 ± 3.12          3615.7 ± 3.09    0.35                    
+ben      sel segregating         4.1833 ± 0.0313         4.167 ± 0.0306    0.37                    
+ben      sel fixed -                           0                      0
+ben      sel fixed +             17.462 ± 0.0472         17.541 ± 0.047   -1.19                    
+ben      sum sel freq            18.967 ± 0.0466        19.049 ± 0.0461   -1.26                    
+ben      mean w                 2.5503 ± 0.00584         2.56 ± 0.00579   -1.18                    
+ben      mean log w            0.92564 ± 0.00227      0.92967 ± 0.00225   -1.26                    
+ben      SLiM selected mutation events: 2560287; at a segregating site 9.35%, on a carried or fixed site 24.08%
+# benfree  (SLiM replicates: 4000; bp per distance bin: 236030, 160000, 600000, 1200000, 1803970)
+benfree  pi/bp &lt;1k         0.00078262 ± 1.27e-06  0.00078448 ± 1.25e-06   -1.05  7.8373e-04        
+benfree  pi/bp 1-5k        0.00078362 ± 1.25e-06  0.00078353 ± 1.23e-06    0.05  7.8373e-04        
+benfree  pi/bp 5-20k       0.00078205 ± 1.03e-06     0.00078387 ± 1e-06   -1.27  7.8373e-04        
+benfree  pi/bp 20-50k      0.00078161 ± 8.91e-07  0.00078272 ± 8.86e-07   -0.88  7.8373e-04        
+benfree  pi/bp &gt;=50k       0.00078083 ± 8.71e-07  0.00078261 ± 8.71e-07   -1.45  7.8373e-04        
+benfree  S &lt;1k                    1244.4 ± 0.986         1245.2 ± 0.952   -0.59                    
+benfree  S 1-5k                   844.59 ± 0.693          844.3 ± 0.685    0.30                    
+benfree  S 5-20k                      3164.2 ± 2          3166.4 ± 1.98   -0.78                    
+benfree  S 20-50k                  6327.1 ± 3.51          6327.7 ± 3.54   -0.12                    
+benfree  S &gt;=50k                   9510.9 ± 5.15          9511.6 ± 5.09   -0.11                    
+benfree  pi/bp all         0.00078147 ± 7.71e-07  0.00078298 ± 7.62e-07   -1.40  7.8373e-04        
+benfree  Ne (pi)                  199.42 ± 0.197         199.81 ± 0.195   -1.40       200.0        
+benfree  neutral subs              3301.1 ± 3.08          3298.6 ± 3.02    0.58                    
+benfree  sel segregating          3.8518 ± 0.029          3.8445 ± 0.03    0.17                    
+benfree  sel fixed -                           0                      0
+benfree  sel fixed +             18.608 ± 0.0507        18.674 ± 0.0502   -0.94                    
+benfree  sum sel freq            20.028 ± 0.0498        20.088 ± 0.0495   -0.85                    
+benfree  mean w                 2.6896 ± 0.00654       2.6972 ± 0.00657   -0.82                    
+benfree  mean log w             0.9774 ± 0.00243      0.98033 ± 0.00241   -0.85                    
+benfree  SLiM selected mutation events: 2560952; at a segregating site 8.95%, on a carried or fixed site 25.71%
+</code></pre><h2 id="linked-reading"><a class="docs-heading-anchor" href="#linked-reading">Reading the results</a><a id="linked-reading-1"></a><a class="docs-heading-anchor-permalink" href="#linked-reading" title="Permalink"></a></h2><p><strong>Neutral.</strong> Over three seeds (6,000 replicates per simulator), FisherWright&#39;s <span>$\pi$</span> agrees with SLiM&#39;s (pooled <span>$z = 0.06$</span>) and with <span>$\pi_0$</span> (<span>$z$</span> between −0.45 and 0.79 per seed; <span>$N_e$</span> from <span>$\pi$</span> 199.9 to 200.2). The largest single differences, in seed 2026 (<span>$\pi$</span> below 1 kb, <span>$z = -2.30$</span>; neutral substitutions, <span>$z = 2.99$</span>), do not recur in seeds 7 and 11.</p><p><strong>Background selection.</strong> In two seeds, <span>$\pi$</span> over the genome differs by <span>$z = -0.24$</span> and 0.04, and no statistic by more than <span>$|z| = 1.85$</span>. Background selection lowers <span>$\pi$</span> to 0.95 of <span>$\pi_0$</span> (<span>$N_e$</span> 190.5 to 191.0), to 0.93 near the genes; the load <span>$1 - \bar w$</span> is 0.116, and 15.5 to 15.7 deleterious sites fix per run, in both simulators.</p><p><strong>Sweeps.</strong> About 17 beneficial sites fix per run, and <span>$\pi$</span> falls to 0.875 of <span>$\pi_0$</span> (<span>$N_e = 175$</span>), from 0.82 near the genes to 0.90 at 50 kb and beyond. Over four seeds (14,000 replicates per simulator, weighted by precision), FisherWright&#39;s <span>$\pi$</span> is 0.23% below SLiM&#39;s (pooled <span>$z = -2.79$</span>). All four seeds are negative (<span>$z = -2.19$</span>, −2.66, −0.57, −0.96), and other statistics shift with it (neutral substitutions +0.13%, <span>$z = 2.09$</span>). The estimate fell as replicates were added: two seeds of 2,000 gave −0.40%, the run of 8,000 −0.11%.</p><p>To locate a difference, the sweeps were run without the deleterious sites. With the 40 beneficial sites alone, <span>$\pi$</span> differs by −0.01% (<span>$z = -0.08$</span>) when they are linked (<code>ben</code>) and by −0.19% (<span>$z = -1.40$</span>) when they are not (<code>benfree</code>); hitchhiking and selection without linkage agree. If the residual under <code>sweep</code> is real, it comes from the interplay of sweeps with linked deleterious sites; a review of FisherWright&#39;s meiosis (crossovers, assortment, one strand for neutral and selected sites), fitness, sampling of parents and mutation found nothing to cause it. These tables hold about 60 comparisons, so a pooled <span>$z$</span> of −2.8 is not significant once that is allowed for; its consistency over seeds is recorded here rather than dismissed. In terms of effective size, it amounts to 0.4 of 175.</p><p>FisherWright&#39;s linked selection agrees with SLiM&#39;s: within noise under neutrality, background selection and sweeps alone, and within 0.25% in <span>$\pi$</span> and <span>$N_e$</span> when sweeps and background selection act together.</p><h2 id="Scripts"><a class="docs-heading-anchor" href="#Scripts">Scripts</a><a id="Scripts-1"></a><a class="docs-heading-anchor-permalink" href="#Scripts" title="Permalink"></a></h2><pre><code class="language-text hljs">// Matched SLiM model for linked selection in FisherWright
+// (docs/dev/roadmap.md, validation 7; see validate-linked.jl for the model).
+// One population per run: WF, two sexes with exactly N/2 males, parents drawn
+// by fitness within each sex, NT generations from a monomorphic start.
+// Neutral mutations (m1) at MUN per bp; at each selected site, from the table
+// SITES (0-based position, s, h, type 2 deleterious or 3 beneficial), new
+// alleles at MUS per haplosome. The coefficient is fixed per site: a new
+// allele at a site that already has an allele object in the population
+// reuses that object, and a hit on a haplosome that carries it is dropped,
+// as in FisherWright&#39;s biallelic sites. Neutral sites are biallelic too: a
+// hit on a haplosome that carries an allele at the position is dropped
+// (stacking policy &quot;f&quot;), and neutral statistics pool the allele objects of a
+// position. No allele is converted to a substitution, so fixed ones stay in
+// the haplosomes and block new hits, as substituted sites do in FisherWright.
+//
+// Constants (slim -d): SCENARIO, N, NT, SITES, BINS (0-based start of each
+// run of one distance bin, and the bin), MUN, MUS, RBP (crossovers per bp),
+// CL (chromosome length), NCHR; the seed with -s. Selected sites at or after
+// CL * NCHR (scenario benfree) are each a chromosome of one bp, unlinked from
+// the rest; neutral statistics are taken over the first CL * NCHR bp.
+
+initialize() {
+    initializeSex();
+    // Site table.
+    lines = readFile(SITES);
+    K = size(lines);
+    spos = integer(K);
+    ss = float(K);
+    st = integer(K);
+    for (k in 0:(K - 1)) {
+        f = strsplit(lines[k], &quot;\t&quot;);
+        spos[k] = asInteger(f[0]);
+        ss[k] = asFloat(f[1]);
+        st[k] = asInteger(f[3]);
+    }
+    defineConstant(&quot;SPOS&quot;, spos);
+    defineConstant(&quot;SS&quot;, ss);
+    // Distance bins.
+    lines = readFile(BINS);
+    bs = integer(size(lines));
+    bb = integer(size(lines));
+    for (k in 0:(size(lines) - 1)) {
+        f = strsplit(lines[k], &quot;\t&quot;);
+        bs[k] = asInteger(f[0]);
+        bb[k] = asInteger(f[1]);
+    }
+    defineConstant(&quot;BSTART&quot;, bs);
+    defineConstant(&quot;BBIN&quot;, bb);
+
+    initializeMutationType(&quot;m1&quot;, 0.5, &quot;f&quot;, 0.0);
+    m1.mutationStackPolicy = &quot;f&quot;;
+    m1.convertToSubstitution = F;    // a fixed site blocks new hits
+    initializeMutationType(&quot;m2&quot;, 0.25, &quot;f&quot;, 0.0);   // deleterious (or s = 0)
+    initializeMutationType(&quot;m3&quot;, 0.5, &quot;f&quot;, 0.0);    // beneficial
+    for (m in c(m2, m3)) {
+        m.mutationStackPolicy = &quot;f&quot;;
+        m.convertToSubstitution = F;
+    }
+    initializeGenomicElementType(&quot;g1&quot;, m1, 1.0);
+    initializeGenomicElementType(&quot;g2&quot;, c(m1, m2), c(MUN, MUS));
+    initializeGenomicElementType(&quot;g3&quot;, c(m1, m3), c(MUN, MUS));
+    // Elements: neutral stretches between the selected sites, and each
+    // selected site alone; the mutation rate is MUN + MUS at selected sites.
+    L = CL * NCHR;
+    NX = sum(spos &gt;= L);    // one-bp chromosomes after the main genome
+    starts = integer(0);
+    ends = integer(0);
+    types = integer(0);
+    rates = float(0);
+    prev = 0;
+    for (k in 0:(K - 1)) {
+        if (spos[k] &gt; prev) {
+            starts = c(starts, prev);
+            ends = c(ends, spos[k] - 1);
+            types = c(types, 1);
+            rates = c(rates, MUN);
+        }
+        starts = c(starts, spos[k]);
+        ends = c(ends, spos[k]);
+        types = c(types, st[k]);
+        rates = c(rates, MUN + MUS);
+        prev = spos[k] + 1;
+    }
+    if (prev &lt; L) {
+        starts = c(starts, prev);
+        ends = c(ends, L - 1);
+        types = c(types, 1);
+        rates = c(rates, MUN);
+    }
+    for (t in 1:3) {
+        w = which(types == t);
+        if (size(w))
+            initializeGenomicElement(t, starts[w], ends[w]);
+    }
+    initializeMutationRate(rates, ends);
+    // Recombination: RBP per bp within a chromosome; 0.5 between chromosome
+    // c and c + 1 (a breakpoint at position x falls between x - 1 and x).
+    rends = integer(0);
+    rrates = float(0);
+    for (c in 0:(NCHR - 1)) {
+        if (c &gt; 0) {
+            rends = c(rends, c * CL);
+            rrates = c(rrates, 0.5);
+        }
+        rends = c(rends, (c + 1) * CL - 1);
+        rrates = c(rrates, RBP);
+    }
+    for (x in seqLen(NX)) {
+        rends = c(rends, L + x);
+        rrates = c(rrates, 0.5);
+    }
+    initializeRecombinationRate(rrates, rends);
+    defineGlobal(&quot;NEWM&quot;, NULL);
+    defineGlobal(&quot;EVENTS&quot;, 0);
+    defineGlobal(&quot;REUSED&quot;, 0);
+    defineGlobal(&quot;NOOP&quot;, 0);
+}
+
+first() {
+    defineGlobal(&quot;NEWM&quot;, NULL);
+}
+
+// One allele object per selected site, with the coefficient of the site.
+function (lo)siteAllele(object&lt;Mutation&gt;$ nm, object&lt;Haplosome&gt;$ hap) {
+    defineGlobal(&quot;EVENTS&quot;, EVENTS + 1);
+    ex = sim.mutationsOfType(nm.mutationType);
+    ex = ex[ex.position == nm.position];
+    if (size(ex) == 0 &amp; size(NEWM) &gt; 0)
+        ex = NEWM[NEWM.position == nm.position];
+    if (size(ex) &gt; 0) {
+        e = ex[0];
+        if (hap.containsMutations(e)) {
+            defineGlobal(&quot;NOOP&quot;, NOOP + 1);
+            return F;
+        }
+        defineGlobal(&quot;REUSED&quot;, REUSED + 1);
+        return e;
+    }
+    nm.setSelectionCoeff(SS[match(nm.position, SPOS)]);
+    defineGlobal(&quot;NEWM&quot;, c(NEWM, nm));
+    return T;
+}
+
+mutation(m2) {
+    return siteAllele(mut, haplosome);
+}
+
+mutation(m3) {
+    return siteAllele(mut, haplosome);
+}
+
+1 early() {
+    sim.addSubpop(&quot;p1&quot;, N);
+    community.rescheduleScriptBlock(s1, NT, NT);
+}
+
+s1 1000000 late() {
+    inds = p1.individuals;
+    nh = 2 * size(inds);
+    // Neutral sites by distance bin. The frequency of a site is that of all
+    // allele objects at its position (a haplosome carries at most one of
+    // them, by the stacking policy), as for FisherWright&#39;s biallelic sites.
+    muts = sim.mutationsOfType(m1);
+    muts = muts[muts.position &lt; CL * NCHR];
+    f = sim.mutationFrequencies(p1, muts);
+    pos = muts.position;
+    o = order(pos);
+    pos = pos[o];
+    f = f[o];
+    n = size(pos);
+    if (n &gt; 1) {
+        for (i in which(pos[1:(n - 1)] == pos[0:(n - 2)]) + 1) {
+            f[i] = f[i] + f[i - 1];
+            f[i - 1] = 0.0;
+        }
+    }
+    nsub = sum(f &gt;= 1.0 - 1e-9);
+    keep = (f &gt; 0) &amp; (f &lt; 1.0 - 1e-9);
+    pos = pos[keep];
+    f = f[keep];
+    bin = BBIN[findInterval(pos, BSTART)];
+    H = float(5);
+    S = float(5);
+    for (b in 1:5) {
+        w = (bin == b);
+        H[b - 1] = sum(2 * f[w] * (1 - f[w]));
+        S[b - 1] = sum(w);
+    }
+    nbp = integer(5);
+    ends = c(BSTART[1:(size(BSTART) - 1)], CL * NCHR);
+    for (b in 1:5)
+        nbp[b - 1] = sum((ends - BSTART)[BBIN == b]);
+    pi = H / nbp;
+    piall = sum(H) / (CL * NCHR);
+    // Selected sites, by position.
+    sm = sim.mutationsOfType(m2);
+    sm = c(sm, sim.mutationsOfType(m3));
+    sf = sim.mutationFrequencies(p1, sm);
+    seg = 0;
+    fneg = 0;
+    fpos = 0;
+    sumf = 0.0;
+    if (size(sm) &gt; 0) {
+        for (p in unique(sm.position, preserveOrder = F)) {
+            w = (sm.position == p);
+            q = sum(sf[w]);
+            sumf = sumf + q;
+            if (q &gt;= 1.0 - 1e-9) {
+                if (sm[w][0].mutationType == m3)
+                    fpos = fpos + 1;
+                else
+                    fneg = fneg + 1;
+            } else if (q &gt; 0)
+                seg = seg + 1;
+        }
+    }
+    // Fitness of each individual from its selected alleles.
+    lw = float(size(inds));
+    for (i in seqAlong(inds)) {
+        a = c(inds[i].haploidGenome1.mutationsOfType(m2), inds[i].haploidGenome1.mutationsOfType(m3));
+        b = c(inds[i].haploidGenome2.mutationsOfType(m2), inds[i].haploidGenome2.mutationsOfType(m3));
+        hom = setIntersection(a, b);
+        het = setSymmetricDifference(a, b);
+        x = 0.0;
+        if (size(hom))
+            x = x + sum(log(1 + hom.selectionCoeff));
+        if (size(het))
+            x = x + sum(log(1 + het.mutationType.dominanceCoeff * het.selectionCoeff));
+        lw[i] = x;
+    }
+    catn(paste(c(&quot;LINKED&quot;, SCENARIO, pi, S, piall, nsub, seg, fneg, fpos, sumf,
+        mean(exp(lw)), mean(lw), EVENTS, REUSED, NOOP), sep = &quot;\t&quot;));
+    sim.simulationFinished();
+}
+</code></pre><pre><code class="language-julia hljs"># Linked selection in FisherWright against a matched SLiM model
+# (validate-linked.slim; docs/dev/roadmap.md, validation 7).
+#
+# Model: N = 200 diploids, two sexes with exactly N/2 males (SLiM&#39;s WF
+# sexual model; RandomMating(nmale = N/2)), soft selection within each sex,
+# 4 chromosomes of 1 Mb and 0.1 Morgan (M = 10^7 bp), neutral mutation
+# 10^-6 per bp per haplotype per generation, NT = 1,600 generations (8N) from
+# a monomorphic start. Selected sites: K = 2,000, in 5 &quot;genes&quot; of 10 kb per
+# chromosome (100 sites per gene; genes centred 200 kb apart), mutation rate
+# 2.5 × 10^-5 per site per haplotype, so U = 2Kμ = 0.1 per diploid genome.
+# Scenarios:
+#   neutral: s = 0 at every site (the machinery without selection);
+#   bgs:     s ~ -Gamma(0.5, 0.04) per site (mean -0.02), h = 0.25;
+#   sweep:   as bgs, but 40 random sites beneficial with s = 0.05, h = 0.5;
+#   ben:     the 40 beneficial sites of sweep only, in place;
+#   benfree: the same 40 sites, each on a chromosome of its own (1 bp, after
+#            the 4 Mb), unlinked from the rest: selection without linkage.
+# Neutral statistics are taken over the 4 Mb only, with the distance bins of
+# the 2,000 sites in every scenario.
+# The coefficient is fixed per site, as in FisherWright; SLiM reuses the
+# segregating allele object of a site (mutation() callback), so both run the
+# same biallelic model; neutral sites are biallelic in both as well (in SLiM,
+# allele objects of a position are pooled and none is converted to a
+# substitution). Statistics of the whole population at the end:
+# Σ2pq per bp of the neutral mutations (π) and the number of segregating
+# neutral sites (S) by distance to the nearest selected site, neutral
+# substitutions, segregating and fixed selected sites, Σ of derived
+# frequencies, mean fitness and mean log fitness (fixed alleles included),
+# and Ne from neutral π. For the π rows the theory column is the neutral
+# expectation for biallelic sites (neutral_pi below, a = 1/N); its z is
+# shown for the neutral scenario.
+#
+# Usage:
+#   julia --project validate-linked.jl setup DIR
+#       writes DIR/sites-&lt;scenario&gt;.tsv and DIR/bins.tsv for SLiM;
+#   julia --project -t 16 validate-linked.jl compare DIR R SEED [SCENARIOS]
+#       runs R FisherWright replicates per scenario and compares them with
+#       DIR/&lt;scenario&gt;.tsv from SLiM.
+
+using FisherWright, Distributions, Random, Statistics, Printf
+
+const N, NT = 200, 1_600
+const CL, NCHR = 1_000_000, 4
+const CHR = fill(CL, NCHR)
+const MBP = 1e7                    # bp per Morgan
+const MUN, MUS = 1e-6, 2.5e-5      # neutral per bp, selected per site
+const NGENE, GENE, PERGENE = 5, 10_000, 100
+const BINS = [0, 1_000, 5_000, 20_000, 50_000]   # lower bounds of distance bins
+const BINLAB = [&quot;&lt;1k&quot;, &quot;1-5k&quot;, &quot;5-20k&quot;, &quot;20-50k&quot;, &quot;&gt;=50k&quot;]
+const SCEN = [&quot;neutral&quot;, &quot;bgs&quot;, &quot;sweep&quot;, &quot;ben&quot;, &quot;benfree&quot;]
+
+# Selected positions (1-based), the same for every scenario.
+function positions()
+    rng = Xoshiro(20261113)
+    pos = Int[]
+    for c = 0:NCHR-1, g = 0:NGENE-1
+        lo = c * CL + 100_000 + 200_000g - GENE ÷ 2
+        append!(pos, lo .+ sort!(randperm(rng, GENE)[1:PERGENE]))
+    end
+    return sort!(pos)
+end
+
+function loci(scen)
+    pos = positions()
+    K = length(pos)
+    if scen in (&quot;ben&quot;, &quot;benfree&quot;)
+        _, ben = loci(&quot;sweep&quot;)
+        p = scen == &quot;ben&quot; ? pos[ben] : NCHR * CL .+ (1:count(ben))
+        return FitnessLoci(p, 0.05; h=0.5, μ=MUS), trues(count(ben))
+    end
+    scen == &quot;neutral&quot; &amp;&amp; return FitnessLoci(pos, 0.0; h=0.5, μ=MUS), falses(K)
+    rng = Xoshiro(7)
+    s = max.(-rand(rng, Gamma(0.5, 0.04), K), -1.0)
+    h = fill(0.25, K)
+    ben = falses(K)
+    if scen == &quot;sweep&quot;
+        ben[randperm(rng, K)[1:40]] .= true
+        s[ben] .= 0.05
+        h[ben] .= 0.5
+    end
+    return FitnessLoci(pos, s; h=h, μ=MUS), ben
+end
+
+# Distance bin of every bp (1-based), to the nearest selected site of the same
+# chromosome.
+function binof()
+    pos = positions()
+    b = Vector{Int8}(undef, NCHR * CL)
+    for c = 0:NCHR-1
+        sp = filter(p -&gt; c * CL &lt; p &lt;= (c + 1) * CL, pos)
+        k = 1
+        for x = c*CL+1:(c+1)*CL
+            while k &lt; length(sp) &amp;&amp; abs(sp[k+1] - x) &lt;= abs(sp[k] - x)
+                k += 1
+            end
+            b[x] = searchsortedlast(BINS, abs(sp[k] - x))
+        end
+    end
+    return b
+end
+
+function setup(dir)
+    mkpath(dir)
+    for scen in SCEN
+        l, ben = loci(scen)
+        open(joinpath(dir, &quot;sites-$scen.tsv&quot;), &quot;w&quot;) do io
+            for k in eachindex(l.pos)
+                println(io, l.pos[k] - 1, &#39;\t&#39;, l.s[k], &#39;\t&#39;, l.h[k], &#39;\t&#39;, ben[k] ? 3 : 2)
+            end
+        end
+    end
+    b = binof()
+    open(joinpath(dir, &quot;bins.tsv&quot;), &quot;w&quot;) do io      # runs of one bin, 0-based starts
+        for x in eachindex(b)
+            (x == 1 || b[x] != b[x-1]) &amp;&amp; println(io, x - 1, &#39;\t&#39;, b[x])
+        end
+    end
+end
+
+const NB = length(BINS)
+const STATS = [[&quot;pi/bp &quot; * l for l in BINLAB]; [&quot;S &quot; * l for l in BINLAB];
+    &quot;pi/bp all&quot;; &quot;Ne (pi)&quot;; &quot;neutral subs&quot;; &quot;sel segregating&quot;; &quot;sel fixed -&quot;;
+    &quot;sel fixed +&quot;; &quot;sum sel freq&quot;; &quot;mean w&quot;; &quot;mean log w&quot;]
+
+# Expected Σ2pq per bp at generation NT under neutrality (a = 1/N, two sexes)
+# for biallelic sites: ancestral to derived at rate μ per gene, no back
+# mutation, so a hit on a gene that carries the derived allele, or on a fixed
+# site, changes nothing. For a pair of genes of different individuals (B) or
+# of one individual (W), d is the probability that exactly one is derived and
+# b that both are; q is the probability that one gene is derived. The
+# infinite-sites recursion (every hit a new difference) is 0.2% higher here.
+function neutral_pi()
+    a, μ = 1 / N, MUN
+    q = dB = bB = dW = bW = 0.0
+    mut(d, b) = (d * (1 - μ) + 2μ * (1 - μ) * (1 - d - b), b + μ * d + μ^2 * (1 - d - b))
+    for _ = 1:NT
+        # B pairs: other individuals (1 - a), one gene of one parent (a/2),
+        # the two genes of one parent (a/2); W pairs: a sire and a dam.
+        nd, nb = (1 - a) * dB + a / 2 * dW, (1 - a) * bB + a / 2 * q + a / 2 * bW
+        (dW, bW) = mut(dB, bB)
+        (dB, bB) = mut(nd, nb)
+        q += μ * (1 - q)
+    end
+    return dW / 2N + (1 - 1 / N) * dB
+end
+
+# Chromosome lengths: the 4 Mb, and one bp per unlinked selected site.
+chrs(scen) = scen == &quot;benfree&quot; ? [CHR; ones(Int, length(first(loci(scen)).pos))] : CHR
+
+function fw_stats(res, l::FitnessLoci, ben, bin, nbp)
+    L = NCHR * CL
+    haps = res.active_haplotypes
+    nh = length(haps)
+    cnt = Dict{UInt32,Int}()
+    for h in haps, p in h
+        p &lt;= L &amp;&amp; (cnt[p] = get(cnt, p, 0) + 1)
+    end
+    H, S = zeros(NB), zeros(NB)
+    for (p, c) in cnt
+        c &lt; nh || continue
+        q = c / nh
+        b = bin[p]
+        H[b] += 2q * (1 - q)
+        S[b] += 1
+    end
+    π = H ./ nbp
+    πall = sum(H) / sum(nbp)
+    # Selected sites.
+    sel, subs = res.selected_haplotypes, res.selected_substitutions
+    idx = Dict(UInt32(p) =&gt; k for (k, p) in pairs(l.pos))
+    scnt = Dict{UInt32,Int}()
+    for h in sel, p in h
+        scnt[p] = get(scnt, p, 0) + 1
+    end
+    seg = count(c -&gt; c &lt; nh, values(scnt))
+    fixed = vcat(UInt32.(subs), [p for (p, c) in scnt if c == nh])
+    fneg = count(p -&gt; !ben[idx[p]], fixed)
+    fpos = length(fixed) - fneg
+    sumf = sum(values(scnt); init=0) / nh + length(subs)
+    lhom = log1p.(l.s)
+    lhet = log1p.(l.h .* l.s)
+    base = sum(p -&gt; lhom[idx[p]], subs; init=0.0)
+    lw = zeros(nh ÷ 2)
+    for i = 1:nh÷2
+        a, b = sel[2i-1], sel[2i]
+        x = base
+        for p in a
+            x += insorted(p, b) ? lhom[idx[p]] / 2 : lhet[idx[p]]
+        end
+        for p in b
+            x += insorted(p, a) ? lhom[idx[p]] / 2 : lhet[idx[p]]
+        end
+        lw[i] = x
+    end
+    return [π; S; πall; N * πall / neutral_pi(); count(&lt;=(L), res.substitutions); seg; fneg; fpos; sumf;
+        mean(exp.(lw)); mean(lw)]
+end
+
+function run_fw(scen, R, seed)
+    l, ben = loci(scen)
+    fit = SiteFitness(l)
+    bin = binof()
+    nbp = [count(==(b), bin) for b = 1:NB]
+    out = zeros(R, length(STATS))
+    Threads.@threads for r = 1:R
+        rng = Xoshiro(hash((seed, r)))
+        res = fisher_wright(N, NT, chrs(scen), 1.0; M=MBP, mut_base=1 / MUN, fitness=fit,
+            mating=RandomMating(nmale=N ÷ 2), result=true, rng=rng)
+        out[r, :] = fw_stats(res, l, ben, bin, nbp)
+    end
+    return out, nbp
+end
+
+function read_slim(path)
+    # SLiM reports every statistic but Ne, which follows from π here.
+    v = [parse(Float64, x) for l in eachline(path) if startswith(l, &quot;LINKED\t&quot;)
+         for x in split(l, &#39;\t&#39;)[3:end]]
+    v = permutedims(reshape(v, length(STATS) + 2, :))
+    k = 2NB + 1                                  # pi/bp all
+    stats = hcat(v[:, 1:k], N .* v[:, k] ./ neutral_pi(), v[:, k+1:end-3])
+    return stats, v[:, end-2:end]
+end
+
+function compare(dir, R, seed, only)
+    println(&quot;FisherWright &quot;, pkgversion(FisherWright), &quot;, Julia &quot;, VERSION, &quot;, threads &quot;, Threads.nthreads())
+    println(&quot;N = $N ($(N ÷ 2) males), $NT generations, $NCHR chromosomes of $(CL ÷ 1000) kb and &quot;,
+        CL / MBP, &quot; Morgan, μ = $MUN per bp, K = $(length(positions())) selected sites, &quot;,
+        &quot;μ_sel = $MUS, R = $R replicates per simulator, seed $seed&quot;)
+    π0 = neutral_pi()
+    @printf(&quot;neutral expectation of π per bp at generation %d: %.4e (4Nμ = %.4e)\n\n&quot;, NT, π0, 4N * MUN)
+    @printf(&quot;%-8s %-16s %22s %22s %7s %11s %7s\n&quot;, &quot;scenario&quot;, &quot;stat&quot;, &quot;FisherWright&quot;, &quot;SLiM&quot;, &quot;z&quot;, &quot;theory&quot;, &quot;z(FW)&quot;)
+    for scen in SCEN
+        only === nothing || scen in only || continue
+        fw, nbp = run_fw(scen, R, seed)
+        sl, hits = read_slim(joinpath(dir, scen * &quot;.tsv&quot;))
+        println(&quot;# &quot;, scen, &quot;  (SLiM replicates: &quot;, size(sl, 1), &quot;; bp per distance bin: &quot;, join(nbp, &quot;, &quot;), &quot;)&quot;)
+        for (k, name) in enumerate(STATS)
+            a, b = fw[:, k], sl[:, k]
+            ma, mb = mean(a), mean(b)
+            sa, sb = std(a) / sqrt(length(a)), std(b) / sqrt(length(b))
+            if sa == 0 &amp;&amp; sb == 0
+                @printf(&quot;%-8s %-16s %22s %22s\n&quot;, scen, name, @sprintf(&quot;%.5g&quot;, ma), @sprintf(&quot;%.5g&quot;, mb))
+                continue
+            end
+            z = (ma - mb) / sqrt(sa^2 + sb^2)
+            ispi = startswith(name, &quot;pi/bp&quot;)
+            t = ispi ? @sprintf(&quot;%.4e&quot;, π0) : name == &quot;Ne (pi)&quot; ? @sprintf(&quot;%.1f&quot;, N) : &quot;&quot;
+            zt = (ispi || name == &quot;Ne (pi)&quot;) &amp;&amp; scen == &quot;neutral&quot; ?
+                 @sprintf(&quot;%.2f&quot;, (ma - (ispi ? π0 : N)) / sa) : &quot;&quot;
+            @printf(&quot;%-8s %-16s %22s %22s %7.2f %11s %7s\n&quot;, scen, name,
+                @sprintf(&quot;%.5g ± %.3g&quot;, ma, sa), @sprintf(&quot;%.5g ± %.3g&quot;, mb, sb), z, t, zt)
+        end
+        ev, reused, noop = sum(hits[:, 1]), sum(hits[:, 2]), sum(hits[:, 3])
+        @printf(&quot;%-8s SLiM selected mutation events: %d; at a segregating site %.2f%%, on a carried or fixed site %.2f%%\n&quot;,
+            scen, ev, 100reused / ev, 100noop / ev)
+    end
+end
+
+if ARGS[1] == &quot;setup&quot;
+    setup(ARGS[2])
+else
+    compare(ARGS[2], parse(Int, ARGS[3]), parse(Int, ARGS[4]), length(ARGS) &gt; 4 ? split(ARGS[5]) : nothing)
+end
+</code></pre><pre><code class="language-bash hljs">#!/usr/bin/env bash
+# Linked selection in FisherWright against SLiM (validation 7).
+#
+# Usage: validate-linked.sh SLIM OUTDIR R SEED [JOBS]
+#   SLIM    path to the slim executable (SLiM 5)
+#   OUTDIR  directory for the site tables, the SLiM output and the report
+#   R       replicates per scenario and simulator (at most 9999)
+#   SEED    base seed; SLiM replicate r of scenario i uses
+#           SEED * 100000 + i * 10000 + r
+#   JOBS    SLiM processes run in parallel (default 8)
+# The environment variable SCENARIOS restricts the run to some scenarios,
+# for example SCENARIOS=&quot;bgs&quot;; ben and benfree run only when listed.
+# Run from the root of the FisherWright repository.
+set -euo pipefail
+slim=$1 out=$2 reps=$3 seed=$4 jobs=${5:-8}
+here=$(dirname &quot;$0&quot;)
+mkdir -p &quot;$out&quot;
+out=$(cd &quot;$out&quot; &amp;&amp; pwd)
+scenarios=${SCENARIOS:-&quot;neutral bgs sweep&quot;}
+jl=&quot;julia --startup-file=no --project&quot;
+$jl &quot;$here/validate-linked.jl&quot; setup &quot;$out&quot;
+&quot;$slim&quot; -v &gt; &quot;$out/slim-version.txt&quot;
+i=0
+for s in neutral bgs sweep ben benfree; do
+    i=$((i + 1))
+    case &quot; $scenarios &quot; in *&quot; $s &quot;*) ;; *) continue ;; esac
+    seq 1 &quot;$reps&quot; | xargs -P &quot;$jobs&quot; -I{} sh -c \
+        &quot;&#39;$slim&#39; -s \$(( $seed * 100000 + $i * 10000 + {} )) -d \&quot;SCENARIO=&#39;$s&#39;\&quot; \
+         -d N=200 -d NT=1600 -d \&quot;SITES=&#39;$out/sites-$s.tsv&#39;\&quot; -d \&quot;BINS=&#39;$out/bins.tsv&#39;\&quot; \
+         -d MUN=1e-6 -d MUS=2.5e-5 -d RBP=1e-7 -d CL=1000000 -d NCHR=4 \
+         &#39;$here/validate-linked.slim&#39; | grep &#39;^LINKED&#39; &gt; &#39;$out/$s.{}.part&#39;&quot;
+    cat &quot;$out/$s&quot;.*.part &gt; &quot;$out/$s.tsv&quot;
+    rm -f &quot;$out/$s&quot;.*.part
+done
+{
+    echo &quot;commit $(git rev-parse --short HEAD), $(head -1 &quot;$out/slim-version.txt&quot;), $(uname -n), $(date -u +%Y-%m-%dT%H:%MZ)&quot;
+    $jl -t 16 &quot;$here/validate-linked.jl&quot; compare &quot;$out&quot; &quot;$reps&quot; &quot;$seed&quot; &quot;$scenarios&quot;
+} | tee &quot;$out/report.txt&quot;
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../validation-mating/">« Validation: mating schemes</a><a class="docs-footer-nextpage" href="../../api/">API reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Thursday 19 November 2026 15:14">Thursday 19 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
