@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="referrer" content="no-referrer"/><title>Validation: mating schemes · FisherWright.jl</title><meta name="title" content="Validation: mating schemes · FisherWright.jl"/><meta property="og:title" content="Validation: mating schemes · FisherWright.jl"/><meta property="twitter:title" content="Validation: mating schemes · FisherWright.jl"/><meta name="description" content="Documentation for FisherWright.jl."/><meta property="og:description" content="Documentation for FisherWright.jl."/><meta property="twitter:description" content="Documentation for FisherWright.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/juliabng/juliabng-sepia.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-sepia"/><link href="../../assets/juliabng/juliabng-black.css" rel="stylesheet" type="text/css" data-theme-name="juliabng-black"/><script src="../../assets/juliabng/themes.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../../">FisherWright.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><span class="tocitem">Manual</span><ul><li><a class="tocitem" href="../simulation/">Simulation</a></li><li><a class="tocitem" href="../results/">Results and export</a></li><li><a class="tocitem" href="../utilities/">Utilities</a></li><li><a class="tocitem" href="../validation/">Population genetics validation</a></li><li><a class="tocitem" href="../validation-demography/">Validation: changing population size</a></li><li><a class="tocitem" href="../validation-selection/">Validation: selection</a></li><li class="is-active"><a class="tocitem" href>Validation: mating schemes</a><ul class="internal"><li><a class="tocitem" href="#Results,-4,000-replicates,-seed-2026"><span>Results, 4,000 replicates, seed 2026</span></a></li><li><a class="tocitem" href="#Results,-4,000-replicates,-seed-7"><span>Results, 4,000 replicates, seed 7</span></a></li><li><a class="tocitem" href="#Cousin-avoidance,-16,000-replicates,-seed-11"><span>Cousin avoidance, 16,000 replicates, seed 11</span></a></li><li><a class="tocitem" href="#Reading-the-results"><span>Reading the results</span></a></li><li><a class="tocitem" href="#Scripts"><span>Scripts</span></a></li><li><a class="tocitem" href="#Mutation–drift-equilibrium"><span>Mutation–drift equilibrium</span></a></li></ul></li><li><a class="tocitem" href="../validation-linked/">Validation: linked selection</a></li></ul></li><li><a class="tocitem" href="../../api/">API reference</a></li><li><a class="tocitem" href="../../api-models/">API reference: population models</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Manual</a></li><li class="is-active"><a href>Validation: mating schemes</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Validation: mating schemes</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaBnG/FisherWright.jl/blob/main/docs/src/manual/validation-mating.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Validation-of-the-mating-schemes"><a class="docs-heading-anchor" href="#Validation-of-the-mating-schemes">Validation of the mating schemes</a><a id="Validation-of-the-mating-schemes-1"></a><a class="docs-heading-anchor-permalink" href="#Validation-of-the-mating-schemes" title="Permalink"></a></h1><p><code>docs/src/validation/scripts/validate-mating.sh</code> compares the mating schemes of FisherWright with a matched model in SLiM 5 (<code>validate-mating.slim</code>), in which each scheme is written anew in Eidos and runs on SLiM&#39;s own meiosis and pedigree. Where the expected heterozygosity is known exactly, it is compared with that as well. <a href="#Mutation–drift-equilibrium">Mutation–drift equilibrium</a> checks the diversity maintained by the schemes under mutation against exact references.</p><p><strong>Model.</strong> Both simulators run <span>$N = 40$</span> diploid individuals for 30 discrete generations without mutation, from a polymorphic start: each of <span>$L = 1{,}000$</span> sites, on 20 chromosomes of 50 bp and 1 Morgan, is carried by each haplotype with probability ½. In SLiM the model is nonWF with explicit reproduction: every generation, the offspring of each population are created from a table of sire and dam drawn by the scheme, and the parents then die. SLiM has no sexes here: as in FisherWright, the roles of sire and dam are assigned anew to the parents of every generation (Bernoulli(½) per individual, redrawn until both sexes, or the breeders a design needs, are present; or a fixed number of males, a random subset). Relatives are judged on SLiM&#39;s pedigree IDs (<code>pedigreeParentIDs</code>, <code>pedigreeGrandparentIDs</code>), with the starting population of unknown parents, as in FisherWright. Crossovers differ slightly: 49 gaps of 1/49 per chromosome in SLiM, a Poisson(1) number at uniform positions in FisherWright; this changes the linkage between sites, but not the expectations compared.</p><div class="admonition is-info" id="Recombination-map-of-the-reported-runs-e2be0a5e7da1ab38"><header class="admonition-header">Recombination map of the reported runs<a class="admonition-anchor" href="#Recombination-map-of-the-reported-runs-e2be0a5e7da1ab38" title="Permalink"></a></header><div class="admonition-body"><p>The runs reported below used an earlier version of the map, with the gap of 0.5 one site too early: in SLiM a breakpoint at position <span>$x$</span> falls between <span>$x - 1$</span> and <span>$x$</span>, and the interval of rate 0.5 ended at the last site of each chromosome rather than at the first site of the next. The last site of each chromosome was thus unlinked from it and linked at 1/49 to the next one. The statistics compared do not depend on linkage, so the results stand; the script has been corrected since (the 0.5 interval now ends at <span>$50(c + 1)$</span>, the first site of chromosome <span>$c + 1$</span>).</p></div></div><p><strong>Schemes.</strong></p><table><tr><th style="text-align: right">Key</th><th style="text-align: right">FisherWright</th><th style="text-align: right">SLiM implementation</th></tr><tr><td style="text-align: right"><code>rm</code></td><td style="text-align: right"><code>RandomMating()</code></td><td style="text-align: right">sire and dam uniform among the males and females</td></tr><tr><td style="text-align: right"><code>rm5</code></td><td style="text-align: right"><code>RandomMating(nmale=5)</code></td><td style="text-align: right">the same with 5 males</td></tr><tr><td style="text-align: right"><code>fsgamma</code></td><td style="text-align: right"><code>FamilySize(dams=1.0, sires=:random, nmale=10)</code></td><td style="text-align: right">dams of the offspring drawn with Gamma(1) weights; each dam&#39;s sire uniform among the males</td></tr><tr><td style="text-align: right"><code>hier</code></td><td style="text-align: right"><code>Hierarchical(4, 3)</code></td><td style="text-align: right">4 sires and 12 dams drawn from the parents; 3 dams per sire, equal dam families</td></tr><tr><td style="text-align: right"><code>mono</code></td><td style="text-align: right"><code>Monoecious()</code></td><td style="text-align: right">both parents uniform among all; one parent twice is a selfed offspring (<code>addSelfed</code>)</td></tr><tr><td style="text-align: right"><code>self</code></td><td style="text-align: right"><code>Monoecious(selfing=0.5)</code></td><td style="text-align: right">selfed with probability ½, otherwise one of the others</td></tr><tr><td style="text-align: right"><code>avoid_half</code></td><td style="text-align: right"><code>AvoidRelatives(RandomMating(); level=:halfsib)</code></td><td style="text-align: right">as <code>rm</code>, the dam redrawn while she shares a parent with the sire, at most 100 draws</td></tr><tr><td style="text-align: right"><code>avoid_cousin5</code></td><td style="text-align: right"><code>AvoidRelatives(RandomMating(nmale=5); level=:cousin)</code></td><td style="text-align: right">as <code>rm5</code>, the dam redrawn while she shares a parent or grandparent with the sire</td></tr><tr><td style="text-align: right"><code>avoid_mono</code></td><td style="text-align: right"><code>AvoidRelatives(Monoecious(selfing=0); level=:fullsib)</code></td><td style="text-align: right">outcrossing only, the mate redrawn while a full sib</td></tr></table><p><strong>Statistics.</strong> At the end, Σ2pq per site over the <span>$2N$</span> haplotypes (with replacement), the observed heterozygosity <span>$H_{obs}$</span>, and the number of offspring of relatives that could not be avoided within 100 draws (<code>related_matings</code>, summed over the run). Each simulator runs 4,000 replicates per scheme (SLiM: 40 processes of 100 populations); the table gives mean ± SE, the z-score of the difference between the simulators, and for the first six schemes the exact expectation, from the recursion of the heterozygosity within (<span>$H_W$</span>) and between (<span>$H_B$</span>) individuals,</p><p class="math-container">\[H_B&#39; = (1 - a)H_B + \tfrac{a}{2}H_W, \qquad
+H_W&#39; = (1 - \sigma)H_B + \tfrac{\sigma}{2}H_W,\]</p><p>with <span>$a$</span> the probability that two genes of different offspring come from one parent (from the closed forms under <a href="../simulation/#Family-sizes">Family sizes</a>) and <span>$\sigma$</span> the selfing rate; <span>$\Sigma 2pq = H_W/(2N) + (1 - 1/N)H_B$</span> and <span>$H_{obs} = H_W$</span>. Avoidance of relatives has no such reference, which is why it is compared with an independent implementation.</p><p><strong>Resolution.</strong> The standard errors are 0.04% to 0.17% of the means. A difference between the simulators of 3.5 combined SE corresponds to an error of about 0.5% (random mating) to 1% (the hierarchical design) in the effective size over the 30 generations. The schemes themselves are far apart: avoiding half-sib matings raises <span>$H_{obs}$</span> from 0.3455 to 0.3537, about 40 SE.</p><p>The run takes about 10 minutes on 16 cores:</p><pre><code class="language-bash hljs">docs/src/validation/scripts/validate-mating.sh path/to/slim outdir 4000 2026 16</code></pre><p>To run some schemes only, list them in <code>SCHEMES</code>, as for the check of cousin avoidance below:</p><pre><code class="language-bash hljs">SCHEMES=&quot;avoid_cousin5&quot; docs/src/validation/scripts/validate-mating.sh path/to/slim outdir 16000 11 24</code></pre><h2 id="Results,-4,000-replicates,-seed-2026"><a class="docs-heading-anchor" href="#Results,-4,000-replicates,-seed-2026">Results, 4,000 replicates, seed 2026</a><a id="Results,-4,000-replicates,-seed-2026-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-4,000-replicates,-seed-2026" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-12T20:06Z
+FisherWright 0.7.0, Julia 1.13.3, threads 8
+N = 40, 30 generations, L = 1000 sites on 20 chromosomes of 1 Morgan, R = 4000 replicates per simulator, seed 2026
+
+scheme         stat             FisherWright                 SLiM       z     theory   z(FW)
+# RandomMating()  (SLiM replicates: 4000)
+rm             Σ2pq/L      0.33686 ± 0.00013    0.33684 ± 0.00012    0.11    0.33676    0.74
+rm             H_obs       0.34548 ± 0.00015    0.34563 ± 0.00014   -0.72    0.34535    0.95
+rm             forced                      0                    0
+# RandomMating(nmale=5)  (SLiM replicates: 4000)
+rm5            Σ2pq/L      0.21202 ± 0.00020    0.21197 ± 0.00020    0.17    0.21212   -0.47
+rm5            H_obs       0.22086 ± 0.00021    0.22067 ± 0.00021    0.61    0.22085    0.02
+rm5            forced                      0                    0
+# FamilySize(dams=1.0, sires=:random, nmale=10)  (SLiM replicates: 4000)
+fsgamma        Σ2pq/L      0.21655 ± 0.00028    0.21684 ± 0.00027   -0.74    0.21680   -0.90
+fsgamma        H_obs       0.22511 ± 0.00030    0.22574 ± 0.00030   -1.50    0.22556   -1.52
+fsgamma        forced                      0                    0
+# Hierarchical(4, 3)  (SLiM replicates: 4000)
+hier           Σ2pq/L      0.16719 ± 0.00022    0.16735 ± 0.00021   -0.53    0.16749   -1.38
+hier           H_obs       0.17548 ± 0.00024    0.17557 ± 0.00023   -0.28    0.17575   -1.11
+hier           forced                      0                    0
+# Monoecious()  (SLiM replicates: 4000)
+mono           Σ2pq/L      0.33849 ± 0.00013    0.33827 ± 0.00013    1.17    0.33855   -0.48
+mono           H_obs       0.34274 ± 0.00016    0.34264 ± 0.00016    0.47    0.34283   -0.58
+mono           forced                      0                    0
+# Monoecious(selfing=0.5)  (SLiM replicates: 4000)
+self           Σ2pq/L      0.29990 ± 0.00028    0.30025 ± 0.00028   -0.88    0.30032   -1.49
+self           H_obs       0.20818 ± 0.00035    0.20786 ± 0.00035    0.64    0.20814    0.11
+self           forced                      0                    0
+# AvoidRelatives(RandomMating(); level=:halfsib)  (SLiM replicates: 4000)
+avoid_half     Σ2pq/L      0.34108 ± 0.00012    0.34118 ± 0.00012   -0.59                   
+avoid_half     H_obs       0.35374 ± 0.00013    0.35392 ± 0.00013   -0.98                   
+avoid_half     forced                      0                    0
+# AvoidRelatives(RandomMating(nmale=5); level=:cousin)  (SLiM replicates: 4000)
+avoid_cousin5  Σ2pq/L      0.20727 ± 0.00021    0.20694 ± 0.00021    1.14                   
+avoid_cousin5  H_obs       0.22547 ± 0.00024    0.22495 ± 0.00024    1.55                   
+avoid_cousin5  forced    237.07225 ± 0.77637  238.29950 ± 0.78498   -1.11                   
+# AvoidRelatives(Monoecious(selfing=0); level=:fullsib)  (SLiM replicates: 4000)
+avoid_mono     Σ2pq/L      0.34027 ± 0.00012    0.34034 ± 0.00012   -0.43                   
+avoid_mono     H_obs       0.34889 ± 0.00014    0.34900 ± 0.00014   -0.58                   
+avoid_mono     forced                      0                    0
+</code></pre><h2 id="Results,-4,000-replicates,-seed-7"><a class="docs-heading-anchor" href="#Results,-4,000-replicates,-seed-7">Results, 4,000 replicates, seed 7</a><a id="Results,-4,000-replicates,-seed-7-1"></a><a class="docs-heading-anchor-permalink" href="#Results,-4,000-replicates,-seed-7" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-12T20:16Z
+FisherWright 0.7.0, Julia 1.13.3, threads 8
+N = 40, 30 generations, L = 1000 sites on 20 chromosomes of 1 Morgan, R = 4000 replicates per simulator, seed 7
+
+scheme         stat             FisherWright                 SLiM       z     theory   z(FW)
+# RandomMating()  (SLiM replicates: 4000)
+rm             Σ2pq/L      0.33674 ± 0.00013    0.33685 ± 0.00013   -0.61    0.33676   -0.19
+rm             H_obs       0.34526 ± 0.00014    0.34543 ± 0.00014   -0.87    0.34535   -0.61
+rm             forced                      0                    0
+# RandomMating(nmale=5)  (SLiM replicates: 4000)
+rm5            Σ2pq/L      0.21183 ± 0.00020    0.21233 ± 0.00020   -1.77    0.21212   -1.45
+rm5            H_obs       0.22051 ± 0.00021    0.22104 ± 0.00022   -1.77    0.22085   -1.66
+rm5            forced                      0                    0
+# FamilySize(dams=1.0, sires=:random, nmale=10)  (SLiM replicates: 4000)
+fsgamma        Σ2pq/L      0.21686 ± 0.00027    0.21700 ± 0.00028   -0.37    0.21680    0.22
+fsgamma        H_obs       0.22535 ± 0.00029    0.22571 ± 0.00030   -0.85    0.22556   -0.72
+fsgamma        forced                      0                    0
+# Hierarchical(4, 3)  (SLiM replicates: 4000)
+hier           Σ2pq/L      0.16780 ± 0.00022    0.16752 ± 0.00022    0.91    0.16749    1.44
+hier           H_obs       0.17603 ± 0.00024    0.17557 ± 0.00024    1.34    0.17575    1.19
+hier           forced                      0                    0
+# Monoecious()  (SLiM replicates: 4000)
+mono           Σ2pq/L      0.33850 ± 0.00013    0.33862 ± 0.00013   -0.63    0.33855   -0.35
+mono           H_obs       0.34274 ± 0.00016    0.34304 ± 0.00015   -1.36    0.34283   -0.58
+mono           forced                      0                    0
+# Monoecious(selfing=0.5)  (SLiM replicates: 4000)
+self           Σ2pq/L      0.30039 ± 0.00027    0.30040 ± 0.00028   -0.01    0.30032    0.27
+self           H_obs       0.20823 ± 0.00036    0.20758 ± 0.00036    1.28    0.20814    0.27
+self           forced                      0                    0
+# AvoidRelatives(RandomMating(); level=:halfsib)  (SLiM replicates: 4000)
+avoid_half     Σ2pq/L      0.34096 ± 0.00012    0.34092 ± 0.00012    0.25                   
+avoid_half     H_obs       0.35374 ± 0.00013    0.35369 ± 0.00013    0.28                   
+avoid_half     forced                      0                    0
+# AvoidRelatives(RandomMating(nmale=5); level=:cousin)  (SLiM replicates: 4000)
+avoid_cousin5  Σ2pq/L      0.20729 ± 0.00021    0.20689 ± 0.00021    1.34                   
+avoid_cousin5  H_obs       0.22547 ± 0.00024    0.22508 ± 0.00025    1.14                   
+avoid_cousin5  forced    236.32400 ± 0.79827  236.82300 ± 0.78228   -0.45                   
+# AvoidRelatives(Monoecious(selfing=0); level=:fullsib)  (SLiM replicates: 4000)
+avoid_mono     Σ2pq/L      0.34032 ± 0.00012    0.34038 ± 0.00012   -0.30                   
+avoid_mono     H_obs       0.34898 ± 0.00014    0.34902 ± 0.00014   -0.18                   
+avoid_mono     forced                      0                    0
+</code></pre><h2 id="Cousin-avoidance,-16,000-replicates,-seed-11"><a class="docs-heading-anchor" href="#Cousin-avoidance,-16,000-replicates,-seed-11">Cousin avoidance, 16,000 replicates, seed 11</a><a id="Cousin-avoidance,-16,000-replicates,-seed-11-1"></a><a class="docs-heading-anchor-permalink" href="#Cousin-avoidance,-16,000-replicates,-seed-11" title="Permalink"></a></h2><pre><code class="language-text hljs">commit a3a7317, SLiM version 5.2, built Nov 12 2026 21:02:44, svr.xijiang.org, 2026-11-12T20:52Z
+FisherWright 0.7.0, Julia 1.13.3, threads 8
+N = 40, 30 generations, L = 1000 sites on 20 chromosomes of 1 Morgan, R = 16000 replicates per simulator, seed 11
+
+scheme         stat             FisherWright                 SLiM       z     theory   z(FW)
+# AvoidRelatives(RandomMating(nmale=5); level=:cousin)  (SLiM replicates: 16000)
+avoid_cousin5  Σ2pq/L      0.20687 ± 0.00010    0.20696 ± 0.00010   -0.61                   
+avoid_cousin5  H_obs       0.22502 ± 0.00012    0.22508 ± 0.00012   -0.38                   
+avoid_cousin5  forced    237.58181 ± 0.39020  237.48575 ± 0.39074    0.17                   
+</code></pre><h2 id="Reading-the-results"><a class="docs-heading-anchor" href="#Reading-the-results">Reading the results</a><a id="Reading-the-results-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-the-results" title="Permalink"></a></h2><p>Across the 2 × 9 schemes and 2 × 19 non-degenerate comparisons between the simulators, the largest <span>$|z|$</span> is 1.77 (<code>rm5</code>, seed 7, both statistics). FisherWright is within <span>$|z| \le 1.66$</span> of the exact expectation for the six schemes that have one. Neither simulator is systematically above the other or above the expectation. Where no offspring of relatives can be forced, both report none: with about 20 females, an unrelated dam is always found within 100 draws. Under cousin avoidance with five sires, nearly every pair is related after a few generations, and about 237 of the 1,200 offspring per run are forced in both simulators.</p><p>One pattern prompted a further run. In both seeds, cousin avoidance left FisherWright slightly more heterozygous than SLiM (z between 1.14 and 1.55, combined over the seeds about 1.9) with slightly fewer forced matings. Several schemes and statistics were compared, so this is unremarkable as a single result, but its consistency across seeds called for a check. Rerun alone with four times the replicates (seed 11, above), the differences are −0.61, −0.38 and +0.17 SE, so the pattern was noise.</p><p>Within the resolution given above, FisherWright&#39;s implementations of the mating schemes agree with SLiM&#39;s pedigree and meiosis and, where the expectation is known, with theory. Linkage was not compared: the two crossover models differ (49 discrete gaps against continuous positions).</p><h2 id="Scripts"><a class="docs-heading-anchor" href="#Scripts">Scripts</a><a id="Scripts-1"></a><a class="docs-heading-anchor-permalink" href="#Scripts" title="Permalink"></a></h2><pre><code class="language-text hljs">// Matched SLiM model for the mating schemes of FisherWright
+// (docs/dev/roadmap.md, validation 4). An independent implementation of
+// each scheme in Eidos, with SLiM&#39;s own meiosis and pedigree: K replicate
+// populations of N individuals, discrete generations (nonWF, parents die
+// after reproducing), sex not inherited (a sexless model; the roles of
+// sire and dam are assigned anew in every generation, as in FisherWright),
+// no mutation. The start is polymorphic: each of the L = 1,000 sites, on 20
+// chromosomes of 50 bp and 1 Morgan, is carried by each haplosome with
+// probability 1/2. After NT generations each population reports Σ2pq / L,
+// the observed heterozygosity and the number of offspring of relatives
+// that could not be avoided.
+//
+// Constants (slim -d): SCHEME (string), N, NT (generations), K, and the
+// seed with -s.
+// Schemes: &quot;rm&quot; RandomMating(); &quot;rm5&quot; RandomMating(nmale = 5);
+// &quot;fsgamma&quot; FamilySize(dams = 1.0, sires = :random, nmale = 10);
+// &quot;hier&quot; Hierarchical(4, 3); &quot;mono&quot; Monoecious(); &quot;self&quot; Monoecious(selfing
+// = 0.5); &quot;avoid_half&quot; AvoidRelatives(RandomMating(); level = :halfsib);
+// &quot;avoid_cousin5&quot; AvoidRelatives(RandomMating(nmale = 5); level = :cousin);
+// &quot;avoid_mono&quot; AvoidRelatives(Monoecious(selfing = 0); level = :fullsib).
+
+initialize() {
+    initializeSLiMModelType(&quot;nonWF&quot;);
+    initializeSLiMOptions(keepPedigrees = T);
+    defineConstant(&quot;L&quot;, 1000);
+    defineConstant(&quot;MAXTRIES&quot;, 100);
+    initializeMutationRate(0.0);
+    initializeMutationType(&quot;m1&quot;, 0.5, &quot;f&quot;, 0.0);
+    m1.convertToSubstitution = F;
+    initializeGenomicElementType(&quot;g1&quot;, m1, 1.0);
+    initializeGenomicElement(g1, 0, L - 1);
+    // 49 gaps per chromosome at 1/49 each (1 Morgan), 0.5 between them. A
+    // breakpoint at position x falls between x - 1 and x, so the gap between
+    // chromosomes c and c + 1 is the interval ending at 50 * (c + 1).
+    ends = integer(0);
+    rates = float(0);
+    for (c in 0:19) {
+        if (c &gt; 0) {
+            ends = c(ends, 50 * c);
+            rates = c(rates, 0.5);
+        }
+        ends = c(ends, 50 * c + 49);
+        rates = c(rates, 1 / 49);
+    }
+    initializeRecombinationRate(rates, ends);
+    defineGlobal(&quot;FORCED&quot;, integer(K));
+}
+
+// Sex of n parents: Bernoulli(1/2), redrawn until there are at least minm
+// males and minf females; or exactly nm males, a random subset (nm &gt; 0).
+function (integer)drawSex(integer$ n, integer$ nm, integer$ minm, integer$ minf) {
+    if (nm &gt; 0) {
+        sex = integer(n);
+        sex[sample(0:(n - 1), nm)] = 1;
+        return sex;
+    }
+    do sex = rbinom(n, 1, 0.5);
+    while (sum(sex) &lt; minm | n - sum(sex) &lt; minf);
+    return sex;
+}
+
+// Whether two individuals are related at level 1 (the same two parents),
+// 2 (a parent in common) or 3 (a parent or grandparent in common); unknown
+// parents (-1) match nothing.
+function (logical$)related(object&lt;Individual&gt;$ a, object&lt;Individual&gt;$ b, integer$ level) {
+    pa = a.pedigreeParentIDs;
+    pb = b.pedigreeParentIDs;
+    pa = pa[pa &gt;= 0];
+    pb = pb[pb &gt;= 0];
+    if (level == 1)
+        return (size(pa) == 2 &amp; size(pb) == 2 &amp; all(sort(pa) == sort(pb)));
+    if (size(setIntersection(pa, pb)) &gt; 0)
+        return T;
+    if (level == 2)
+        return F;
+    ga = a.pedigreeGrandparentIDs;
+    gb = b.pedigreeGrandparentIDs;
+    ga = ga[ga &gt;= 0];
+    gb = gb[gb &gt;= 0];
+    return size(setIntersection(ga, gb)) &gt; 0;
+}
+
+// One of 0:(n-1) other than p, uniformly.
+function (integer$)other(integer$ p, integer$ n) {
+    q = sample(0:(n - 2), 1);
+    return (q &gt;= p) ? q + 1 else q;
+}
+
+// Sire and dam (indices into the parents) of each of no offspring.
+function (integer)matings(object&lt;Subpopulation&gt;$ pop, integer$ no, integer$ k) {
+    inds = pop.individuals;
+    n = size(inds);
+    sire = integer(no);
+    dam = integer(no);
+    forced = 0;
+    if (SCHEME == &quot;rm&quot; | SCHEME == &quot;rm5&quot; | SCHEME == &quot;avoid_half&quot; | SCHEME == &quot;avoid_cousin5&quot;) {
+        nm = (SCHEME == &quot;rm5&quot; | SCHEME == &quot;avoid_cousin5&quot;) ? 5 else 0;
+        level = (SCHEME == &quot;avoid_half&quot;) ? 2 else ((SCHEME == &quot;avoid_cousin5&quot;) ? 3 else 0);
+        sex = drawSex(n, nm, 1, 1);
+        males = which(sex == 1);
+        females = which(sex == 0);
+        for (i in 0:(no - 1)) {
+            s = sample(males, 1);
+            d = sample(females, 1);
+            if (level &gt; 0) {
+                tries = 1;
+                while (related(inds[s], inds[d], level)) {
+                    if (tries &gt;= MAXTRIES) {
+                        forced = forced + 1;
+                        break;
+                    }
+                    d = sample(females, 1);
+                    tries = tries + 1;
+                }
+            }
+            sire[i] = s;
+            dam[i] = d;
+        }
+    } else if (SCHEME == &quot;fsgamma&quot;) {
+        sex = drawSex(n, 10, 1, 1);
+        males = which(sex == 1);
+        females = which(sex == 0);
+        // Offspring among the dams: multinomial with Gamma(1) weights.
+        w = rgamma(size(females), 1.0, 1.0);
+        dam = sample(females, no, replace = T, weights = w);
+        // The sire of every dam: uniform among the males.
+        sireof = integer(n);
+        sireof[females] = sample(males, size(females), replace = T);
+        sire = sireof[dam];
+    } else if (SCHEME == &quot;hier&quot;) {
+        // 4 sires, 12 dams, 3 dams per sire, equal dam families.
+        sex = drawSex(n, 0, 4, 12);
+        sires = sample(which(sex == 1), 4);
+        dams = sample(which(sex == 0), 12);
+        q = asInteger(floor(no / 12));
+        cnt = rep(q, 12);
+        r = no - 12 * q;
+        if (r &gt; 0)
+            cnt[sample(0:11, r)] = q + 1;
+        slot = sample(rep(0:3, 3), 12);   // the sire of each dam
+        j = 0;
+        for (d in 0:11) {
+            if (cnt[d] &gt; 0) {
+                for (c in 1:cnt[d]) {
+                    sire[j] = sires[slot[d]];
+                    dam[j] = dams[d];
+                    j = j + 1;
+                }
+            }
+        }
+    } else if (SCHEME == &quot;mono&quot; | SCHEME == &quot;self&quot; | SCHEME == &quot;avoid_mono&quot;) {
+        selfing = (SCHEME == &quot;self&quot;) ? 0.5 else ((SCHEME == &quot;avoid_mono&quot;) ? 0.0 else -1.0);
+        for (i in 0:(no - 1)) {
+            p = sample(0:(n - 1), 1);
+            if (selfing &lt; 0)
+                q = sample(0:(n - 1), 1);
+            else if (runif(1) &lt; selfing)
+                q = p;
+            else
+                q = other(p, n);
+            if (SCHEME == &quot;avoid_mono&quot; &amp; q != p) {
+                tries = 1;
+                while (related(inds[p], inds[q], 1)) {
+                    if (tries &gt;= MAXTRIES) {
+                        forced = forced + 1;
+                        break;
+                    }
+                    q = other(p, n);
+                    tries = tries + 1;
+                }
+            }
+            sire[i] = p;
+            dam[i] = q;
+        }
+    } else
+        stop(&quot;unknown SCHEME &quot; + SCHEME);
+    FORCED[k] = FORCED[k] + forced;
+    return c(sire, dam);
+}
+
+1 early() {
+    community.rescheduleScriptBlock(s1, NT + 1, NT + 1);
+    for (k in 1:K) {
+        pop = sim.addSubpop(k, N);
+        haps = pop.haplosomes;
+        muts = haps[0].addNewDrawnMutation(m1, 0:(L - 1));
+        haps[0].removeMutations(muts);
+        for (h in haps)
+            h.addMutations(muts[runif(L) &lt; 0.5]);
+    }
+}
+
+reproduction() {
+    k = 0;
+    for (pop in sim.subpopulations) {
+        inds = pop.individuals;
+        pm = matings(pop, N, k);
+        sire = pm[0:(N - 1)];
+        dam = pm[N:(2 * N - 1)];
+        for (i in 0:(N - 1)) {
+            if (sire[i] == dam[i])
+                pop.addSelfed(inds[sire[i]]);
+            else
+                pop.addCrossed(inds[sire[i]], inds[dam[i]]);
+        }
+        k = k + 1;
+    }
+    self.active = 0;
+}
+
+// Discrete generations: the parents die.
+early() {
+    inds = sim.subpopulations.individuals;
+    inds[inds.age &gt; 0].fitnessScaling = 0.0;
+}
+
+s1 1000000 late() {
+    {
+        k = 0;
+        for (pop in sim.subpopulations) {
+            f = sim.mutationFrequencies(pop);
+            H = sum(2 * f * (1 - f)) / L;
+            O = 0.0;
+            for (ind in pop.individuals) {
+                a = ind.haploidGenome1.mutations.position;
+                b = ind.haploidGenome2.mutations.position;
+                O = O + size(setSymmetricDifference(a, b));
+            }
+            O = O / (size(pop.individuals) * L);
+            catn(SCHEME + &quot;\t&quot; + k + &quot;\t&quot; + H + &quot;\t&quot; + O + &quot;\t&quot; + FORCED[k]);
+            k = k + 1;
+        }
+        sim.simulationFinished();
+    }
+}
+</code></pre><pre><code class="language-julia hljs"># Mating schemes of FisherWright against a matched SLiM model
+# (validate-mating.slim; docs/dev/roadmap.md, validation 4).
+#
+# Both simulators start from the same kind of polymorphic population (each
+# of L = 1,000 sites on 20 chromosomes of 50 bp and 1 Morgan carried by each
+# haplotype with probability 1/2), run NT = 30 generations of N = 40
+# individuals without mutation under one mating scheme, and report Σ2pq/L,
+# the observed heterozygosity H_obs and the number of offspring of
+# relatives that could not be avoided. The schemes are implemented
+# independently in Eidos, on SLiM&#39;s meiosis and pedigree. For each scheme
+# and statistic the table gives the mean ± SE over R replicates of each
+# simulator, the z-score of their difference, and, where it is known, the
+# exact expectation (recursion of the heterozygosity within and between
+# individuals) with the z-score of FisherWright against it.
+#
+# Usage: julia --project -t 8 validate-mating.jl SLIMDIR R SEED [SCHEMES]
+# where SLIMDIR holds the SLiM output, one file &lt;scheme&gt;.tsv per scheme
+# (columns scheme, replicate, Σ2pq/L, H_obs, forced), and SCHEMES is an
+# optional space-separated list of scheme keys (all by default).
+
+using FisherWright, Random, Statistics, Printf
+
+const N, NT, L = 40, 30, 1_000
+const CHR = fill(50, 20)
+
+const SCHEMES = [
+    (&quot;rm&quot;, &quot;RandomMating()&quot;, RandomMating()),
+    (&quot;rm5&quot;, &quot;RandomMating(nmale=5)&quot;, RandomMating(nmale=5)),
+    (&quot;fsgamma&quot;, &quot;FamilySize(dams=1.0, sires=:random, nmale=10)&quot;, FamilySize(dams=1.0, sires=:random, nmale=10)),
+    (&quot;hier&quot;, &quot;Hierarchical(4, 3)&quot;, Hierarchical(4, 3)),
+    (&quot;mono&quot;, &quot;Monoecious()&quot;, Monoecious()),
+    (&quot;self&quot;, &quot;Monoecious(selfing=0.5)&quot;, Monoecious(selfing=0.5)),
+    (&quot;avoid_half&quot;, &quot;AvoidRelatives(RandomMating(); level=:halfsib)&quot;, AvoidRelatives(RandomMating(); level=:halfsib)),
+    (&quot;avoid_cousin5&quot;, &quot;AvoidRelatives(RandomMating(nmale=5); level=:cousin)&quot;,
+        AvoidRelatives(RandomMating(nmale=5); level=:cousin)),
+    (&quot;avoid_mono&quot;, &quot;AvoidRelatives(Monoecious(selfing=0); level=:fullsib)&quot;,
+        AvoidRelatives(Monoecious(selfing=0.0); level=:fullsib)),
+]
+
+# Σ2pq/L (with replacement, over the 2N haplotypes) and H_obs.
+function stats(haps)
+    c = zeros(Int, L)
+    for h in haps, p in h
+        c[p] += 1
+    end
+    n = length(haps)
+    H = sum(x -&gt; 2 * (x / n) * (1 - x / n), c) / L
+    O = mean(length(symdiff(haps[2i-1], haps[2i])) for i = 1:n÷2) / L
+    return H, O
+end
+
+function run_fw(m, R, rng)
+    out = zeros(R, 3)
+    for r = 1:R
+        start = [UInt32.(findall(rand(rng, Bool, L))) for _ = 1:2N]
+        res = fisher_wright(N, NT, CHR, 1.0; M=50, init=start, mutate=false, mating=m, result=true, rng=rng)
+        out[r, 1], out[r, 2] = stats(FisherWright._with_fixed(res))
+        out[r, 3] = sum(res.related_matings)
+    end
+    return out
+end
+
+function read_slim(path)
+    rows = [split(l, &#39;\t&#39;) for l in eachline(path) if count(==(&#39;\t&#39;), l) == 4]
+    return [parse(Float64, r[k]) for r in rows, k = 3:5]
+end
+
+# Exact expectation of (Σ2pq/L, H_obs) after NT generations, from the
+# probability a that two genes of different offspring come from one parent
+# and the proportion σ of selfed offspring (both constant).
+function expected(a, σ)
+    hB = hW = 0.5
+    for _ = 1:NT
+        hB, hW = (1 - a) * hB + a / 2 * hW, (1 - σ) * hB + σ * hW / 2
+    end
+    return hW / 2N + (1 - 1 / N) * hB, hW
+end
+
+# Probability that two of n items split among m parents share one.
+share(n, m, split) = split === :random ? 1 / m :
+                     split === :equal ? (r = n % m; q = n ÷ m; (r * (q + 1) * q + (m - r) * q * (q - 1)) / (n * (n - 1))) :
+                     (split + 1) / (m * split + 1)     # Gamma(split)
+famA(n, Nm, Nf, ds, ss) = (Pf = share(n, Nf, ds); (Pf + Pf + (1 - Pf) * share(Nf, Nm, ss)) / 4)
+
+function theory(key)
+    key == &quot;rm&quot; || key == &quot;rm5&quot; || key == &quot;fsgamma&quot; || key == &quot;hier&quot; || key == &quot;mono&quot; || key == &quot;self&quot; || return nothing
+    key == &quot;mono&quot; &amp;&amp; return expected(1 / N, 1 / N)
+    key == &quot;self&quot; &amp;&amp; return expected(1 / N, 0.5)
+    key == &quot;rm5&quot; &amp;&amp; return expected(1 / 20 + 1 / 140, 0.0)
+    key == &quot;fsgamma&quot; &amp;&amp; return expected(famA(N, 10, 30, 1.0, :random), 0.0)
+    key == &quot;hier&quot; &amp;&amp; return expected(famA(N, 4, 12, :equal, :equal), 0.0)
+    # Binomial sex, conditioned on both sexes: E[a] over the number of males.
+    p = [binomial(big(N), k) for k = 1:N-1]
+    a = sum(Float64(p[k]) * (1 / 4k + 1 / 4(N - k)) for k = 1:N-1) / Float64(sum(p))
+    return expected(a, 0.0)
+end
+
+function main(slimdir, R, seed, only=nothing)
+    println(&quot;FisherWright &quot;, pkgversion(FisherWright), &quot;, Julia &quot;, VERSION, &quot;, threads &quot;, Threads.nthreads())
+    println(&quot;N = $N, $NT generations, L = $L sites on 20 chromosomes of 1 Morgan, R = $R replicates per simulator, seed $seed&quot;)
+    println()
+    @printf(&quot;%-14s %-8s %20s %20s %7s %10s %7s\n&quot;, &quot;scheme&quot;, &quot;stat&quot;, &quot;FisherWright&quot;, &quot;SLiM&quot;, &quot;z&quot;, &quot;theory&quot;, &quot;z(FW)&quot;)
+    rng = Xoshiro(seed)
+    for (key, label, m) in SCHEMES
+        only === nothing || key in only || continue
+        fw = run_fw(m, R, rng)
+        sl = read_slim(joinpath(slimdir, key * &quot;.tsv&quot;))
+        th = theory(key)
+        println(&quot;# &quot;, label, &quot;  (SLiM replicates: &quot;, size(sl, 1), &quot;)&quot;)
+        for (k, name) in enumerate((&quot;Σ2pq/L&quot;, &quot;H_obs&quot;, &quot;forced&quot;))
+            a, b = fw[:, k], sl[:, k]
+            ma, mb = mean(a), mean(b)
+            sa, sb = std(a) / sqrt(length(a)), std(b) / sqrt(length(b))
+            if sa == 0 &amp;&amp; sb == 0
+                @printf(&quot;%-14s %-8s %20s %20s\n&quot;, key, name, @sprintf(&quot;%.4g&quot;, ma), @sprintf(&quot;%.4g&quot;, mb))
+                continue
+            end
+            z = (ma - mb) / sqrt(sa^2 + sb^2)
+            t = th === nothing || k == 3 ? &quot;&quot; : @sprintf(&quot;%.5f&quot;, th[k])
+            zt = th === nothing || k == 3 ? &quot;&quot; : @sprintf(&quot;%.2f&quot;, (ma - th[k]) / sa)
+            @printf(&quot;%-14s %-8s %20s %20s %7.2f %10s %7s\n&quot;, key, name,
+                @sprintf(&quot;%.5f ± %.5f&quot;, ma, sa), @sprintf(&quot;%.5f ± %.5f&quot;, mb, sb), z, t, zt)
+        end
+    end
+end
+
+main(ARGS[1], parse(Int, ARGS[2]), parse(Int, ARGS[3]), length(ARGS) &gt; 3 ? split(ARGS[4]) : nothing)
+</code></pre><pre><code class="language-bash hljs">#!/usr/bin/env bash
+# Mating schemes of FisherWright against SLiM (validation 4).
+#
+# Usage: validate-mating.sh SLIM OUTDIR R SEED [JOBS]
+#   SLIM    path to the slim executable (SLiM 5)
+#   OUTDIR  directory for the SLiM output and the report
+#   R       replicates per scheme and simulator (a multiple of 100)
+#   SEED    base seed; SLiM process j of a scheme uses SEED * 1000 + j
+#   JOBS    SLiM processes run in parallel (default 8)
+# The environment variable SCHEMES restricts the run to some schemes, for
+# example SCHEMES=&quot;rm avoid_cousin5&quot;.
+# Run from the root of the FisherWright repository.
+set -euo pipefail
+slim=$1 out=$2 reps=$3 seed=$4 jobs=${5:-8}
+here=$(dirname &quot;$0&quot;)
+mkdir -p &quot;$out&quot;
+schemes=${SCHEMES:-&quot;rm rm5 fsgamma hier mono self avoid_half avoid_cousin5 avoid_mono&quot;}
+nproc=$((reps / 100))
+&quot;$slim&quot; -v &gt; &quot;$out/slim-version.txt&quot;
+for s in $schemes; do
+    rm -f &quot;$out/$s.tsv&quot;
+    seq 1 &quot;$nproc&quot; | xargs -P &quot;$jobs&quot; -I{} sh -c \
+        &quot;&#39;$slim&#39; -s \$(( $seed * 1000 + {} )) -d \&quot;SCHEME=&#39;$s&#39;\&quot; -d N=40 -d NT=30 -d K=100 \
+         &#39;$here/validate-mating.slim&#39; | grep -P &#39;^$s\t&#39; &gt; &#39;$out/$s.{}.part&#39;&quot;
+    cat &quot;$out/$s&quot;.*.part &gt; &quot;$out/$s.tsv&quot;
+    rm -f &quot;$out/$s&quot;.*.part
+done
+{
+    echo &quot;commit $(git rev-parse --short HEAD), $(head -1 &quot;$out/slim-version.txt&quot;), $(uname -n), $(date -u +%Y-%m-%dT%H:%MZ)&quot;
+    julia --startup-file=no --project -t 8 &quot;$here/validate-mating.jl&quot; &quot;$out&quot; &quot;$reps&quot; &quot;$seed&quot; &quot;$schemes&quot;
+} | tee &quot;$out/report.txt&quot;
+</code></pre><h2 id="Mutation–drift-equilibrium"><a class="docs-heading-anchor" href="#Mutation–drift-equilibrium">Mutation–drift equilibrium</a><a id="Mutation–drift-equilibrium-1"></a><a class="docs-heading-anchor-permalink" href="#Mutation–drift-equilibrium" title="Permalink"></a></h2><p><code>docs/src/validation/scripts/validate-equilibrium.jl</code> checks the diversity that the mating schemes maintain under mutation and drift. The comparison above starts from a polymorphic population and has no mutation, so it tests drift alone.</p><p><strong>Model.</strong> <span>$N = 100$</span> diploid parents run for <span>$T = 2{,}000 = 20N$</span> generations from a monomorphic start, with 10 chromosomes of 10 Mb (0.1 Morgan each) and neutral mutation at <span>$\mu = 10^{-8}$</span> per bp per haplotype per generation. With <span>$N_e$</span> as low as 37, the run lasts at least 27 <span>$N_e$</span> generations; the reference values below are for generation <span>$T$</span>, not the limit, so equilibrium is not assumed. The schemes are:</p><ul><li><code>RandomMating()</code> (binomial sex, the default);</li><li><code>RandomMating(nmale = 10)</code> (10♂/90♀, <span>$N_e \approx 36$</span>);</li><li><code>RandomMating(sexratio = 0.5)</code>;</li><li><code>FamilySize(dams = 1.0, sires = :random, nmale = 20)</code>, overdispersed dam families with Gamma(1) weights;</li><li><code>FamilySize(dams = :equal, sires = :equal, nmale = 20)</code>;</li><li><code>Monoecious()</code>, <code>Monoecious(selfing = 0.2)</code> and <code>Monoecious(selfing = 0.5)</code>.</li></ul><p><strong>References.</strong> For infinite sites, the expected heterozygosity per bp within an individual (<span>$h_W$</span>) and between two genes of different individuals (<span>$h_B$</span>) follows exactly from</p><p class="math-container">\[h_B&#39; = (1 - a)h_B + \tfrac{a}{2}h_W + 2\mu, \qquad
+h_W&#39; = (1 - \sigma)h_B + \tfrac{\sigma}{2}h_W + 2\mu,\]</p><p>with <span>$a$</span> and <span>$\sigma$</span> as above. For random mating with binomial sex, <span>$a$</span> is averaged over the number of males, conditioned on both sexes being present. The expectation of Σ2pq per bp over all <span>$2N$</span> haplotypes is <span>$h_W/(2N) + (1 - 1/N)h_B$</span>, and that of <span>$H_{obs}$</span> is <span>$h_W$</span>. Both are exact.</p><p>The statistic S is the number of segregating sites in a sample of one random gene from each of <span>$n = 20$</span> random individuals. Its expectation is <span>$\mu L\,\mathrm{E}[\sum_t k_t \mathbf{1}\{k_t \ge 2\}]$</span>, where <span>$k_t$</span> is the number of distinct genes in generation <span>$t$</span> that are ancestral to the sample. Each such gene carries one transmission from generation <span>$t - 1$</span>; a mutation on the only lineage is fixed in the sample. The expectation of the branch length comes from a backward simulation of the sample&#39;s genealogy through a pedigree, drawn one generation at a time from the documented rules of each scheme. That code is written in the script, independently of the package&#39;s. The backward simulation is checked against the exact <span>$h_B$</span> with <span>$n = 2$</span> (row <code>h_B/bp*</code>), with 10⁶ genealogies for each sample size and scheme.</p><p>Kingman&#39;s approximation, <span>$h_B L \sum_{i&lt;n} 1/i$</span>, is printed in each scheme&#39;s header line, but it is not a reference here. With 20 lineages and <span>$a$</span> up to 0.028, several coalescences are expected in one generation. In a first run with that approximation as the reference, FisherWright&#39;s S was 0.2% (<span>$N_e \approx 100$</span>) to 1.4% (<span>$N_e \approx 37$</span>) above it, at z up to 11, and the backward simulation reproduced the excess.</p><p>The sites of FisherWright are biallelic. At <span>$\mu T = 2 \cdot 10^{-5}$</span>, the difference from infinite sites is far below the standard errors. Each comparison is a z-score against the standard error of 4,000 forward replicates; for S, the error of the backward simulation is added. The script exits with status 1 if any <span>$|z| &gt; 3.5$</span>. A seed took about 3.3 hours on 32 threads, two seeds side by side on a 64-core server:</p><pre><code class="language-bash hljs">julia -t 32 --project=. docs/src/validation/scripts/validate-equilibrium.jl 4000 2026</code></pre><h3 id="Equilibrium-results,-seed-2026"><a class="docs-heading-anchor" href="#Equilibrium-results,-seed-2026">Equilibrium results, seed 2026</a><a id="Equilibrium-results,-seed-2026-1"></a><a class="docs-heading-anchor-permalink" href="#Equilibrium-results,-seed-2026" title="Permalink"></a></h3><pre><code class="language-text hljs">FisherWright 0.8.0, Julia 1.13.4, threads 32
+N = 100, 2000 generations, 10 × 10 Mb, μ = r = 1.0e-8 per bp, 4000 replicates per scheme, seed 2026; S in a sample of 20 genes from distinct individuals; 1000000 backward genealogies per scheme and sample size
+
+scheme                          stat                 FisherWright               expected       z
+# RandomMating(): a = 0.010103, σ = 0.000, Ne = h_B/(4μ) = 99.47, Kingman S_20 = 1411.65
+RandomMating()                  Σ2pq/bp     3.9607e-06 ± 3.98e-09             3.9592e-06    0.39
+RandomMating()                  Hobs/bp     4.0007e-06 ± 4.07e-09             3.9990e-06    0.41
+RandomMating()                  h_B/bp*     3.9795e-06 ± 3.97e-09             3.9790e-06    0.12
+RandomMating()                  S_20               1414.63 ± 1.21         1413.62 ± 0.50    0.77
+# RandomMating(nmale=10): a = 0.027778, σ = 0.000, Ne = h_B/(4μ) = 36.50, Kingman S_20 = 517.97
+RandomMating(nmale=10)          Σ2pq/bp     1.4496e-06 ± 2.13e-09             1.4528e-06   -1.53
+RandomMating(nmale=10)          Hobs/bp     1.4758e-06 ± 2.19e-09             1.4800e-06   -1.92
+RandomMating(nmale=10)          h_B/bp*     1.4604e-06 ± 1.45e-09             1.4600e-06    0.30
+RandomMating(nmale=10)          S_20                525.35 ± 0.66          525.65 ± 0.18   -0.45
+# RandomMating(sexratio=0.5): a = 0.010000, σ = 0.000, Ne = h_B/(4μ) = 100.50, Kingman S_20 = 1426.12
+RandomMating(sexratio=0.5)      Σ2pq/bp     4.0009e-06 ± 3.92e-09             3.9998e-06    0.28
+RandomMating(sexratio=0.5)      Hobs/bp     4.0400e-06 ± 4.03e-09             4.0398e-06    0.04
+RandomMating(sexratio=0.5)      h_B/bp*     4.0232e-06 ± 4.01e-09             4.0198e-06    0.85
+RandomMating(sexratio=0.5)      S_20               1428.60 ± 1.21         1428.44 ± 0.51    0.12
+# FamilySize(dams=1.0, nmale=20): a = 0.024537, σ = 0.000, Ne = h_B/(4μ) = 41.25, Kingman S_20 = 585.44
+FamilySize(dams=1.0, nmale=20)  Σ2pq/bp     1.6423e-06 ± 2.39e-09             1.6420e-06    0.09
+FamilySize(dams=1.0, nmale=20)  Hobs/bp     1.6710e-06 ± 2.48e-09             1.6702e-06    0.32
+FamilySize(dams=1.0, nmale=20)  h_B/bp*     1.6505e-06 ± 1.64e-09             1.6502e-06    0.22
+FamilySize(dams=1.0, nmale=20)  S_20                593.21 ± 0.76          592.21 ± 0.21    1.28
+# FamilySize(equal, nmale=20): a = 0.011476, σ = 0.000, Ne = h_B/(4μ) = 87.64, Kingman S_20 = 1243.71
+FamilySize(equal, nmale=20)     Σ2pq/bp     3.4877e-06 ± 3.60e-09             3.4882e-06   -0.13
+FamilySize(equal, nmale=20)     Hobs/bp     3.5259e-06 ± 3.70e-09             3.5256e-06    0.07
+FamilySize(equal, nmale=20)     h_B/bp*     3.5029e-06 ± 3.49e-09             3.5056e-06   -0.79
+FamilySize(equal, nmale=20)     S_20               1248.86 ± 1.12         1248.85 ± 0.44    0.00
+# Monoecious(): a = 0.010000, σ = 0.010, Ne = h_B/(4μ) = 100.00, Kingman S_20 = 1419.03
+Monoecious()                    Σ2pq/bp     3.9836e-06 ± 3.91e-09             3.9798e-06    0.96
+Monoecious()                    Hobs/bp     4.0049e-06 ± 4.00e-09             3.9998e-06    1.27
+Monoecious()                    h_B/bp*     4.0050e-06 ± 3.99e-09             3.9998e-06    1.30
+Monoecious()                    S_20               1421.69 ± 1.22         1422.10 ± 0.50   -0.31
+# Monoecious(selfing=0.2): a = 0.010000, σ = 0.200, Ne = h_B/(4μ) = 90.50, Kingman S_20 = 1284.26
+Monoecious(selfing=0.2)         Σ2pq/bp     3.5938e-06 ± 3.85e-09             3.5999e-06   -1.59
+Monoecious(selfing=0.2)         Hobs/bp     3.2331e-06 ± 3.74e-09             3.2400e-06   -1.83
+Monoecious(selfing=0.2)         h_B/bp*     3.6165e-06 ± 3.60e-09             3.6199e-06   -0.96
+Monoecious(selfing=0.2)         S_20               1287.38 ± 1.18         1289.82 ± 0.46   -1.92
+# Monoecious(selfing=0.5): a = 0.010000, σ = 0.500, Ne = h_B/(4μ) = 75.50, Kingman S_20 = 1071.42
+Monoecious(selfing=0.5)         Σ2pq/bp     3.0040e-06 ± 3.97e-09             3.0000e-06    1.01
+Monoecious(selfing=0.5)         Hobs/bp     2.0434e-06 ± 3.32e-09             2.0400e-06    1.03
+Monoecious(selfing=0.5)         h_B/bp*     3.0198e-06 ± 3.01e-09             3.0200e-06   -0.06
+Monoecious(selfing=0.5)         S_20               1081.40 ± 1.23         1080.07 ± 0.38    1.03
+</code></pre><h3 id="Equilibrium-results,-seed-7"><a class="docs-heading-anchor" href="#Equilibrium-results,-seed-7">Equilibrium results, seed 7</a><a id="Equilibrium-results,-seed-7-1"></a><a class="docs-heading-anchor-permalink" href="#Equilibrium-results,-seed-7" title="Permalink"></a></h3><pre><code class="language-text hljs">FisherWright 0.8.0, Julia 1.13.4, threads 32
+N = 100, 2000 generations, 10 × 10 Mb, μ = r = 1.0e-8 per bp, 4000 replicates per scheme, seed 7; S in a sample of 20 genes from distinct individuals; 1000000 backward genealogies per scheme and sample size
+
+scheme                          stat                 FisherWright               expected       z
+# RandomMating(): a = 0.010103, σ = 0.000, Ne = h_B/(4μ) = 99.47, Kingman S_20 = 1411.65
+RandomMating()                  Σ2pq/bp     3.9586e-06 ± 3.92e-09             3.9592e-06   -0.16
+RandomMating()                  Hobs/bp     3.9975e-06 ± 4.03e-09             3.9990e-06   -0.37
+RandomMating()                  h_B/bp*     3.9770e-06 ± 3.96e-09             3.9790e-06   -0.50
+RandomMating()                  S_20               1413.55 ± 1.22         1414.06 ± 0.50   -0.39
+# RandomMating(nmale=10): a = 0.027778, σ = 0.000, Ne = h_B/(4μ) = 36.50, Kingman S_20 = 517.97
+RandomMating(nmale=10)          Σ2pq/bp     1.4520e-06 ± 2.16e-09             1.4528e-06   -0.37
+RandomMating(nmale=10)          Hobs/bp     1.4790e-06 ± 2.22e-09             1.4800e-06   -0.47
+RandomMating(nmale=10)          h_B/bp*     1.4567e-06 ± 1.44e-09             1.4600e-06   -2.26
+RandomMating(nmale=10)          S_20                525.61 ± 0.66          525.68 ± 0.18   -0.11
+# RandomMating(sexratio=0.5): a = 0.010000, σ = 0.000, Ne = h_B/(4μ) = 100.50, Kingman S_20 = 1426.12
+RandomMating(sexratio=0.5)      Σ2pq/bp     3.9991e-06 ± 3.94e-09             3.9998e-06   -0.19
+RandomMating(sexratio=0.5)      Hobs/bp     4.0402e-06 ± 4.04e-09             4.0398e-06    0.09
+RandomMating(sexratio=0.5)      h_B/bp*     4.0225e-06 ± 4.01e-09             4.0198e-06    0.66
+RandomMating(sexratio=0.5)      S_20               1429.02 ± 1.23         1427.74 ± 0.50    0.96
+# FamilySize(dams=1.0, nmale=20): a = 0.024537, σ = 0.000, Ne = h_B/(4μ) = 41.25, Kingman S_20 = 585.44
+FamilySize(dams=1.0, nmale=20)  Σ2pq/bp     1.6403e-06 ± 2.33e-09             1.6420e-06   -0.73
+FamilySize(dams=1.0, nmale=20)  Hobs/bp     1.6687e-06 ± 2.43e-09             1.6702e-06   -0.61
+FamilySize(dams=1.0, nmale=20)  h_B/bp*     1.6495e-06 ± 1.64e-09             1.6502e-06   -0.42
+FamilySize(dams=1.0, nmale=20)  S_20                592.49 ± 0.73          592.90 ± 0.21   -0.54
+# FamilySize(equal, nmale=20): a = 0.011476, σ = 0.000, Ne = h_B/(4μ) = 87.64, Kingman S_20 = 1243.71
+FamilySize(equal, nmale=20)     Σ2pq/bp     3.4929e-06 ± 3.63e-09             3.4882e-06    1.30
+FamilySize(equal, nmale=20)     Hobs/bp     3.5303e-06 ± 3.72e-09             3.5256e-06    1.24
+FamilySize(equal, nmale=20)     h_B/bp*     3.5026e-06 ± 3.49e-09             3.5056e-06   -0.89
+FamilySize(equal, nmale=20)     S_20               1249.92 ± 1.12         1249.20 ± 0.44    0.60
+# Monoecious(): a = 0.010000, σ = 0.010, Ne = h_B/(4μ) = 100.00, Kingman S_20 = 1419.03
+Monoecious()                    Σ2pq/bp     3.9771e-06 ± 3.89e-09             3.9798e-06   -0.71
+Monoecious()                    Hobs/bp     3.9958e-06 ± 3.98e-09             3.9998e-06   -1.02
+Monoecious()                    h_B/bp*     4.0064e-06 ± 3.99e-09             3.9998e-06    1.66
+Monoecious()                    S_20               1420.88 ± 1.20         1421.86 ± 0.50   -0.75
+# Monoecious(selfing=0.2): a = 0.010000, σ = 0.200, Ne = h_B/(4μ) = 90.50, Kingman S_20 = 1284.26
+Monoecious(selfing=0.2)         Σ2pq/bp     3.5985e-06 ± 3.77e-09             3.5999e-06   -0.37
+Monoecious(selfing=0.2)         Hobs/bp     3.2403e-06 ± 3.74e-09             3.2400e-06    0.09
+Monoecious(selfing=0.2)         h_B/bp*     3.6174e-06 ± 3.60e-09             3.6199e-06   -0.71
+Monoecious(selfing=0.2)         S_20               1287.66 ± 1.17         1288.14 ± 0.45   -0.38
+# Monoecious(selfing=0.5): a = 0.010000, σ = 0.500, Ne = h_B/(4μ) = 75.50, Kingman S_20 = 1071.42
+Monoecious(selfing=0.5)         Σ2pq/bp     3.0017e-06 ± 3.86e-09             3.0000e-06    0.44
+Monoecious(selfing=0.5)         Hobs/bp     2.0450e-06 ± 3.27e-09             2.0400e-06    1.54
+Monoecious(selfing=0.5)         h_B/bp*     3.0166e-06 ± 3.00e-09             3.0200e-06   -1.12
+Monoecious(selfing=0.5)         S_20               1080.10 ± 1.20         1079.72 ± 0.38    0.30
+</code></pre><h3 id="Reading-the-equilibrium-results"><a class="docs-heading-anchor" href="#Reading-the-equilibrium-results">Reading the equilibrium results</a><a id="Reading-the-equilibrium-results-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-the-equilibrium-results" title="Permalink"></a></h3><p>Both seeds pass. Of the 2 × 8 × 4 comparisons, the largest <span>$|z|$</span> is 2.26, and it is for the backward simulation itself (<code>h_B/bp*</code>, 10♂/90♀, seed 7); FisherWright&#39;s own largest is 1.92 (<code>Hobs/bp</code>, 10♂/90♀, seed 2026, and <code>S_20</code>, selfing 0.2, seed 2026). Under the null hypothesis, about three of the 64 would exceed 2; one does. Σ2pq and <span>$H_{obs}$</span> of one scheme are strongly correlated, so their z-scores are not independent.</p><p>The comparisons resolve small differences in the effective size. The standard errors of Σ2pq are about 0.1% of the mean (0.15% at <span>$N_e \approx 37$</span>), so a bias of about 0.4% in <span>$N_e$</span> would be found at <span>$|z| = 3.5$</span>. The schemes differ by far more: <span>$N_e$</span> is 36.5, 41.3, 75.5, 87.6, 90.5, 99.5, 100 and 100.5. Between binomial sex and exactly half males, the difference of one individual in <span>$N_e$</span> shows in Σ2pq (3.9607 against 4.0009 × 10⁻⁶, seed 2026).</p><p><span>$H_{obs}$</span> under selfing tests the within-individual recursion separately from Σ2pq. At selfing 0.5, <span>$H_{obs}/\Sigma 2pq$</span> is 0.68, close to <span>$1 - F = 2/3$</span> with <span>$F = \sigma/(2 - \sigma)$</span> at equilibrium, and both statistics match their exact expectations.</p><p>S is the one statistic here that depends on more than pairs of genes. Its agreement with the backward simulation, within 0.2% (at most 1.9 combined SE), shows that FisherWright&#39;s genealogies of 20 genes have the right total length under every scheme, including the multiple and simultaneous coalescences that Kingman&#39;s approximation leaves out. The approximation falls short of the backward reference by 0.1% to 1.5%, rising with <span>$a$</span>: the expected number of pairs coalescing in one generation, <span>$\binom{20}{2} a$</span>, is 1.9 at <span>$N_e \approx 100$</span> and 5.3 at <span>$N_e \approx 37$</span>. Under these schemes, Watterson&#39;s estimator of <span>$4N_e\mu$</span> from a sample of 20 genes is therefore biased upward by about as much. This is a property of discrete generations at small <span>$N$</span>, not of the simulator.</p><h3 id="Equilibrium-script"><a class="docs-heading-anchor" href="#Equilibrium-script">Equilibrium script</a><a id="Equilibrium-script-1"></a><a class="docs-heading-anchor-permalink" href="#Equilibrium-script" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Mutation–drift diversity under the mating schemes of FisherWright.jl
+# (docs/dev/roadmap.md, validation 2: equilibrium π and S).
+#
+#   julia -t 16 --project=. docs/src/validation/scripts/validate-equilibrium.jl [reps = 1000] [seed = 2026] [breps = 10^6]
+#
+# reps forward replicates and breps backward genealogies per scheme.
+#
+# Model: N = 100 diploid parents, T = 2,000 generations (20N) from a
+# monomorphic start, 10 chromosomes of 10 Mb (0.1 Morgan each), neutral
+# mutation μ = 10^-8 per bp per haplotype per generation.
+#
+# Schemes: random mating with binomial sex (the default), 10 males and 90
+# females, exactly half males; FamilySize with overdispersed dam families
+# (Gamma(1) weights, 20 sires drawn at random per dam) and with equal
+# families (20 sires, 4 dams each, 80 dams with one or two offspring);
+# Monoecious with random selfing (1/N), and with selfing 0.2 and 0.5.
+#
+# Reference. For every scheme the expected heterozygosity per bp between
+# two genes of different individuals (h_B) and within one individual (h_W)
+# follows exactly, for infinite sites, from
+#   h_B&#39; = (1 - a) h_B + (a/2) h_W + 2μ,   h_W&#39; = (1 - σ) h_B + (σ/2) h_W + 2μ,
+# with a the probability that two genes of different offspring come from
+# one parent and σ the selfing rate (0 with separate sexes). a is
+# 1/(4Nm) + 1/(4Nf) under random mating (averaged over the binomial number
+# of males, conditioned on both sexes), (P_f + P_m)/4 from the closed forms
+# of the splits under FamilySize, and 1/N for hermaphrodites. Compared:
+#   Σ2pq per bp over all 2N haplotypes, with expectation
+#       h_W/(2N) + (1 - 1/N) h_B           (exact);
+#   observed heterozygosity per bp, with expectation h_W   (exact);
+#   S in a sample of one random gene from each of n = 20 individuals,
+#       μ · L · E[Σ_t k_t 1{k_t ≥ 2}]       (exact, by simulation),
+# where k_t is the number of distinct genes at generation t ancestral to
+# the sample (each carries one transmission, and so μ mutations per bp,
+# from generation t - 1; a mutation on the only lineage is fixed in the
+# sample). E[·] comes from an independent backward simulation of the
+# genealogy of the sample through the pedigree of each scheme, drawn
+# generation by generation from the documented rules of the scheme (code
+# below, not that of the package). The backward simulation is checked
+# against the exact h_B with n = 2 genes. Kingman&#39;s approximation,
+# h_B · L · Σ_{i&lt;n} 1/i, is printed for comparison: with n = 20 genes and
+# a up to 0.028 several coalescences are expected per generation, and the
+# approximation falls short by up to 1.4% here.
+# The sites of FisherWright are biallelic; at μT = 2·10^-5 the difference
+# from infinite sites is far below the standard errors here.
+#
+# Each comparison is a z-score against the replicate standard error, with
+# that of the backward simulation added for S; the script exits with
+# status 1 if a comparison has |z| &gt; 3.5.
+
+using FisherWright, Random, Statistics, Printf
+
+const N, T = 100, 2_000
+const NCHR, CHRLEN, MU = 10, 10_000_000, 1e-8
+const L = NCHR * CHRLEN
+const NS = 20
+const ZMAX = 3.5
+
+# Probability that two distinct items of `total` fall to the same one of `n`
+# parents under the splits of FamilySize: E[Σ c(c - 1)] / (total(total - 1)).
+function same_parent(mode, k, total, n)
+    total &lt; 2 &amp;&amp; return 0.0
+    if mode === :equal
+        q, r = divrem(total, n)
+        return (r * (q + 1) * q + (n - r) * q * (q - 1)) / (total * (total - 1))
+    end
+    return mode === :random ? 1 / n : (k + 1) / (n * k + 1)
+end
+
+# a = (P_f + P_m)/4 of FamilySize for N parents with Nm males and N offspring.
+function family_a(m::FamilySize, Nm)
+    Nf = N - Nm
+    Pf = same_parent(m.dams, m.kd, N, Nf)
+    ps = same_parent(m.sires, m.km, Nf, Nm)
+    return (Pf + (Pf + (1 - Pf) * ps)) / 4
+end
+
+# a under binomial sex, conditioned on both sexes being present.
+function binomial_a()
+    w = [Float64(binomial(big(N), k)) for k = 1:N-1]
+    return sum(w[k] * (1 / 4k + 1 / 4(N - k)) for k = 1:N-1) / sum(w)
+end
+
+# Independent generators of the parents of one generation of N offspring
+# from N parents: gene 1 of offspring i comes from parent pm[i, 1] (the
+# sire), gene 2 from pm[i, 2] (the dam). Sexes are a random subset of the
+# parents, redrawn every generation.
+function sexes(rng, nm)
+    p = randperm(rng, N)
+    return p[1:nm], p[nm+1:N]
+end
+
+function binomial_males(rng)
+    while true
+        k = count(_ -&gt; rand(rng, Bool), 1:N)
+        0 &lt; k &lt; N &amp;&amp; return k
+    end
+end
+
+function random_pm!(pm, rng, nm)
+    m, f = sexes(rng, nm == 0 ? binomial_males(rng) : nm)
+    for i = 1:N
+        pm[i, 1], pm[i, 2] = rand(rng, m), rand(rng, f)
+    end
+end
+
+# `total` items among n parents: as equal as possible (the r that get one
+# more at random), or multinomial with Exp(1) = Gamma(1) weights.
+function split(rng, total, n, mode)
+    c = zeros(Int, n)
+    if mode === :equal
+        q, r = divrem(total, n)
+        c .= q
+        c[randperm(rng, n)[1:r]] .+= 1
+    else
+        w = cumsum(randexp(rng, n))
+        for _ = 1:total
+            c[searchsortedfirst(w, rand(rng) * w[end])] += 1
+        end
+    end
+    return c
+end
+
+# Offspring split among the dams, dams among the sires (in random order).
+function family_pm!(pm, rng, nm, dams, sires)
+    m, f = sexes(rng, nm)
+    nd = split(rng, N, N - nm, dams)
+    sod = sires === :random ? rand(rng, 1:nm, N - nm) :
+          shuffle!(rng, reduce(vcat, fill.(1:nm, split(rng, N - nm, nm, :equal))))
+    i = 0
+    for d = 1:N-nm, _ = 1:nd[d]
+        i += 1
+        pm[i, 1], pm[i, 2] = m[sod[d]], f[d]
+    end
+end
+
+# First parent uniform; the second uniform (s &lt; 0), or the first with
+# probability s and otherwise uniform among the others.
+function mono_pm!(pm, rng, s)
+    for i = 1:N
+        p = rand(rng, 1:N)
+        q = s &lt; 0 ? rand(rng, 1:N) : rand(rng) &lt; s ? p : mod1(p + rand(rng, 1:N-1), N)
+        pm[i, 1], pm[i, 2] = p, q
+    end
+end
+
+const SCHEMES = [
+    (&quot;RandomMating()&quot;, RandomMating(), binomial_a(), 0.0, (pm, r) -&gt; random_pm!(pm, r, 0)),
+    (&quot;RandomMating(nmale=10)&quot;, RandomMating(nmale = 10), 1 / 40 + 1 / 360, 0.0,
+        (pm, r) -&gt; random_pm!(pm, r, 10)),
+    (&quot;RandomMating(sexratio=0.5)&quot;, RandomMating(sexratio = 0.5), 1 / 200 + 1 / 200, 0.0,
+        (pm, r) -&gt; random_pm!(pm, r, 50)),
+    (&quot;FamilySize(dams=1.0, nmale=20)&quot;, FamilySize(dams = 1.0, sires = :random, nmale = 20),
+        family_a(FamilySize(dams = 1.0, sires = :random, nmale = 20), 20), 0.0,
+        (pm, r) -&gt; family_pm!(pm, r, 20, :gamma, :random)),
+    (&quot;FamilySize(equal, nmale=20)&quot;, FamilySize(dams = :equal, sires = :equal, nmale = 20),
+        family_a(FamilySize(dams = :equal, sires = :equal, nmale = 20), 20), 0.0,
+        (pm, r) -&gt; family_pm!(pm, r, 20, :equal, :equal)),
+    (&quot;Monoecious()&quot;, Monoecious(), 1 / N, 1 / N, (pm, r) -&gt; mono_pm!(pm, r, -1.0)),
+    (&quot;Monoecious(selfing=0.2)&quot;, Monoecious(selfing = 0.2), 1 / N, 0.2, (pm, r) -&gt; mono_pm!(pm, r, 0.2)),
+    (&quot;Monoecious(selfing=0.5)&quot;, Monoecious(selfing = 0.5), 1 / N, 0.5, (pm, r) -&gt; mono_pm!(pm, r, 0.5)),
+]
+
+# Σ_t k_t 1{k_t ≥ 2} over the T generations for one random gene of each of
+# n random individuals: every gene picks its parent from the pedigree and
+# one of the parent&#39;s two genes at random (one meiosis per transmission).
+function branch_length(pm!, n, rng)
+    genes = [(i, rand(rng, 1:2)) for i in randperm(rng, N)[1:n]]
+    pm = Matrix{Int}(undef, N, 2)
+    len = 0
+    for _ = 1:T
+        length(genes) &lt; 2 &amp;&amp; break
+        len += length(genes)
+        pm!(pm, rng)
+        for j in eachindex(genes)
+            i, s = genes[j]
+            genes[j] = (pm[i, s], rand(rng, 1:2))
+        end
+        unique!(genes)
+    end
+    return len
+end
+
+# h_B and h_W per bp after T generations from a monomorphic start.
+function expected(a, σ)
+    hB = hW = 0.0
+    for _ = 1:T
+        hB, hW = (1 - a) * hB + a / 2 * hW + 2MU, (1 - σ) * hB + σ / 2 * hW + 2MU
+    end
+    return hB, hW
+end
+
+function replicate(m, seed)
+    haps, _ = fisher_wright(N, T, fill(CHRLEN, NCHR), MU * 1e8; M = 1e8, mating = m, rng = Xoshiro(seed))
+    nh = length(haps)
+    cnt = Dict{UInt32,Int}()
+    for h in haps, p in h
+        cnt[p] = get(cnt, p, 0) + 1
+    end
+    H = sum(c -&gt; 2 * (c / nh) * (1 - c / nh), values(cnt); init = 0.0) / L
+    O = mean(length(symdiff(haps[2i-1], haps[2i])) for i = 1:N) / L
+    # One random gene of each of NS random individuals.
+    rng = Xoshiro(hash((seed, :sample)))
+    s = Dict{UInt32,Int}()
+    for i in randperm(rng, N)[1:NS], p in haps[2i-rand(rng, 0:1)]
+        s[p] = get(s, p, 0) + 1
+    end
+    S = count(&lt;(NS), values(s))
+    return H, O, S
+end
+
+function main(reps = 1000, seed = 2026, breps = 1_000_000)
+    println(&quot;FisherWright &quot;, pkgversion(FisherWright), &quot;, Julia &quot;, VERSION, &quot;, threads &quot;, Threads.nthreads())
+    println(&quot;N = $N, $T generations, $NCHR × $(CHRLEN ÷ 1_000_000) Mb, μ = r = $MU per bp, &quot;,
+        &quot;$reps replicates per scheme, seed $seed; S in a sample of $NS genes from distinct individuals; &quot;,
+        &quot;$breps backward genealogies per scheme and sample size&quot;)
+    println()
+    @printf(&quot;%-31s %-8s %24s %22s %7s\n&quot;, &quot;scheme&quot;, &quot;stat&quot;, &quot;FisherWright&quot;, &quot;expected&quot;, &quot;z&quot;)
+    hsum = sum(1 / i for i = 1:NS-1)
+    failed = String[]
+    for (k, (name, m, a, σ, pm!)) in enumerate(SCHEMES)
+        out = zeros(reps, 3)
+        Threads.@threads for r = 1:reps
+            out[r, :] .= replicate(m, hash((seed, k, r)))
+        end
+        back = zeros(breps, 2)
+        Threads.@threads for r = 1:breps
+            rng = Xoshiro(hash((seed, :genealogy, k, r)))
+            back[r, 1] = branch_length(pm!, 2, rng)
+            back[r, 2] = branch_length(pm!, NS, rng)
+        end
+        hB, hW = expected(a, σ)
+        @printf(&quot;# %s: a = %.6f, σ = %.3f, Ne = h_B/(4μ) = %.2f, Kingman S_%d = %.2f\n&quot;,
+            name, a, σ, hB / 4MU, NS, hB * L * hsum)
+        rows = ((&quot;Σ2pq/bp&quot;, out[:, 1], hW / 2N + (1 - 1 / N) * hB, 0.0),
+            (&quot;Hobs/bp&quot;, out[:, 2], hW, 0.0),
+            # The backward simulation (n = 2) against the exact h_B.
+            (&quot;h_B/bp*&quot;, MU * back[:, 1], hB, 0.0),
+            (&quot;S_$NS&quot;, out[:, 3], MU * L * mean(back[:, 2]), MU * L * std(back[:, 2]) / sqrt(breps)))
+        for (stat, x, e, ese) in rows
+            mx, se = mean(x), std(x) / sqrt(length(x))
+            z = (mx - e) / sqrt(se^2 + ese^2)
+            if startswith(stat, &quot;S&quot;)
+                fmt, ef = @sprintf(&quot;%.2f ± %.2f&quot;, mx, se), @sprintf(&quot;%.2f ± %.2f&quot;, e, ese)
+            else
+                fmt, ef = @sprintf(&quot;%.4e ± %.2e&quot;, mx, se), @sprintf(&quot;%.4e&quot;, e)
+            end
+            @printf(&quot;%-31s %-8s %24s %22s %7.2f\n&quot;, name, stat, fmt, ef, z)
+            abs(z) &gt; ZMAX &amp;&amp; push!(failed, &quot;$name $stat&quot;)
+        end
+        flush(stdout)
+    end
+    isempty(failed) || (println(&quot;\nFAILED: &quot;, join(failed, &quot;; &quot;)); exit(1))
+end
+
+if abspath(PROGRAM_FILE) == @__FILE__
+    main(parse.(Int, ARGS)...)
+end
+</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../validation-selection/">« Validation: selection</a><a class="docs-footer-nextpage" href="../validation-linked/">Validation: linked selection »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.20.0 on <span class="colophon-date" title="Wednesday 18 November 2026 21:06">Wednesday 18 November 2026</span>. Using Julia version 1.13.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
